@@ -1,13 +1,15 @@
 $basicBorder: 1px solid #555;
 
-$pickerWidth: 61px;
-$pickerButtonSize: 30px;
+$pickerWidth: 60px;
+$pickerButtonSize: 31px;
 $optionsHeight: 31px;
+$toolbarHeight: 680px;
 $optionsButtonSize: $optionsHeight - 3px;
 
-$canvasBackground: #ddd;
-$toolbarBackground: rgb(230, 230, 230);
-$selectedColor: lighten(#3cb0fd, 20%);
+$canvasBackground: #fff;
+// $toolbarBackground: rgb(230, 230, 230);
+$toolbarBackground: #f5f5f5;
+$selectedColor: #6e5ae6;
 
 @mixin fill-container {
   position: absolute;
@@ -47,10 +49,11 @@ $selectedColor: lighten(#3cb0fd, 20%);
 }
 
 .literally.toolbar-at-bottom {
+  // height: $toolbarHeight;
   .lc-drawing { bottom: $optionsHeight; top: 0; }
   .lc-options {
     bottom: 0;
-    border-top: $basicBorder;
+    // border-top: $basicBorder;
   }
 }
 
@@ -79,20 +82,34 @@ $selectedColor: lighten(#3cb0fd, 20%);
   }
 
   & > * {
-    position: absolute;
+    position: relative;
   }
 
   .lc-picker {
-    top: 0; left: 0; bottom: 0; width: $pickerWidth;
+    width: $pickerWidth;
+    height: $toolbarHeight;
+    position: absolute;
+    top: 0;
+    padding: 12px;
+    padding-top: 20px;
     background-color: $toolbarBackground;
   }
 
   .lc-drawing {
+    background-color: $canvasBackground;
     right: 0; left: 0; bottom: 0; left: 0;
+    width: 960px;
+    height: 540px;
+    overflow: scroll;
 
     & > * {
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
+    }
+
+    canvas {
+        width: 960px;
+        height: 540px;
     }
   }
 
@@ -119,15 +136,16 @@ $selectedColor: lighten(#3cb0fd, 20%);
 
 .literally .lc-picker {
   z-index: 1001;
-  border-right: $basicBorder;
+  // border-right: $basicBorder;
+  height: 200%;
 
   $buttonMargin: 2px;
   $buttonActualSize: $pickerButtonSize - $buttonMargin * 2;
 
   .toolbar-button {
-    width: $buttonActualSize;
-    height: $buttonActualSize;
-    line-height: $buttonActualSize;
+    width: $pickerButtonSize;
+    height: $pickerButtonSize;
+    // line-height: $buttonActualSize;
     margin: $buttonMargin;
     padding: 0;
     cursor: pointer;
@@ -156,6 +174,7 @@ $selectedColor: lighten(#3cb0fd, 20%);
 }
 
 .literally {
+
   .color-well {
     font-size: 10px;
     float: left;
@@ -234,6 +253,8 @@ $selectedColor: lighten(#3cb0fd, 20%);
 
 .literally .horz-toolbar {
   height: $optionsHeight;
+  width: 600px;
+
   background-color: $toolbarBackground;
 
   .label {
@@ -291,6 +312,9 @@ $selectedColor: lighten(#3cb0fd, 20%);
 .literally .lc-options {
   z-index: 1;
   right: 0; left: $pickerWidth;
+  width: 100%;
+  height: 500px;
+  position: relative;
 
   .lc-font-settings {
     height: $optionsHeight - 1px;
@@ -308,3 +332,6 @@ $selectedColor: lighten(#3cb0fd, 20%);
   }
 }
 
+.lc-color-pickers {
+
+}

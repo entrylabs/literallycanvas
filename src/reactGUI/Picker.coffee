@@ -4,19 +4,19 @@ ClearButton = React.createFactory require './ClearButton'
 UndoRedoButtons = React.createFactory require './UndoRedoButtons'
 ZoomButtons = React.createFactory require './ZoomButtons'
 
-{_} = require '../core/localization'
-ColorWell = React.createFactory require './ColorWell'
-
-ColorPickers = React.createFactory React.createClass
-  displayName: 'ColorPickers'
-  render: ->
-    {lc} = @props
-    {div} = React.DOM
-    (div {className: 'lc-color-pickers'},
-      (ColorWell {lc, colorName: 'primary', label: _('stroke')})
-      (ColorWell {lc, colorName: 'secondary', label: _('fill')}),
-      (ColorWell {lc, colorName: 'background', label: _('bg')})
-    )
+# {_} = require '../core/localization'
+# ColorWell = React.createFactory require './ColorWell'
+#
+# ColorPickers = React.createFactory React.createClass
+#   displayName: 'ColorPickers'
+#   render: ->
+#     {lc} = @props
+#     {div} = React.DOM
+#     (div {className: 'lc-color-pickers'},
+#       (ColorWell {lc, colorName: 'primary', label: _('stroke')})
+#       (ColorWell {lc, colorName: 'secondary', label: _('fill')}),
+#       (ColorWell {lc, colorName: 'background', label: _('bg')})
+#     )
 
 
 Picker = React.createClass
@@ -46,7 +46,7 @@ Picker = React.createClass
           left: 0,
           right: 0,
         },
-        ColorPickers({lc: @props.lc})
+        # ColorPickers({lc: @props.lc})
         UndoRedoButtons({lc, imageURLPrefix})
         ZoomButtons({lc, imageURLPrefix})
         ClearButton({lc})

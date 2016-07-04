@@ -94,8 +94,11 @@ module.exports = class LiterallyCanvas
         @keepPanInImageBounds()
         @repaintAllLayers()
 
-    @respondToSizeChange = util.matchElementSize(
-      @containerEl, [@backgroundCanvas, @canvas], @backingScale, repaintAll)
+    # @respondToSizeChange = util.matchElementSize(
+    #   @containerEl, [@backgroundCanvas, @canvas], @backingScale, repaintAll)
+
+    # 기존 그림판은 화면 사이즈 조정해도 캔버스 사이즈는 변경되지 않음.
+    @respondToSizeChange = ->
 
     if @watermarkImage
       @watermarkImage.onload = => @repaintLayer('background')
