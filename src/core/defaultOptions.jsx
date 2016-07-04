@@ -17,14 +17,15 @@ module.exports = {
   snapshot: null,
   onInit: function() { },
   tools: [
+    require('../tools/Pan'),
+    require('../tools/SelectCut'),
     require('../tools/Pencil'),
-    require('../tools/Eraser'),
     require('../tools/Line'),
     require('../tools/Rectangle'),
     require('../tools/Ellipse'),
     require('../tools/Text'),
-    require('../tools/Polygon'),
-    require('../tools/Pan'),
-    require('../tools/Eyedropper')
+    require('../tools/Fill'),
+    require('../tools/Eraser'),
+    require('../tools/Coordinate'),
   ]
 }
