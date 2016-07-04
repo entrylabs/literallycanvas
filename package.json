@@ -4,6 +4,7 @@
   "description": "HTML5 drawing widget",
   "main": "lib/js",
   "scripts": {
+    "dev": "gulp dev",
     "prepublish": "gulp commonjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
