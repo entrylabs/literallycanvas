@@ -3,6 +3,8 @@
     <!-- stylesheet -->
     <link href="/lib/css/literallycanvas.css" rel="stylesheet">
 
+    <script src="/demo/jquery-1.8.2.js"></script>
+
     <!-- dependency: React.js -->
     <script src="/demo/react-0.14.3.js"></script>
 
@@ -18,9 +20,13 @@
         LC.init(
             document.getElementsByClassName('my-drawing')[0], {
                 imageURLPrefix: '/lib/img',
+                backgroundColor: '#fff',
                 toolbarPosition: 'bottom',
             }
         );
+        var size = {width: '960px', height: '540px'};
+        $('.lc-drawing canvas').attr(size).css(size);
+
     </script>
   </body>
 </html>

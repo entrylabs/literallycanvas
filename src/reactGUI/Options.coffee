@@ -26,6 +26,8 @@ Options = React.createClass
   renderBody: ->
     # style can be null; cast it as a string
     style = "" + @state.style
+    console.log ' @@optionsStyles[style]='
+    console.log '@@@style=', style
     optionsStyles[style] && optionsStyles[style]({
       lc: @props.lc, tool: @state.tool, imageURLPrefix: @props.imageURLPrefix})
 

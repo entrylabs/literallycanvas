@@ -29,7 +29,7 @@ tools.Tool = class Tool
 tools.ToolWithStroke = class ToolWithStroke extends Tool
 
   constructor: (lc) -> @strokeWidth = lc.opts.defaultStrokeWidth
-  optionsStyle: 'stroke-width'
+  optionsStyle: 'stroke-palette'
 
   didBecomeActive: (lc) ->
     unsubscribeFuncs = []

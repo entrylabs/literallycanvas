@@ -9,10 +9,10 @@ const defaultOptions = require('../core/defaultOptions');
 
 require('../optionsStyles/font');
 require('../optionsStyles/stroke-width');
+require('../optionsStyles/stroke-palette');
 require('../optionsStyles/line-options-and-stroke-width');
 require('../optionsStyles/polygon-and-stroke-width');
 require('../optionsStyles/null');
-
 
 const CanvasContainer = React.createClass({
   displayName: 'CanvasContainer',
@@ -23,6 +23,15 @@ const CanvasContainer = React.createClass({
   render() {
     return (
       <div key="literallycanvas" className="lc-drawing with-gui" />
+    );
+  }
+})
+
+const CanvasTopMenu = React.createClass({
+  displayName: 'CanvasTopMenu',
+  render() {
+    return (
+      <div className="canvas-top-menu" />
     );
   }
 })
@@ -71,7 +80,7 @@ const LiterallyCanvas = React.createClass({
   render() {
     const { lc, toolButtonComponents, props } = this;
     const { imageURLPrefix, toolbarPosition } = this.lc.opts;
-    
+
     const pickerProps = { lc, toolButtonComponents, imageURLPrefix };
     const topOrBottomClassName = classSet({
       'toolbar-at-top': toolbarPosition === 'top',
@@ -80,6 +89,7 @@ const LiterallyCanvas = React.createClass({
     });
     return (
       <div className={`literally ${topOrBottomClassName}`}>
+        <CanvasTopMenu />
         <CanvasContainer ref={item => this.canvas = item} />
         <Picker {...pickerProps} />
         <Options lc={lc} imageURLPrefix={imageURLPrefix} />
@@ -87,7 +97,7 @@ const LiterallyCanvas = React.createClass({
     );
   }
 });
-  
+
 
 
 module.exports = LiterallyCanvas
