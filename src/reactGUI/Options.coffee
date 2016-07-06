@@ -34,8 +34,8 @@ Options = React.createClass
   render: ->
     {div} = React.DOM
     (div {className: 'lc-options horz-toolbar'},
-      ColorPickers({lc: @props.lc})
       this.renderBody()
+    #   ColorPickers({lc: @props.lc})
     )
 
 module.exports = Options

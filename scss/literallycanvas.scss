@@ -338,6 +338,10 @@ $selectedColor: #6e5ae6;
     background-color: $selectedColor;
 }
 
+.strokePalette {
+    position: relative;
+}
+
 .entryPlaygroundentryPlaygroundPainterAttrThickArea {
     // left: 150px;
 
@@ -377,5 +381,16 @@ $selectedColor: #6e5ae6;
         top: 20px;
         background-color: #643cd9;
         border-radius: 3px;
+    }
+}
+
+.entryPlaygroundPainterAttrColorContainer {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    .entryPlaygroundPainterAttrColorElement {
+        float: left;
+        width: 15px;
+        height: 15px;
     }
 }

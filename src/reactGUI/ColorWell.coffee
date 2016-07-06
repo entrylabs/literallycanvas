@@ -140,7 +140,7 @@ ColorWell = React.createClass
         onMouseLeave: @closePicker
         style: {float: 'left', textAlign: 'center'}
       },
-      (label {float: 'left'}, @props.label),
+      (label {}, @props.label),
       (br {}),
       (div \
         {
