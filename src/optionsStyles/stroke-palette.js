@@ -1,25 +1,38 @@
 const React = require('../reactGUI/React-shim');
 const { defineOptionsStyle } = require('./optionsStyles');
-const createSetStateOnEventMixin = require('../reactGUI/createSetStateOnEventMixin');
 
 defineOptionsStyle('stroke-palette', React.createClass({
   displayName: 'StrokePalettePicker',
-  getState: function() {
+  getState: function(props) {
+      var props = props || this.props;
+    //   console.log('getState');
       return {
-          strokeWidth: this.props.tool.strokeWidth,
-          strokeOrFill: 'stroke',
+          toolName: props.tool.name,
+          strokeWidth: props.tool.strokeWidth,
       };
   },
   getInitialState: function() { return this. getState(); },
-  mixins: [createSetStateOnEventMixin('toolChange')],
+
+  componentWillReceiveProps: function(nextProps) {
+    //   console.log('componentWillReceiveProps nextProps:', nextProps);
+    if (this.state.toolName !== nextProps.tool.name) {
+        console.log('tool changed!');
+        this.setState(this.getState(nextProps));
+    }
+  },
 
   onChange: function(e) {
     // console.log('e.target.value=', e.target.value);
-    this.setState({strokeWidth: e.target.value});
+    var strokeWidth = +e.target.value;
+    this.setState({strokeWidth: strokeWidth});
+    this.props.lc.trigger('setStrokeWidth', strokeWidth);
   },
 
   render: function() {
     const lc = this.props.lc;
+    // console.log('lc:', lc);
+    // console.log('tool.name:', lc.tool.name);
+    // console.log('strokeWidth:', this.state.strokeWidth);
 
     return <div className="entryPlaygroundentryPlaygroundPainterAttrThickArea">
       <span> {this.state.strokeWidth} </span>
