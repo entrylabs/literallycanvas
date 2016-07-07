@@ -192,9 +192,9 @@ var SelectedColorPanel = React.createClass({
     // console.log('Palette render! isOn:', this.state.isOn);
     var { fillStyle, strokeStyle } = this.state;
     return <div className="entrySelectedColorPanel" >
-        <div className="entrySelectedColorPanelBackground" style={fillStyle} onClick={this.onClickFillPanel} />
-        <div className="entrySelectedColorPanelForeground" style={strokeStyle} onClick={this.onClickStokePanel} >
-            <div className="entrySelectedColorPanelForegroundInner" />
+        <div className="entrySelectedColorPanelFill" style={fillStyle} onClick={this.onClickFillPanel} />
+        <div className="entrySelectedColorPanelStroke" style={strokeStyle} onClick={this.onClickStokePanel} >
+            <div className="entrySelectedColorPanelStrokeInner" />
         </div>
         <input value={this.state.colorCode} onChange={this.onColorCodeChange} />
 
