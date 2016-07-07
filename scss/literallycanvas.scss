@@ -535,3 +535,159 @@ $selectedColor: #6e5ae6;
         height: 10px;
     }
 }
+
+// Move attributes
+.entryMoveAttributes {
+    fieldset {
+        padding: 0;
+        margin: 0;
+        border: 0;
+        min-width: 0;
+    }
+
+    .painterAttrWrapper {
+        margin-top: -7px;
+    }
+
+    .entryPlaygroundPainterAttrResize{
+        padding: 4px 4px 0px 4px;
+    }
+    .entryPlaygroundPainterAttrResize>legend {
+        background-color: transparent;
+        padding: 2px;
+        width: 30px;
+        margin-bottom: 0;
+        border-bottom: 0;
+        font-size: 9pt;
+    }
+    .entryPlaygroundPainterAttrResize>span {
+        font-size: 9pt;
+        padding: 2px;
+        margin: 0;
+    }
+    .painterAttrRotateTop {
+        padding-left: 28px;
+        color: white;
+    }
+    .entryPlaygroundPainterAttrRotate {
+        width: 40px;
+        height: 40px;
+        background-color: #643cd9;
+        border-radius: 3px;
+        margin-top: -3px;
+    }
+    .entryPlaygroundPainterSizeText {
+        width:10px;
+        color:black;
+        display: inline-block;
+        margin-left: 5px;
+        margin-right: 1px;
+    }
+    .painterAttrRotateTop {
+        width: 40px;
+        height: 10px;
+    }
+    .entryPlaygroundPainterNumberInput {
+        width: 30px;
+        font-size: 9pt;
+        color:white;
+        padding-left:3px;
+        padding-right:3px;
+    }
+    .entryPlaygroundPainterAttrResizeX {
+        display: inline-block;
+        width:40px;
+        height:40px;
+        background-color: #643cd9;
+        border-radius: 3px 3px 3px 3px;
+    }
+    .entryPlaygroundPainterAttrResizeXTop {
+        width:40px;
+        height:10px;
+        border-radius: 3px 3px 0 0;
+        background-color: #643cd9;
+        padding: 0 0 0 3px ;
+        font-size:11px;
+        color: white;
+    }
+    .entryPlaygroundPainterAttrResizeXBottom {
+        width:40px;
+        height:10px;
+        border-radius: 0 0 3px 3px;
+        background-color: #aaa;
+    }
+    .entryPlaygroundPainterNumberInput{
+        width:40px;
+        height:20px;
+        background-color: transparent;
+        border:0px;
+    }
+
+    .entryPlaygroundPainterAttrResizeYTop {
+        width:40px;
+        height:10px;
+        border-radius: 3px 3px 0 0;
+        background-color: #643cd9;
+        padding: 0 0 0 3px ;
+        font-size:11px;
+        color: white;
+    }
+    .entryPlaygroundPainterAttrResizeYBottom {
+        width:40px;
+        height:10px;
+        border-radius: 0 0 3px 3px;
+        background-color: #643cd9;
+    }
+    .entryPlaygroundAttrReiszeY {
+        top:17px;
+        left:60px;
+        width:40px;
+        height:40px;
+        background-color: #643cd9;
+        border-radius: 3px;
+        display: inline-block;
+    }
+
+    #painterAttrRotateArea {
+        padding: 4px 4px 0px 4px;
+    }
+
+    .painterAttrRotateName, .painterAttrOpacityName {
+        top: 60px;
+        left: 9px;
+        width: 30px;
+        background-color: transparent;
+        margin-bottom: 0;
+        border-bottom: 0;
+        left: 2px;
+        padding: 2px;
+        font-size: 9pt;
+        display: block;
+    }
+
+    .entryPlaygroundPainterFlip {
+        width: 200px;
+
+        .entryPlaygroundPainterFlipX {
+            position: absolute;
+            top: 90px;
+            left: 60px;
+            background-image: url(../img/vertical.png);
+            background-repeat: no-repeat;
+            border-radius: 3px;
+            width: 28px;
+            height: 28px;
+        }
+
+        .entryPlaygroundPainterFlipY {
+            position: absolute;
+            top: 90px;
+            left: 90px;
+            background-image: url(../img/horizontal.png);
+            background-repeat: no-repeat;
+            border-radius: 3px;
+            width: 28px;
+            height: 28px;
+        }
+    }
+}

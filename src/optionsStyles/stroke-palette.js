@@ -7,7 +7,6 @@ defineOptionsStyle('stroke-palette', React.createClass({
   displayName: 'StrokePalettePicker',
 
   render: function() {
-    console.log('StrokePalettePicker render! this.props=', this.props);
     var lc = this.props.lc;
 
     return <div className="strokePalette">
