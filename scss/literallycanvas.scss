@@ -339,11 +339,11 @@ $selectedColor: #6e5ae6;
 }
 
 .entryPlaygroundentryPlaygroundPainterAttrThickArea {
+    position: absolute;
     // left: 150px;
 
     .painterAttrThickName {
-        // position: absolute;
-        // background-color: transparent;
+        width: 50px;
         margin-bottom: 0;
         border-bottom: 0;
         font-size: 9pt;
@@ -363,6 +363,7 @@ $selectedColor: #6e5ae6;
     }
 
     .entryPlaygroundPainterAttrThickInput {
+        font-size: 9pt;
         width: 45px;
         height: 20px;
         background-color: transparent;
@@ -373,7 +374,6 @@ $selectedColor: #6e5ae6;
     .entryPlaygroundPainterAttrThick {
         width: 45px;
         height: 40px;
-        // position: absolute;
         top: 20px;
         background-color: #643cd9;
         border-radius: 3px;

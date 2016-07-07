@@ -89,7 +89,7 @@ var SelectedColorPanel = React.createClass({
   },
 
   getStrokeInnerPanelHide: function(props) {
-      return (props.tool.name === 'Fill' || props.tool.name === 'Font')
+      return (props.tool.name === 'Fill' || props.tool.name === 'Text')
   },
 
   componentWillReceiveProps: function(nextProps) {
