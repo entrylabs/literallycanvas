@@ -450,3 +450,88 @@ $selectedColor: #6e5ae6;
         }
     }
 }
+
+// font 속성
+.entryPlaygroundPainterAttrFont {
+    position: absolute;
+    left: 0px;
+    padding: 4px;
+    width: 100px;
+    height:40px;
+    font-size: 15px;
+
+    .entryPlaygroundPainterAttrTop {
+        position: absolute;
+        top:20px;
+        width:93px;
+        height:40px;
+        border-radius: 3px;
+        color: white;
+        background-color: #643cd9;
+
+        select {
+            color: inherit;
+            font: inherit;
+            // font-size: inherit;
+            line-height: inherit;
+        }
+    }
+    .entryPlaygroundPaintAttrTop_ {
+        width: 93px;
+        height:10px;
+    }
+
+    .painterAttrFontSizeArea {
+        position: absolute;
+        top: 70px;
+        background-color: #643cd9;
+        width:44px;
+        height:40px;
+        color:white;
+        border-radius: 3px;
+
+        select {
+            color: inherit;
+            font: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+    }
+    .painterAttrFontSizeTop {
+        width:40px;
+        height: 10px;
+    }
+    .entryPlaygroundPainterAttrFontName , .entryPlaygroundPainterAttrFontSize, .entryPlaygroundPainterAttrFontStyle{
+        background: transparent;
+        border:0px;
+    }
+    .entryPlaygroundPainterAttrFontStyleArea {
+        position:absolute;
+        background-color: #643cd9 ;
+        top:120px;
+        width:67px;
+        height: 40px;
+        border-radius: 3px;
+        color:white;
+
+        select {
+            color: inherit;
+            font: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+    }
+    .entryPlaygroundPainterAttrFontStyle option{
+        color: black;
+    }
+    .entryPlaygroundPainterAttrFontSize option{
+        color: black;
+    }
+    .entryPlaygroundPainterAttrFontName option{
+        color:black;
+    }
+    .entryPlaygroundPainterAttrFontTop {
+        width:67px;
+        height: 10px;
+    }
+}

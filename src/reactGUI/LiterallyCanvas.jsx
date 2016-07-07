@@ -12,6 +12,7 @@ require('../optionsStyles/stroke-width');
 require('../optionsStyles/color-palette');
 require('../optionsStyles/stroke-palette');
 require('../optionsStyles/stroke-thickness');
+require('../optionsStyles/font-attributes-color-palette');
 require('../optionsStyles/line-options-and-stroke-width');
 require('../optionsStyles/polygon-and-stroke-width');
 require('../optionsStyles/null');
