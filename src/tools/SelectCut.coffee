@@ -6,6 +6,7 @@ module.exports = class SelectCut extends ToolWithStroke
 
   name: 'SelectCut'
   iconName: 'select-cut'
+  optionsStyle: ''
 
   begin: (x, y, lc) ->
     @currentShape = createShape('SelectCut', {

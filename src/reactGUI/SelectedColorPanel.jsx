@@ -88,6 +88,10 @@ var SelectedColorPanel = React.createClass({
       return (props.tool.name === 'Rectangle' || props.tool.name === 'Ellipse')
   },
 
+  getStrokeInnerPanelHide: function(props) {
+      return (props.tool.name === 'Fill' || props.tool.name === 'Font')
+  },
+
   componentWillReceiveProps: function(nextProps) {
     // console.log('SelectedColorPanel componentWillReceiveProps nextProps:', nextProps);
     var isFillPanelShow = this.getFillPanelShow(nextProps);
@@ -98,12 +102,14 @@ var SelectedColorPanel = React.createClass({
         state.isFillPanelShow = isFillPanelShow;
         this.setState(state);
     }
+
+    this.setState({isStrokeInnerPanelHide: this.getStrokeInnerPanelHide(nextProps)});
   },
 
   getInitialState: function() {
-      var isFillPanelShow = true;
       return {
           isFillPanelShow: this.getFillPanelShow(this.props),
+          isStrokeInnerPanelHide: this.getStrokeInnerPanelHide(this.props),
           colorCode: this.props.strokeColor,
           fillColorCode: this.props.fillColor,
           strokeColorCode: this.props.strokeColor,
@@ -156,11 +162,11 @@ var SelectedColorPanel = React.createClass({
 
   render: function() {
     // console.log('Palette render! isOn:', this.state.isOn);
-    var { fillStyle, strokeStyle } = this.state;
+    var { fillStyle, strokeStyle, isFillPanelShow, isStrokeInnerPanelHide } = this.state;
     return <div className="entrySelectedColorPanel" >
-        {this.state.isFillPanelShow ? <div className="entrySelectedColorPanelFill" style={fillStyle} onClick={this.onClickFillPanel} /> : null}
+        {isFillPanelShow ? <div className="entrySelectedColorPanelFill" style={fillStyle} onClick={this.onClickFillPanel} /> : null}
         <div className="entrySelectedColorPanelStroke" style={strokeStyle} onClick={this.onClickStokePanel} >
-            <div className="entrySelectedColorPanelStrokeInner" />
+            {isStrokeInnerPanelHide ? null : <div className="entrySelectedColorPanelStrokeInner" /> }
         </div>
         <input value={this.state.colorCode} onChange={this.onColorCodeChange} />
 

@@ -1,8 +1,8 @@
-Pencil = require './Pencil'
+{Tool} = require './base'
 {createShape} = require '../core/shapes'
 
 
-module.exports = class Coordinate extends Pencil
+module.exports = class Coordinate extends Tool
 
   name: 'Coordinate'
   iconName: 'coordinate'
