@@ -340,57 +340,114 @@ $selectedColor: #6e5ae6;
 
 .strokePalette {
     position: relative;
-}
 
-.entryPlaygroundentryPlaygroundPainterAttrThickArea {
-    // left: 150px;
+    .entryPlaygroundentryPlaygroundPainterAttrThickArea {
+        // left: 150px;
 
-    .painterAttrThickName {
-        // position: absolute;
-        // background-color: transparent;
-        margin-bottom: 0;
-        border-bottom: 0;
-        font-size: 9pt;
-        padding-left: 5px;
+        .painterAttrThickName {
+            // position: absolute;
+            // background-color: transparent;
+            margin-bottom: 0;
+            border-bottom: 0;
+            font-size: 9pt;
+            padding-left: 5px;
+        }
+
+        .paintAttrThickTop {
+            width: 40px;
+            height: 10px;
+        }
+
+        fieldset {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            min-width: 0;
+        }
+
+        .entryPlaygroundPainterAttrThickInput {
+            width: 45px;
+            height: 20px;
+            background-color: transparent;
+            border: 0px;
+            color: white;
+        }
+
+        .entryPlaygroundPainterAttrThick {
+            width: 45px;
+            height: 40px;
+            // position: absolute;
+            top: 20px;
+            background-color: #643cd9;
+            border-radius: 3px;
+        }
     }
 
-    .paintAttrThickTop {
-        width: 40px;
-        height: 10px;
-    }
+    .entrySelectedColorPanel {
+        left: 130px;
+        top: 10px;
+        position: relative;
 
-    fieldset {
-        padding: 0;
-        margin: 0;
-        border: 0;
-        min-width: 0;
-    }
+        .entrySelectedColorPanelBackground {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            background-color: #ff0000;
+        }
 
-    .entryPlaygroundPainterAttrThickInput {
-        width: 45px;
-        height: 20px;
-        background-color: transparent;
-        border: 0px;
-        color: white;
-    }
+        .entrySelectedColorPanelForeground {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background-color: #0000ff;
 
-    .entryPlaygroundPainterAttrThick {
-        width: 45px;
-        height: 40px;
-        // position: absolute;
-        top: 20px;
-        background-color: #643cd9;
-        border-radius: 3px;
-    }
-}
+            .entrySelectedColorPanelForegroundInner {
+                width: 20px;
+                height: 20px;
+                margin: 10px;
+                background-color: #f5f5f5;
+            }
+        }
 
-.entryPlaygroundPainterAttrColorContainer {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    .entryPlaygroundPainterAttrColorElement {
-        float: left;
-        width: 15px;
-        height: 15px;
+        input {
+            position: absolute;
+            display: block;
+            top: 80px;
+            left: 25px;
+            width: 50px;
+            height: 15px;
+            font-size: 5pt;
+        }
+
+        .entryPlaygroundPainterAttrColorContainer {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            left: 90px;
+            top: 10px;
+
+            .entryPlaygroundPainterAttrColorElement {
+                float: left;
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        .entryColorSpoid {
+            position: relative;
+            left: 205px;
+            top: -25px;
+        }
+
+        .entryColorSpoid:hover {
+            .entryColorSpoidOFF {
+                display: none;
+            }
+        }
+
     }
 }
