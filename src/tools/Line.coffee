@@ -6,8 +6,7 @@ module.exports = class Line extends ToolWithStroke
 
   name: 'Line'
   iconName: 'line'
-
-  optionsStyle: 'line-options-and-stroke-width'
+  optionsStyle: 'stroke-palette'
 
   begin: (x, y, lc) ->
     @currentShape = createShape('Line', {

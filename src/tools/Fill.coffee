@@ -10,7 +10,7 @@ module.exports = class Fill extends Tool
 
   name: 'Fill'
   iconName: 'fill'
-  optionsStyle: 'stroke-or-fill'
+  optionsStyle: 'stroke-palette'
 
   constructor: (lc) ->
     super(lc)
