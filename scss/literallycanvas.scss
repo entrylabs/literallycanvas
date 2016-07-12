@@ -63,9 +63,10 @@ $selectedColor: #6e5ae6;
 }
 
 .literally {
-  position: relative;
+  position: absolute;
   background-color: $canvasBackground;
-  min-height: 400px;
+  width: 100%;
+  height: 100%;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -82,7 +83,7 @@ $selectedColor: #6e5ae6;
   }
 
   & > * {
-    position: relative;
+    position: absolute;
   }
 
   .lc-picker {
@@ -98,24 +99,17 @@ $selectedColor: #6e5ae6;
   .lc-drawing {
     background-color: $canvasBackground;
     right: 0; left: 0; bottom: 0; left: 0;
-    width: 960px;
-    height: 540px;
-    overflow: scroll;
 
     & > * {
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
-    }
-
-    canvas {
-        width: 960px;
-        height: 540px;
     }
   }
 
   .lc-drawing.with-gui {
     right: 0; left: $pickerWidth;
     cursor: default;
+    bottom: 190px;
 
     .polygon-toolbar {
       top: auto;
@@ -184,8 +178,6 @@ $selectedColor: #6e5ae6;
       background-color: $selectedColor;
     }
 
-    // Don't set position: relative, because we want the pickers to be
-    // positioned inside the whole view.
   }
 
   .color-well-color-container {
@@ -312,9 +304,8 @@ $selectedColor: #6e5ae6;
 .literally .lc-options {
   z-index: 1;
   right: 0; left: $pickerWidth;
-  width: 100%;
-  height: 500px;
-  position: relative;
+  bottom: 0;
+  height: 190px;
 
   .lc-font-settings {
     height: $optionsHeight - 1px;
