@@ -27,5 +27,6 @@ module.exports = {
     require('../tools/Fill'),
     require('../tools/Eraser'),
     require('../tools/Coordinate'),
+    require('../tools/Magnifier'),
   ]
 }

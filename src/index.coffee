@@ -21,6 +21,7 @@ require './optionsStyles/stroke-width'
 require './optionsStyles/line-options-and-stroke-width'
 require './optionsStyles/polygon-and-stroke-width'
 require './optionsStyles/stroke-or-fill'
+require './optionsStyles/magnify'
 require './optionsStyles/null'
 {defineOptionsStyle} = require './optionsStyles/optionsStyles'
 # @endif
@@ -43,7 +44,7 @@ tools =
   Pan: require './tools/Pan'
   Eyedropper: require './tools/Eyedropper'
   SelectShape: require './tools/SelectShape'
-
+  Magnifier: require './tools/Magnifier'
   Tool: baseTools.Tool
   ToolWithStroke: baseTools.ToolWithStroke
 
