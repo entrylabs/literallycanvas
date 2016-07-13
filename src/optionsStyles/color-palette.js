@@ -8,7 +8,7 @@ defineOptionsStyle('color-palette', React.createClass({
     var lc = this.props.lc;
 
     return <SelectedColorPanel tool={this.props.tool} imageURLPrefix={this.props.imageURLPrefix}
-            strokeColor="#0000FF" fillColor="#FF00FF" />
+            strokeColor="#000000" fillColor="#000000" lc={lc} />
   }
 }));
 

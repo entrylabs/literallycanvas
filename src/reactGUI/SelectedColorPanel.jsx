@@ -107,6 +107,8 @@ var SelectedColorPanel = React.createClass({
   },
 
   getInitialState: function() {
+      this.props.lc.setColor('primary', this.props.strokeColor);
+      this.props.lc.setColor('secondary', this.props.fillColor);
       return {
           isFillPanelShow: this.getFillPanelShow(this.props),
           isStrokeInnerPanelHide: this.getStrokeInnerPanelHide(this.props),
@@ -119,6 +121,7 @@ var SelectedColorPanel = React.createClass({
   },
 
   getFillColorState: function(fillColorCode) {
+      this.props.lc.setColor('secondary', fillColorCode);
       fillColorCode = fillColorCode || this.state.fillColorCode;
       return {
           fillStyle: { zIndex: 99, backgroundColor: fillColorCode},
@@ -129,6 +132,7 @@ var SelectedColorPanel = React.createClass({
   },
 
   getStrokeColorState: function(strokeColorCode) {
+      this.props.lc.setColor('primary', strokeColorCode);
       strokeColorCode = strokeColorCode || this.state.strokeColorCode;
       return {
           fillStyle: { zIndex: 0, backgroundColor: this.state.fillColorCode},
@@ -163,6 +167,8 @@ var SelectedColorPanel = React.createClass({
   render: function() {
     // console.log('Palette render! isOn:', this.state.isOn);
     var { fillStyle, strokeStyle, isFillPanelShow, isStrokeInnerPanelHide } = this.state;
+
+    console.log('hi', this.props);
     return <div className="entrySelectedColorPanel" >
         {isFillPanelShow ? <div className="entrySelectedColorPanelFill" style={fillStyle} onClick={this.onClickFillPanel} /> : null}
         <div className="entrySelectedColorPanelStroke" style={strokeStyle} onClick={this.onClickStokePanel} >
