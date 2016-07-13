@@ -35,7 +35,7 @@ const CanvasTopMenu = React.createClass({
   displayName: 'CanvasTopMenu',
   render() {
     return (
-      <div className="canvas-top-menu" />
+      <div id="canvas-top-menu" className="canvas-top-menu" />
     );
   }
 })

@@ -2,6 +2,7 @@ $basicBorder: 1px solid #555;
 
 $pickerWidth: 60px;
 $pickerButtonSize: 31px;
+$menuHeight: 28px;
 $optionsHeight: 31px;
 $toolbarHeight: 680px;
 $optionsButtonSize: $optionsHeight - 3px;
@@ -110,6 +111,7 @@ $selectedColor: #6e5ae6;
     right: 0; left: $pickerWidth;
     cursor: default;
     bottom: 190px;
+    top: $menuHeight;
 
     .polygon-toolbar {
       top: auto;
@@ -324,8 +326,8 @@ $selectedColor: #6e5ae6;
 }
 
 .canvas-top-menu {
-    width: 100%;
-    height: 28px;
+    right: 0; left: $pickerWidth;
+    height: $menuHeight;
     background-color: $selectedColor;
 }
 
