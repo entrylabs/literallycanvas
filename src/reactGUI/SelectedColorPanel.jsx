@@ -40,7 +40,6 @@ var Palette = React.createClass({
 
   render: function() {
     var colourCodes = this.props.colourCodes;
-    console.log('Palette render!');
     return <div className="entryPlaygroundPainterAttrColorContainer">
         {this.state.paletteStyles.map( (style, idx) => {
             var colorCode = colourCodes[idx];
@@ -143,12 +142,10 @@ var SelectedColorPanel = React.createClass({
   },
 
   onClickFillPanel: function() {
-      console.log('onClickFillPanel this.state', this.state);
       this.setState(this.getFillColorState());
   },
 
   onClickStokePanel: function() {
-      console.log('onClickStokePanel this.state', this.state);
       this.setState(this.getStrokeColorState());
   },
 
@@ -168,7 +165,6 @@ var SelectedColorPanel = React.createClass({
     // console.log('Palette render! isOn:', this.state.isOn);
     var { fillStyle, strokeStyle, isFillPanelShow, isStrokeInnerPanelHide } = this.state;
 
-    console.log('hi', this.props);
     return <div className="entrySelectedColorPanel" >
         {isFillPanelShow ? <div className="entrySelectedColorPanelFill" style={fillStyle} onClick={this.onClickFillPanel} /> : null}
         <div className="entrySelectedColorPanelStroke" style={strokeStyle} onClick={this.onClickStokePanel} >
