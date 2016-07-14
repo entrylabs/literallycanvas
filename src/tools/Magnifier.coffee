@@ -7,3 +7,8 @@ module.exports = class Magnifier extends Tool
 
   name: 'Magnifier'
   iconName: 'magnifier'
+
+
+  end: (x, y, lc) ->
+    lc.setZoom(lc.scale + 0.1)
+

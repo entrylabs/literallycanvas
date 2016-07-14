@@ -2,7 +2,8 @@ const React = require('../reactGUI/React-shim');
 
 var MagnifyPanel = React.createClass({
     getInitialState: function() {
-        return {value: 1};
+        var lc = this.props.lc;
+        return {value: lc.scale};
     },
     zoomIn: function() {
         var lc = this.props.lc;
@@ -20,8 +21,17 @@ var MagnifyPanel = React.createClass({
         lc.setZoom(value);
         this.setState({value: value});
     },
+    zoomEvent: function(event) {
+        this.setState({value: event.newScale});
+    },
+    componentDidMount: function() {
+        var lc = this.props.lc;
+        this.unsubscribe = lc.on("zoom", this.zoomEvent);
+    },
+    componentWillUnmount: function() {
+        this.unsubscribe();
+    },
     render: function() {
-        var value = this.state.value;
         return <div className="entryPaintMagnifier" >
             <div onClick={this.zoomOut} id="zoomOut">-</div>
             <input value={Math.round(this.state.value * 100) + "%"} onChange={this.handleChange}/>

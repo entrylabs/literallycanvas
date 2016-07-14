@@ -106,16 +106,16 @@ var SelectedColorPanel = React.createClass({
   },
 
   getInitialState: function() {
-      this.props.lc.setColor('primary', this.props.strokeColor);
-      this.props.lc.setColor('secondary', this.props.fillColor);
+      var fillColor = this.props.lc.getColor("secondary");
+      var strokeColor = this.props.lc.getColor("primary");
       return {
           isFillPanelShow: this.getFillPanelShow(this.props),
           isStrokeInnerPanelHide: this.getStrokeInnerPanelHide(this.props),
-          colorCode: this.props.strokeColor,
-          fillColorCode: this.props.fillColor,
-          strokeColorCode: this.props.strokeColor,
-          fillStyle: { zIndex: 0, backgroundColor: this.props.fillColor},
-          strokeStyle: { zIndex: 99, backgroundColor: this.props.strokeColor},
+          colorCode: strokeColor,
+          fillColorCode: fillColor,
+          strokeColorCode: strokeColor,
+          fillStyle: { zIndex: 0, backgroundColor: fillColor},
+          strokeStyle: { zIndex: 99, backgroundColor: strokeColor},
       }
   },
 
