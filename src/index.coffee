@@ -44,6 +44,7 @@ tools =
   Pan: require './tools/Pan'
   Eyedropper: require './tools/Eyedropper'
   SelectShape: require './tools/SelectShape'
+  SelectCut: require './tools/SelectCut'
   Magnifier: require './tools/Magnifier'
   Tool: baseTools.Tool
   ToolWithStroke: baseTools.ToolWithStroke

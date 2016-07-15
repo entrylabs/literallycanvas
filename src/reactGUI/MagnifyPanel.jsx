@@ -5,21 +5,25 @@ var MagnifyPanel = React.createClass({
         var lc = this.props.lc;
         return {value: lc.scale};
     },
+    setZoom: function(amount) {
+        var lc = this.props.lc;
+        amount = Math.max(amount, lc.config.zoomMin);
+        amount = Math.min(amount, lc.config.zoomMax);
+        lc.setZoom(amount);
+        this.setState({value: amount});
+    },
     zoomIn: function() {
         var lc = this.props.lc;
-        lc.setZoom(lc.scale + 0.1);
-        this.setState({value: lc.scale});
+        this.setZoom(lc.scale + 0.1);
     },
     zoomOut: function() {
         var lc = this.props.lc;
-        lc.setZoom(lc.scale - 0.1);
-        this.setState({value: lc.scale});
+        this.setZoom(lc.scale - 0.1);
     },
     handleChange: function(event) {
         var lc = this.props.lc;
         var value = Number(event.target.value.replace("%", "")) / 100;
-        lc.setZoom(value);
-        this.setState({value: value});
+        this.setZoom(value);
     },
     zoomEvent: function(event) {
         this.setState({value: event.newScale});

@@ -363,6 +363,9 @@ defineShape 'ErasedLinePath',
 
   fromJSON: (data) -> _createLinePathFromData('ErasedLinePath', data)
 
+  setUpperLeft: () ->
+
+
 
 # this is currently just used for LinePath/ErasedLinePath internal storage.
 defineShape 'Point',

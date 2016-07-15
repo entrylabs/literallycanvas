@@ -3,6 +3,7 @@
 
 module.exports = class SelectShape extends Tool
   name: 'SelectShape'
+  iconName: 'eraser'
   usesSimpleAPI: false
 
   constructor: (lc) ->
@@ -12,6 +13,7 @@ module.exports = class SelectShape extends Tool
     @selectCanvas = document.createElement('canvas')
     @selectCanvas.style['background-color'] = 'transparent'
     @selectCtx = @selectCanvas.getContext('2d')
+    document.body.appendChild(@selectCanvas);
 
   didBecomeActive: (lc) ->
     selectShapeUnsubscribeFuncs = []
@@ -23,6 +25,7 @@ module.exports = class SelectShape extends Tool
       @didDrag = false
 
       shapeIndex = @_getPixel(x, y, lc, @selectCtx)
+      console.log(shapeIndex);
       @selectedShape = lc.shapes[shapeIndex]
 
       if @selectedShape?

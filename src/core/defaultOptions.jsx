@@ -28,5 +28,6 @@ module.exports = {
     require('../tools/Eraser'),
     require('../tools/Coordinate'),
     require('../tools/Magnifier'),
+    require('../tools/SelectShape'),
   ]
 }
