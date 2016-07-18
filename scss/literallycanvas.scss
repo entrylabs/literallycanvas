@@ -247,7 +247,8 @@ $selectedColor: #6e5ae6;
 
 .literally .horz-toolbar {
   height: $optionsHeight;
-  width: 600px;
+  width: 100%;
+  overflow: hidden;
 
   background-color: $toolbarBackground;
 
