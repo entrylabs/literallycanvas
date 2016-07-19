@@ -65,7 +65,9 @@ const LiterallyCanvas = React.createClass({
     }
 
     this.toolButtonComponents = this.lc.opts.tools.map(ToolClass => {
-      return createToolButton(new ToolClass(this.lc));
+      var tool = new ToolClass(this.lc);
+      this.lc.registerTool(tool);
+      return createToolButton(tool);
     });
   },
 

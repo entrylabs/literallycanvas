@@ -25,7 +25,6 @@ module.exports = class SelectShape extends Tool
       @didDrag = false
 
       shapeIndex = @_getPixel(x, y, lc, @selectCtx)
-      console.log(shapeIndex);
       @selectedShape = lc.shapes[shapeIndex]
 
       if @selectedShape?

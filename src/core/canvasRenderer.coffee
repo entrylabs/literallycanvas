@@ -43,6 +43,7 @@ defineCanvasRenderer 'Rectangle', (ctx, shape) ->
   ctx.fillRect(x, y, shape.width, shape.height)
   ctx.lineWidth = shape.strokeWidth
   ctx.strokeStyle = shape.strokeColor
+  ctx.setLineDash(shape.dash) if shape.dash
   ctx.strokeRect(x, y, shape.width, shape.height)
 
 

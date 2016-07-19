@@ -24,6 +24,8 @@ module.exports = class LiterallyCanvas
 
     @opts = opts or {}
 
+    @tools = {}
+
     @config =
       zoomMin: opts.zoomMin or 0.2
       zoomMax: opts.zoomMax or 4.0
@@ -142,6 +144,9 @@ module.exports = class LiterallyCanvas
     @keepPanInImageBounds()
     @repaintAllLayers()
     @trigger('imageSizeChange', {@width, @height})
+
+  registerTool: (tool) ->
+    @tools[tool.name] = tool;
 
   setTool: (tool) ->
     if @isBound

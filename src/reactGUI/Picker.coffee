@@ -21,20 +21,28 @@ ZoomButtons = React.createFactory require './ZoomButtons'
 
 Picker = React.createClass
   displayName: 'Picker'
-  getInitialState: -> {selectedToolIndex: 0}
+  getInitialState: -> {selectedTool: "Pan"}
+  componentWillMount: ->
+    @unobserve = @props.lc.on("toolChange", @applyTool)
+  componentWillUnmount:
+    @unobserve() if @unobserve
+  applyTool: (attr) ->
+    tool = attr.tool
+    @setState({selectedTool: tool.name})
+    console.log(tool.name)
   renderBody: ->
     {div} = React.DOM
     {toolButtonComponents, lc, imageURLPrefix} = @props
     (div {className: 'lc-picker-contents'},
       toolButtonComponents.map((component, ix) =>
+        console.log(component)
         (component \
           {
             lc, imageURLPrefix,
             key: ix
-            isSelected: ix == @state.selectedToolIndex,
+            selected: @state.selectedTool,
             onSelect: (tool) =>
               lc.setTool(tool)
-              @setState({selectedToolIndex: ix})
           }
         )
       ),

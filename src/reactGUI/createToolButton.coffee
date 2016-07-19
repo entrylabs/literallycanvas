@@ -8,22 +8,23 @@ createToolButton = (tool) ->
   imageName = tool.iconName
   React.createFactory React.createClass
     displayName: displayName,
-    getDefaultProps: -> {isSelected: false, lc: null}
+    getDefaultProps: -> {selected: null, lc: null}
     componentWillMount: ->
-      if @props.isSelected
+      console.log(@props.selected, displayName)
+      if @props.selected is displayName
         # prevent race condition with options, tools getting set
         # (I've already forgotten the specifics of this; should reinvestigate
         # and explain here. --steve)
         @props.lc.setTool(tool)
     render: ->
       {div, img} = React.DOM
-      {imageURLPrefix, isSelected, onSelect} = @props
+      {imageURLPrefix, selected, onSelect} = @props
 
       className = classSet
         'lc-pick-tool': true
         'toolbar-button': true
         'thin-button': true
-        'selected': isSelected
+        'selected': selected is displayName
       src = "#{imageURLPrefix}/#{imageName}.png"
       (div {
         className,

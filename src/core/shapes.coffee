@@ -150,6 +150,7 @@ defineShape 'Rectangle',
     @strokeWidth = args.strokeWidth or 1
     @strokeColor = args.strokeColor or 'black'
     @fillColor = args.fillColor or 'transparent'
+    @dash = args.dash or null
 
   getBoundingRect: -> {
     x: @x - @strokeWidth / 2,
@@ -157,7 +158,7 @@ defineShape 'Rectangle',
     width: @width + @strokeWidth,
     height: @height + @strokeWidth,
   }
-  toJSON: -> {@x, @y, @width, @height, @strokeWidth, @strokeColor, @fillColor}
+  toJSON: -> {@x, @y, @width, @height, @strokeWidth, @strokeColor, @fillColor, @dash}
   fromJSON: (data) -> createShape('Rectangle', data)
   move: ( moveInfo={} ) ->
     @x = @x - moveInfo.xDiff
@@ -513,7 +514,7 @@ defineShape 'SelectionBox',
       @handleSize = args.handleSize
     else
       @handleSize = 10
-    @margin = 4
+    @margin = args.margin or 4
     @backgroundColor = args.backgroundColor or null
     @_br = @shape.getBoundingRect(args.ctx)
 
