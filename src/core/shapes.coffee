@@ -140,8 +140,7 @@ defineShape 'Image',
     @x = upperLeft.x
     @y = upperLeft.y
 
-
-defineShape 'Rectangle',
+rectangleFuncs =
   constructor: (args={}) ->
     @x = args.x or 0
     @y = args.y or 0
@@ -166,6 +165,8 @@ defineShape 'Rectangle',
   setUpperLeft: (upperLeft={}) ->
     @x = upperLeft.x
     @y = upperLeft.y
+
+defineShape 'Rectangle', rectangleFuncs
 
 
 # this is pretty similar to the Rectangle shape. maybe consolidate somehow.
@@ -367,6 +368,16 @@ defineShape 'ErasedLinePath',
   setUpperLeft: () ->
 
 
+defineShape 'ErasedRectangle',
+  constructor: rectangleFuncs.constructor
+  toJSON: rectangleFuncs.toJSON
+  addPoint: rectangleFuncs.addPoint
+  getBoundingRect: rectangleFuncs.getBoundingRect
+
+  fromJSON: (data) -> createShape('ErasedRectangle', data)
+
+  setUpperLeft: () ->
+
 
 # this is currently just used for LinePath/ErasedLinePath internal storage.
 defineShape 'Point',
@@ -514,7 +525,7 @@ defineShape 'SelectionBox',
       @handleSize = args.handleSize
     else
       @handleSize = 10
-    @margin = args.margin or 4
+    @margin = args.margin or 0
     @backgroundColor = args.backgroundColor or null
     @_br = @shape.getBoundingRect(args.ctx)
 

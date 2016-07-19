@@ -29,13 +29,11 @@ Picker = React.createClass
   applyTool: (attr) ->
     tool = attr.tool
     @setState({selectedTool: tool.name})
-    console.log(tool.name)
   renderBody: ->
     {div} = React.DOM
     {toolButtonComponents, lc, imageURLPrefix} = @props
     (div {className: 'lc-picker-contents'},
       toolButtonComponents.map((component, ix) =>
-        console.log(component)
         (component \
           {
             lc, imageURLPrefix,

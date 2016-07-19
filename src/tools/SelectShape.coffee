@@ -13,7 +13,6 @@ module.exports = class SelectShape extends Tool
     @selectCanvas = document.createElement('canvas')
     @selectCanvas.style['background-color'] = 'transparent'
     @selectCtx = @selectCanvas.getContext('2d')
-    document.body.appendChild(@selectCanvas);
 
   didBecomeActive: (lc) ->
     selectShapeUnsubscribeFuncs = []
@@ -30,8 +29,7 @@ module.exports = class SelectShape extends Tool
       if @selectedShape?
         lc.trigger 'shapeSelected', { @selectedShape }
         lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
-          shape: @selectedShape,
-          handleSize: 0
+          shape: @selectedShape
         })]
         lc.repaintLayer 'main'
 
@@ -50,8 +48,7 @@ module.exports = class SelectShape extends Tool
           y: y - @dragOffset.y
         }
         lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
-          shape: @selectedShape,
-          handleSize: 0
+          shape: @selectedShape
         })]
         lc.repaintLayer 'main'
 
@@ -73,6 +70,12 @@ module.exports = class SelectShape extends Tool
     @_selectShapeUnsubscribe()
     lc.setShapesInProgress []
 
+  setShape: (lc, shape) ->
+    lc.setShapesInProgress [shape, createShape('SelectionBox', {
+      shape: shape
+    })]
+    lc.repaintLayer 'main'
+
   _drawSelectCanvas: (lc) ->
     @selectCanvas.width = lc.canvas.width
     @selectCanvas.height = lc.canvas.height
@@ -80,7 +83,6 @@ module.exports = class SelectShape extends Tool
     shapes = lc.shapes.map (shape, index) =>
       createShape('SelectionBox', {
         shape: shape,
-        handleSize: 0,
         backgroundColor: "##{@_intToHex(index)}"
       })
     lc.draw(shapes, @selectCtx)

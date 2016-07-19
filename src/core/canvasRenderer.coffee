@@ -214,6 +214,25 @@ drawErasedLinePathLatest = (ctx, bufferCtx, shape) ->
 defineCanvasRenderer(
   'ErasedLinePath', drawErasedLinePath, drawErasedLinePathLatest)
 
+drawErasedRect = (ctx, shape) ->
+  ctx.save()
+  ctx.globalCompositeOperation = "destination-out"
+  ctx.fillRect(shape.x, shape.y, shape.width, shape.height)
+  ctx.restore()
+drawErasedRectLatest = (ctx, bufferCtx, shape) ->
+  ctx.save()
+  ctx.globalCompositeOperation = "destination-out"
+  bufferCtx.save()
+  bufferCtx.globalCompositeOperation = "destination-out"
+
+
+  ctx.restore()
+  bufferCtx.restore()
+
+
+defineCanvasRenderer(
+  'ErasedRectangle', drawErasedRect, drawErasedRectLatest)
+
 
 defineCanvasRenderer 'Text', (ctx, shape) ->
   shape._makeRenderer(ctx) unless shape.renderer

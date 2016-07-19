@@ -10,7 +10,6 @@ createToolButton = (tool) ->
     displayName: displayName,
     getDefaultProps: -> {selected: null, lc: null}
     componentWillMount: ->
-      console.log(@props.selected, displayName)
       if @props.selected is displayName
         # prevent race condition with options, tools getting set
         # (I've already forgotten the specifics of this; should reinvestigate
