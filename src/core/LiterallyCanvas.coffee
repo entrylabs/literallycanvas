@@ -402,6 +402,7 @@ module.exports = class LiterallyCanvas
   execute: (action) ->
     @undoStack.push(action)
     action.do()
+    @trigger('do', {action})
     @redoStack = []
 
   undo: ->
