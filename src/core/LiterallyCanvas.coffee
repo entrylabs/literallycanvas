@@ -48,7 +48,12 @@ module.exports = class LiterallyCanvas
     @buffer = document.createElement('canvas')
     @buffer.style['background-color'] = 'transparent'
     @ctx = @canvas.getContext('2d')
+    @ctx.imageSmoothingEnabled = false
+    @ctx.webkitImageSmoothingEnabled = false
+
     @bufferCtx = @buffer.getContext('2d')
+    @bufferCtx.imageSmoothingEnabled = false
+    @bufferCtx.webkitImageSmoothingEnabled = false
 
     @backingScale = util.getBackingScale(@ctx)
 
@@ -298,7 +303,7 @@ module.exports = class LiterallyCanvas
           @draw(@shapes, @bufferCtx, retryCallback)
         @ctx.clearRect(0, 0, @canvas.width, @canvas.height)
         if @canvas.width > 0 and @canvas.height > 0
-          @ctx.fillStyle = '#ccc'
+          @ctx.fillStyle = '#e8e8e8'
           @ctx.fillRect(0, 0, @canvas.width, @canvas.height)
           @clipped (=>
             @ctx.clearRect(0, 0, @canvas.width, @canvas.height)

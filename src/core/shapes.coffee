@@ -149,6 +149,7 @@ rectangleFuncs =
     @strokeWidth = args.strokeWidth or 1
     @strokeColor = args.strokeColor or 'black'
     @fillColor = args.fillColor or 'transparent'
+    @fillPattern = args.fillPattern or null
     @dash = args.dash or null
 
   getBoundingRect: -> {
@@ -157,7 +158,7 @@ rectangleFuncs =
     width: @width + @strokeWidth,
     height: @height + @strokeWidth,
   }
-  toJSON: -> {@x, @y, @width, @height, @strokeWidth, @strokeColor, @fillColor, @dash}
+  toJSON: -> {@x, @y, @width, @height, @strokeWidth, @strokeColor, @fillColor, @fillPattern, @dash}
   fromJSON: (data) -> createShape('Rectangle', data)
   move: ( moveInfo={} ) ->
     @x = @x - moveInfo.xDiff

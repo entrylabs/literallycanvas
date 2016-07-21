@@ -17,7 +17,7 @@ module.exports = (snapshot, opts={}) ->
 
   shapes = (JSONToShape(s) for s in snapshot.shapes)
   backgroundShapes = []
-  if snapshot.backgroundShapes
+  if (opts.includeBackground and snapshot.backgroundShapes)
     backgroundShapes = (JSONToShape(s) for s in snapshot.backgroundShapes)
 
   opts.margin ?= {top: 0, right: 0, bottom: 0, left: 0}

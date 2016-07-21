@@ -39,10 +39,14 @@ defineCanvasRenderer 'Rectangle', (ctx, shape) ->
     x += 0.5
     y += 0.5
 
-  ctx.fillStyle = shape.fillColor
+  if shape.fillPattern
+    ctx.fillStyle = ctx.createPattern(shape.fillPattern, "repeat");
+  else
+    ctx.fillStyle = shape.fillColor
   ctx.fillRect(x, y, shape.width, shape.height)
   ctx.lineWidth = shape.strokeWidth
   ctx.strokeStyle = shape.strokeColor
+
   ctx.setLineDash(shape.dash) if shape.dash
   ctx.strokeRect(x, y, shape.width, shape.height)
 
