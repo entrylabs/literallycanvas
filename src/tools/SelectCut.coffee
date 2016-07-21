@@ -6,6 +6,7 @@ module.exports = class SelectCut extends Tool
 
   name: 'SelectCut'
   iconName: 'select-cut'
+  cursor: 'crosshair'
 
   begin:(x, y, lc) ->
     @dragStart = {

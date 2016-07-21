@@ -6,6 +6,7 @@ module.exports = class Rectangle extends ToolWithStroke
 
   name: 'Rectangle'
   iconName: 'rectangle'
+  cursor: 'crosshair'
 
   begin: (x, y, lc) ->
     @currentShape = createShape('Rectangle', {

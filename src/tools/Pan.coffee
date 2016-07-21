@@ -8,6 +8,7 @@ module.exports = class Pan extends Tool
   iconName: 'pan'
   usesSimpleAPI: false
   optionsStyle: 'move-attributes'
+  cursor: 'pointer'
 
   didBecomeActive: (lc) ->
     unsubscribeFuncs = []

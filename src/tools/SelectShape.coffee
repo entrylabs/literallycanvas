@@ -3,8 +3,9 @@
 
 module.exports = class SelectShape extends Tool
   name: 'SelectShape'
-  iconName: 'eraser'
+  iconName: 'arrow'
   usesSimpleAPI: false
+  cursor: 'default'
 
   constructor: (lc) ->
     # This is a 'shadow' canvas -- we'll reproduce the shapes here, each shape

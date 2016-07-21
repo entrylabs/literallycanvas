@@ -82,6 +82,10 @@ module.exports = class LiterallyCanvas
     @isBound = false
     @bindToElement(containerEl) if containerEl
 
+    @on('toolChange', (data) =>
+      @setCursor(data.tool.cursor)
+    )
+
     @respondToSizeChange = ->
 
   bindToElement: (containerEl) ->
@@ -160,6 +164,12 @@ module.exports = class LiterallyCanvas
     @trigger('toolChange', {tool})
     if @isBound
       @tool.didBecomeActive(this)
+
+  setCursor: (cursor) ->
+    if cursor
+      @canvas.style.cursor = cursor
+    else
+      @canvas.style.cursor = 'default'
 
   setShapesInProgress: (newVal) -> @_shapesInProgress = newVal
 

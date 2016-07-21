@@ -14,6 +14,7 @@ module.exports = class Text extends Tool
 
   name: 'Text'
   iconName: 'text'
+  cursor: 'text'
 
   constructor: ->
     @text = ''
