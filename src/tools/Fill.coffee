@@ -41,7 +41,9 @@ module.exports = class Fill extends Tool
       shape = LC.createShape('Image',
         x: rect.x
         y: rect.y
-        image: image)
+        image: image
+        erase: fillColor is 'transparent' ? true : false
+      )
       if isDone
         lc.setShapesInProgress []
         lc.saveShape shape

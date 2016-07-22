@@ -103,17 +103,32 @@ defineCanvasRenderer 'SelectionBox', do ->
 
     ctx.setLineDash([])
 
-
-defineCanvasRenderer 'Image', (ctx, shape, retryCallback) ->
+drawImage = (ctx, shape, retryCallback) ->
   if shape.image.width
+    if shape.erase
+      ctx.globalCompositeOperation = "destination-out"
+      ctx.beginPath();
     if shape.scale == 1
       ctx.drawImage(shape.image, shape.x, shape.y)
     else
       ctx.drawImage(
         shape.image, shape.x, shape.y,
         shape.image.width * shape.scale, shape.image.height * shape.scale)
+    if shape.erase
+      ctx.closePath();
   else if retryCallback
     shape.image.onload = retryCallback
+
+drawImageLatest = (ctx, bufferCtx, shape) ->
+  ctx.save()
+  ctx.globalCompositeOperation = "destination-out"
+  bufferCtx.save()
+  bufferCtx.globalCompositeOperation = "destination-out"
+
+  ctx.restore()
+  bufferCtx.restore()
+
+defineCanvasRenderer 'Image', drawImage, drawImageLatest
 
 
 defineCanvasRenderer 'Line', (ctx, shape) ->

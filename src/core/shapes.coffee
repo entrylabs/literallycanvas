@@ -122,9 +122,10 @@ defineShape 'Image',
     @y = args.y or 0
     @scale = args.scale or 1
     @image = args.image or null
+    @erase = args.erase or false
   getBoundingRect: ->
     {@x, @y, width: @image.width * @scale, height: @image.height * @scale}
-  toJSON: -> {@x, @y, imageSrc: @image.src, imageObject: @image, @scale}
+  toJSON: -> {@x, @y, imageSrc: @image.src, imageObject: @image, @scale, @erase}
   fromJSON: (data) ->
     img = null
     if data.imageObject?.width
@@ -132,7 +133,7 @@ defineShape 'Image',
     else
       img = new Image()
       img.src = data.imageSrc
-    createShape('Image', {x: data.x, y: data.y, image: img, scale: data.scale})
+    createShape('Image', {x: data.x, y: data.y, image: img, scale: data.scale, erase: data.erase})
   move: ( moveInfo={} ) ->
     @x = @x - moveInfo.xDiff
     @y = @y - moveInfo.yDiff
