@@ -8,6 +8,7 @@ module.exports = class Ellipse extends ToolWithStroke
   name: 'Ellipse'
   iconName: 'ellipse'
   cursor: 'crosshair'
+  optionsStyle: 'color-palette'
 
   begin: (x, y, lc) ->
     @currentShape = createShape('Ellipse', {

@@ -16,166 +16,137 @@ var Entry = Entry || {
 }
 
 var Palette = React.createClass({
-  getDefaultProps: function() {
-    return {
-        colourCodes: Entry.getColourCodes()
-    };
-  },
+    getDefaultProps: function() {
+        return {
+            colourCodes: Entry.getColourCodes()
+        };
+    },
 
-  getInitialState: function() {
-      return {
-        paletteStyles: this.props.colourCodes.map(color => {
-            if (color === 'transparent') {
-                return { backgroundImage: `url(${this.props.imageURLPrefix}/transparent.png)` };
-            } else {
-                return { backgroundColor: color};
-            }
-        })
-      };
-  },
+    getInitialState: function() {
+        return {
+            paletteStyles: this.props.colourCodes.map(color => {
+                if (color === 'transparent') {
+                    return { backgroundImage: `url(${this.props.imageURLPrefix}/transparent.png)` };
+                } else {
+                    return { backgroundColor: color};
+                }
+            })
+        };
+    },
 
-  onClickWithColor: function(colorCode) {
-      this.props.colorPicked(colorCode);
-  },
+    onClickWithColor: function(colorCode) {
+        this.props.colorPicked(colorCode);
+    },
 
-  render: function() {
-    var colourCodes = this.props.colourCodes;
-    return <div className="entryPlaygroundPainterAttrColorContainer">
+    render: function() {
+        var colourCodes = this.props.colourCodes;
+        return <div className="entryPlaygroundPainterAttrColorContainer">
         {this.state.paletteStyles.map( (style, idx) => {
             var colorCode = colourCodes[idx];
             var colorBindOnClick = this.onClickWithColor.bind(this, colorCode);
             return <div key={idx} className="entryPlaygroundPainterAttrColorElement" onClick={colorBindOnClick} style={style} />
         })}
-    </div>
-  }
+        </div>
+    }
 });
 
 var ColorSpoid = React.createClass({
-  getInitialState: function() {
-      var spoidOFF = {
-          width: 27,
-          height: 27,
-          backgroundRepeat: 'no-repeat',
-          backgroundImage: `url(${this.props.imageURLPrefix}/color_off_spoid.png)`,
-      };
+    getInitialState: function() {
+        var spoidOFF = {
+            width: 27,
+            height: 27,
+            backgroundRepeat: 'no-repeat',
+            backgroundImage: `url(${this.props.imageURLPrefix}/color_off_spoid.png)`,
+        };
 
-      var spoidON = Object.assign({}, spoidOFF);
-      spoidON.backgroundImage = `url(${this.props.imageURLPrefix}/color_on_spoid.png)`;
+        var spoidON = Object.assign({}, spoidOFF);
+        spoidON.backgroundImage = `url(${this.props.imageURLPrefix}/color_on_spoid.png)`;
 
-      return {
-        isOn: false,
-        spoidON: spoidON,
-        spoidOFF: spoidOFF,
-      };
-  },
+        return {
+            isOn: false,
+            spoidON: spoidON,
+            spoidOFF: spoidOFF,
+        };
+    },
 
-  toggleSpoid: function(e) {
-      var isOn = this.state.isOn;
-      this.setState({ isOn: !isOn})
-  },
+    toggleSpoid: function(e) {
+        var isOn = this.state.isOn;
+        this.setState({ isOn: !isOn});
+        var lc = this.props.lc;
+        console.log(lc.tools.Eyedropper)
+        lc.tools.Eyedropper.setPrevious(lc.tool)
+        lc.setTool(lc.tools.Eyedropper)
+    },
 
-  render: function() {
-    // console.log('Palette render! isOn:', this.state.isOn);
-    return <div className="entryColorSpoid" style={this.state.spoidON} onClick={this.toggleSpoid} >
+    render: function() {
+        // console.log('Palette render! isOn:', this.state.isOn);
+        return <div className="entryColorSpoid" style={this.state.spoidON} onClick={this.toggleSpoid} >
         { this.state.isOn ? null : <div className="entryColorSpoidOFF" style={this.state.spoidOFF} /> }
-    </div>
-  }
+        </div>
+    }
 });
 
 var SelectedColorPanel = React.createClass({
-  getFillPanelShow: function(props) {
-      return (props.tool.name === 'Rectangle' || props.tool.name === 'Ellipse')
-  },
+    componentWillReceiveProps: function(nextProps) {
+    },
 
-  getStrokeInnerPanelHide: function(props) {
-      return (props.tool.name === 'Fill' || props.tool.name === 'Text')
-  },
+    getInitialState: function() {
+        var fillColor = this.props.lc.getColor("secondary");
+        var strokeColor = this.props.lc.getColor("primary");
+        var isStroke = this.props.isStroke === undefined ? true : this.props.isStroke;
+        return {
+            isFill: this.props.isFill === undefined ? true : this.props.isFill,
+            isStroke: isStroke,
+            selected: isStroke ? "primary" : "secondary",
+            fillColor: fillColor,
+            strokeColor: strokeColor
+        }
+    },
 
-  componentWillReceiveProps: function(nextProps) {
-    // console.log('SelectedColorPanel componentWillReceiveProps nextProps:', nextProps);
-    var isFillPanelShow = this.getFillPanelShow(nextProps);
-    if (isFillPanelShow) {
-        this.setState({isFillPanelShow: isFillPanelShow});
-    } else {
-        var state = this.getStrokeColorState();
-        state.isFillPanelShow = isFillPanelShow;
-        this.setState(state);
+    onClickFillPanel: function() {
+        this.setState({ selected: "secondary" });
+    },
+
+    onClickStrokePanel: function() {
+        this.setState({ selected: "primary" });
+    },
+
+    onColorCodeChange: function(e) {
+        this.setState({colorCode: e.target.value});
+    },
+
+    colorPicked: function(colorCode) {
+        if (this.state.selected === "primary")
+            this.setState({strokeColor: colorCode});
+        else
+            this.setState({fillColor: colorCode});
+        this.props.lc.setColor(this.state.selected, colorCode)
+    },
+
+    render: function() {
+        // console.log('Palette render! isOn:', this.state.isOn);
+        var { isFill, isStroke } = this.state;
+        var fillStyle = {
+            backgroundColor: this.state.fillColor,
+            zIndex: this.state.selected === "secondary" ? 100 : 0
+        };
+        var strokeStyle = {
+            backgroundColor: this.state.strokeColor
+        };
+
+        return <div className="entrySelectedColorPanel" >
+        {isFill ? <div className={"entrySelectedColorPanelFill " + (this.state.fillColor === "transparent" ? "transparent" : "")}
+            style={fillStyle} onClick={this.onClickFillPanel} /> : null}
+        {isStroke ? <div className={"entrySelectedColorPanelStroke " + (this.state.strokeColor === "transparent" ? "transparent" : "")}
+            style={strokeStyle} onClick={this.onClickStrokePanel} >
+            <div className="entrySelectedColorPanelStrokeInner" />
+            </div> : null}
+            <input value={this.state.fillColor} onChange={this.onColorCodeChange} />
+
+            <Palette colorPicked={this.colorPicked} imageURLPrefix={this.props.imageURLPrefix} />
+            <ColorSpoid imageURLPrefix={this.props.imageURLPrefix} lc={this.props.lc}/>
+            </div>
     }
-
-    this.setState({isStrokeInnerPanelHide: this.getStrokeInnerPanelHide(nextProps)});
-  },
-
-  getInitialState: function() {
-      var fillColor = this.props.lc.getColor("secondary");
-      var strokeColor = this.props.lc.getColor("primary");
-      return {
-          isFillPanelShow: this.getFillPanelShow(this.props),
-          isStrokeInnerPanelHide: this.getStrokeInnerPanelHide(this.props),
-          colorCode: strokeColor,
-          fillColorCode: fillColor,
-          strokeColorCode: strokeColor,
-          fillStyle: { zIndex: 0, backgroundColor: fillColor},
-          strokeStyle: { zIndex: 99, backgroundColor: strokeColor},
-      }
-  },
-
-  getFillColorState: function(fillColorCode) {
-      this.props.lc.setColor('secondary', fillColorCode);
-      fillColorCode = fillColorCode || this.state.fillColorCode;
-      return {
-          fillStyle: { zIndex: 99, backgroundColor: fillColorCode},
-          strokeStyle: { zIndex: 0, backgroundColor: this.state.strokeColorCode},
-          colorCode: fillColorCode,
-          fillColorCode: fillColorCode,
-      };
-  },
-
-  getStrokeColorState: function(strokeColorCode) {
-      this.props.lc.setColor('primary', strokeColorCode);
-      strokeColorCode = strokeColorCode || this.state.strokeColorCode;
-      return {
-          fillStyle: { zIndex: 0, backgroundColor: this.state.fillColorCode},
-          strokeStyle: { zIndex: 99, backgroundColor: strokeColorCode},
-          colorCode: strokeColorCode,
-          strokeColorCode: strokeColorCode,
-      };
-  },
-
-  onClickFillPanel: function() {
-      this.setState(this.getFillColorState());
-  },
-
-  onClickStokePanel: function() {
-      this.setState(this.getStrokeColorState());
-  },
-
-  onColorCodeChange: function(e) {
-      this.setState({colorCode: e.target.value});
-  },
-
-  colorPicked: function(colorCode) {
-      if (this.state.colorCode === this.state.strokeColorCode) {
-          this.setState(this.getStrokeColorState(colorCode));
-      } else {
-          this.setState(this.getFillColorState(colorCode));
-      }
-  },
-
-  render: function() {
-    // console.log('Palette render! isOn:', this.state.isOn);
-    var { fillStyle, strokeStyle, isFillPanelShow, isStrokeInnerPanelHide } = this.state;
-
-    return <div className="entrySelectedColorPanel" >
-        {isFillPanelShow ? <div className="entrySelectedColorPanelFill" style={fillStyle} onClick={this.onClickFillPanel} /> : null}
-        <div className="entrySelectedColorPanelStroke" style={strokeStyle} onClick={this.onClickStokePanel} >
-            {isStrokeInnerPanelHide ? null : <div className="entrySelectedColorPanelStrokeInner" /> }
-        </div>
-        <input value={this.state.colorCode} onChange={this.onColorCodeChange} />
-
-        <Palette colorPicked={this.colorPicked} imageURLPrefix={this.props.imageURLPrefix} />
-        <ColorSpoid imageURLPrefix={this.props.imageURLPrefix} />
-    </div>
-  }
 });
 
 module.exports = SelectedColorPanel;

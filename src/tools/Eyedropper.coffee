@@ -9,8 +9,7 @@ getPixel = (ctx, {x, y}) ->
 module.exports = class Eyedropper extends Tool
 
   name: 'Eyedropper'
-  iconName: 'eyedropper'
-  optionsStyle: 'stroke-or-fill'
+  iconName: 'none'
 
   constructor: (lc) ->
     super(lc)
@@ -30,3 +29,11 @@ module.exports = class Eyedropper extends Tool
 
   begin: (x, y, lc) -> @readColor(x, y, lc)
   continue: (x, y, lc) -> @readColor(x, y, lc)
+  end: (x, y, lc) ->
+    lc.setTool(@previousTool);
+
+  setPrevious: (tool) ->
+    @optionsStyle = tool.optionsStyle
+    console.log(@optionsStyle)
+    @previousTool = tool
+

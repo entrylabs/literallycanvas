@@ -24,10 +24,14 @@ createToolButton = (tool) ->
         'toolbar-button': true
         'thin-button': true
         'selected': selected is displayName
-      src = "#{imageURLPrefix}/#{imageName}.png"
+      if (imageName is "none")
+        style = {'display': 'none'}
+      else
+        src = "#{imageURLPrefix}/#{imageName}.png"
+        style = {'backgroundImage': "url(#{src})"}
       (div {
         className,
-        style: {'backgroundImage': "url(#{src})"}
+        style: style
         onClick: (-> onSelect(tool)), title: _(displayName)})
 
 

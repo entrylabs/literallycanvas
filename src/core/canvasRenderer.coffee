@@ -107,15 +107,13 @@ drawImage = (ctx, shape, retryCallback) ->
   if shape.image.width
     if shape.erase
       ctx.globalCompositeOperation = "destination-out"
-      ctx.beginPath();
+      ctx.beginPath()
     if shape.scale == 1
       ctx.drawImage(shape.image, shape.x, shape.y)
     else
       ctx.drawImage(
         shape.image, shape.x, shape.y,
         shape.image.width * shape.scale, shape.image.height * shape.scale)
-    if shape.erase
-      ctx.closePath();
   else if retryCallback
     shape.image.onload = retryCallback
 
