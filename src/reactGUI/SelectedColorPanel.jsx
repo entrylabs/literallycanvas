@@ -1,4 +1,5 @@
 const React = require('../reactGUI/React-shim');
+var createSetStateOnEventMixin = require('./createSetStateOnEventMixin')
 
 var Entry = Entry || {
     getColourCodes: function () {
@@ -52,35 +53,25 @@ var Palette = React.createClass({
 
 var ColorSpoid = React.createClass({
     getInitialState: function() {
-        var spoidOFF = {
-            width: 27,
-            height: 27,
-            backgroundRepeat: 'no-repeat',
-            backgroundImage: `url(${this.props.imageURLPrefix}/color_off_spoid.png)`,
-        };
-
-        var spoidON = Object.assign({}, spoidOFF);
-        spoidON.backgroundImage = `url(${this.props.imageURLPrefix}/color_on_spoid.png)`;
-
-        return {
-            isOn: false,
-            spoidON: spoidON,
-            spoidOFF: spoidOFF,
-        };
+        return this.getState()
     },
-
+    mixins: [createSetStateOnEventMixin('toolChange')],
+    getState: function() {
+        return {
+            toggled: this.props.lc.tool.name === 'Eyedropper'
+        }
+    },
     toggleSpoid: function(e) {
-        var isOn = this.state.isOn;
-        this.setState({ isOn: !isOn});
+        if (this.state.toggled)
+            return;
         var lc = this.props.lc;
         lc.tools.Eyedropper.setPrevious(lc.tool, this.props.selected);
         lc.setTool(lc.tools.Eyedropper)
     },
 
     render: function() {
-        // console.log('Palette render! isOn:', this.state.isOn);
-        return <div className="entryColorSpoid" style={this.state.spoidON} onClick={this.toggleSpoid} >
-        { this.state.isOn ? null : <div className="entryColorSpoidOFF" style={this.state.spoidOFF} /> }
+        // console.log('Palette render! toggled:', this.state.toggled);
+        return <div className={"entryColorSpoid " + (this.state.toggled ? "toggled" : "")} onClick={this.toggleSpoid} >
         </div>
     }
 });

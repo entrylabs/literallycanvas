@@ -364,6 +364,7 @@ module.exports = class LiterallyCanvas
     drawShapes = =>
       for shape in shapes
         renderShapeToContext(ctx, shape, {retryCallback})
+        console.log(shape)
     @clipped (=> @transformed(drawShapes, ctx)), ctx
 
   # Executes the given function after clipping the canvas to the image size.

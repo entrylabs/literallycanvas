@@ -441,16 +441,19 @@ $selectedColor: #6e5ae6;
     }
 
     .entryColorSpoid {
+        background-image: url(../img/color_off_spoid.png);
         position: relative;
+        width: 27px;
+        height: 27px;
+        background-repeat: no-repeat;
         left: 205px;
         top: -25px;
     }
 
-    .entryColorSpoid:hover {
-        .entryColorSpoidOFF {
-            display: none;
-        }
+    .entryColorSpoid.toggled {
+        background-image: url(../img/color_on_spoid.png);
     }
+
 }
 
 // font 속성
