@@ -10,6 +10,7 @@ defineOptionsStyle('stroke-and-fill', React.createClass({
     var lc = this.props.lc;
 
     return <div className="strokePalette">
+        <StrokeThickness lc={lc} tool={this.props.tool}/>
         <SelectedColorPanel tool={this.props.tool} imageURLPrefix={this.props.imageURLPrefix}
             strokeColor="#000000" fillColor="#000000" lc={lc}/>
     </div>;
