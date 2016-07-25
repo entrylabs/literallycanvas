@@ -391,6 +391,11 @@ $selectedColor: #6e5ae6;
         left: 15px;
     }
 
+    .entrySelectedColorPanelFill.dominant {
+        top: 30px;
+        left: 30px;
+    }
+
     .entrySelectedColorPanelFill.transparent,
     .entrySelectedColorPanelStroke.transparent {
         background-image: url(../img/transparent-pattern.png);

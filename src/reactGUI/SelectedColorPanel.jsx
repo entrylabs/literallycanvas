@@ -73,8 +73,7 @@ var ColorSpoid = React.createClass({
         var isOn = this.state.isOn;
         this.setState({ isOn: !isOn});
         var lc = this.props.lc;
-        console.log(lc.tools.Eyedropper)
-        lc.tools.Eyedropper.setPrevious(lc.tool)
+        lc.tools.Eyedropper.setPrevious(lc.tool, this.props.selected);
         lc.setTool(lc.tools.Eyedropper)
     },
 
@@ -87,7 +86,18 @@ var ColorSpoid = React.createClass({
 });
 
 var SelectedColorPanel = React.createClass({
-    componentWillReceiveProps: function(nextProps) {
+    componentDidMount: function() {
+        var lc = this.props.lc;
+        this.unsubscribePrimary = lc.on("primaryColorChange", (strokeColor) => {
+            this.setState({ strokeColor });
+        });
+        this.unsubscribeSecondary = lc.on("secondaryColorChange", (fillColor) => {
+            this.setState({ fillColor });
+        });
+    },
+    componentWillUnmount: function() {
+        this.unsubscribePrimary();
+        this.unsubscribeSecondary();
     },
 
     getInitialState: function() {
@@ -135,7 +145,9 @@ var SelectedColorPanel = React.createClass({
         };
 
         return <div className="entrySelectedColorPanel" >
-        {isFill ? <div className={"entrySelectedColorPanelFill " + (this.state.fillColor === "transparent" ? "transparent" : "")}
+        {isFill ? <div className={"entrySelectedColorPanelFill " +
+            (this.state.fillColor === "transparent" ? "transparent" : "") +
+            (this.state.isStroke ? "" : " dominant")}
             style={fillStyle} onClick={this.onClickFillPanel} /> : null}
         {isStroke ? <div className={"entrySelectedColorPanelStroke " + (this.state.strokeColor === "transparent" ? "transparent" : "")}
             style={strokeStyle} onClick={this.onClickStrokePanel} >
@@ -144,7 +156,7 @@ var SelectedColorPanel = React.createClass({
             <input value={this.state.fillColor} onChange={this.onColorCodeChange} />
 
             <Palette colorPicked={this.colorPicked} imageURLPrefix={this.props.imageURLPrefix} />
-            <ColorSpoid imageURLPrefix={this.props.imageURLPrefix} lc={this.props.lc}/>
+            <ColorSpoid imageURLPrefix={this.props.imageURLPrefix} lc={this.props.lc} selected={this.state.selected}/>
             </div>
     }
 });

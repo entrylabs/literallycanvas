@@ -32,7 +32,7 @@ module.exports = class Fill extends Tool
     fillPoint =
       x: startPoint.x - (rect.x)
       y: startPoint.y - (rect.y)
-    fillColor = lc.colors.primary
+    fillColor = lc.colors.secondary
     didFinish = false
     @getFillImage lc.getImage(rect: rect), fillPoint, fillColor, @threshold, (image, isDone) ->
       shape = undefined

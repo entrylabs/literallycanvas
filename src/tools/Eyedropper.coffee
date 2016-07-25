@@ -10,6 +10,7 @@ module.exports = class Eyedropper extends Tool
 
   name: 'Eyedropper'
   iconName: 'none'
+  cursor: 'crosshair'
 
   constructor: (lc) ->
     super(lc)
@@ -22,18 +23,15 @@ module.exports = class Eyedropper extends Tool
       canvas.getContext('2d'),
       {x: x - offset.x, y: y - offset.y})
     color = newColor or lc.getColor('background')
-    if @strokeOrFill == 'stroke'
-      lc.setColor('primary', newColor)
-    else
-      lc.setColor('secondary', newColor)
+    lc.setColor(@selected, newColor)
 
   begin: (x, y, lc) -> @readColor(x, y, lc)
   continue: (x, y, lc) -> @readColor(x, y, lc)
   end: (x, y, lc) ->
     lc.setTool(@previousTool);
 
-  setPrevious: (tool) ->
+  setPrevious: (tool, selected) ->
     @optionsStyle = tool.optionsStyle
-    console.log(@optionsStyle)
     @previousTool = tool
+    @selected = selected
 
