@@ -5,27 +5,62 @@ module.exports = class Pencil extends ToolWithStroke
 
   name: 'Pencil'
   iconName: 'pencil'
+  cursor: 'none'
+  usesSimpleAPI: false
 
   eventTimeThreshold: 10
 
-  begin: (x, y, lc) ->
-    @color = lc.getColor('primary')
-    @currentShape = @makeShape()
-    @currentShape.addPoint(@makePoint(x, y, lc))
-    @lastEventTime = Date.now()
+  didBecomeActive: (lc) ->
+    unsubscribeFuncs = []
+    @unsubscribe = =>
+      for func in unsubscribeFuncs
+        func()
 
-  continue: (x, y, lc) ->
-    timeDiff = Date.now() - @lastEventTime
+    @cursorShape = createShape('Ellipse', {
+        x: 0, y: 0, strokeWidth: 0, strokeColor: 'transparent', fillColor: "#000"})
+    @cursorShape.width = 10;
+    @cursorShape.height = 10;
 
-    if timeDiff > @eventTimeThreshold
-      @lastEventTime += timeDiff
+    unsubscribeFuncs.push lc.on 'lc-pointermove', ({x, y}) =>
+      @updateCursor(x, y, lc)
+      lc.drawShapeInProgress(@cursorShape)
+
+    unsubscribeFuncs.push lc.on 'lc-pointerdown', ({x, y}) =>
+      @color = lc.getColor('primary')
+      @currentShape = @makeShape()
       @currentShape.addPoint(@makePoint(x, y, lc))
+      @lastEventTime = Date.now()
       lc.drawShapeInProgress(@currentShape)
 
-  end: (x, y, lc) ->
-    lc.saveShape(@currentShape)
-    @currentShape = undefined
+    unsubscribeFuncs.push lc.on 'lc-pointerdrag', ({x, y}) =>
+      timeDiff = Date.now() - @lastEventTime
+      if timeDiff > @eventTimeThreshold
+        @lastEventTime += timeDiff
+        @currentShape.addPoint(@makePoint(x, y, lc))
+        lc.drawShapeInProgress(@currentShape)
+
+    unsubscribeFuncs.push lc.on 'lc-pointerup', ({x, y}) =>
+      lc.saveShape(@currentShape)
+      @currentShape = undefined
+      @updateCursor(x, y, lc)
+      lc.drawShapeInProgress(@cursorShape)
+
+    unsubscribeFuncs.push lc.on 'setStrokeWidth', (strokeWidth) =>
+      @strokeWidth = strokeWidth
+      lc.trigger('toolDidUpdateOptions')
+
+  willBecomeInactive: (lc) ->
+    @unsubscribe()
 
   makePoint: (x, y, lc) ->
     createShape('Point', {x, y, size: @strokeWidth, @color})
   makeShape: -> createShape('LinePath')
+
+  updateCursor: (x, y, lc) ->
+    @cursorShape.setUpperLeft({
+      x: x - @strokeWidth / 2,
+      y: y - @strokeWidth / 2
+    })
+    @cursorShape.width = @strokeWidth + 1;
+    @cursorShape.height = @strokeWidth + 1;
+    @cursorShape.fillColor = lc.getColor('primary')

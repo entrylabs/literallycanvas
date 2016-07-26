@@ -147,7 +147,7 @@ rectangleFuncs =
     @y = args.y or 0
     @width = args.width or 0
     @height = args.height or 0
-    @strokeWidth = args.strokeWidth or 1
+    @strokeWidth = args.strokeWidth or 0
     @strokeColor = args.strokeColor or 'black'
     @fillColor = args.fillColor or 'transparent'
     @fillPattern = args.fillPattern or null
@@ -178,7 +178,7 @@ defineShape 'Ellipse',
     @y = args.y or 0
     @width = args.width or 0
     @height = args.height or 0
-    @strokeWidth = args.strokeWidth or 1
+    @strokeWidth = args.strokeWidth or 0
     @strokeColor = args.strokeColor or 'black'
     @fillColor = args.fillColor or 'transparent'
 
@@ -204,7 +204,7 @@ defineShape 'Line',
     @y1 = args.y1 or 0
     @x2 = args.x2 or 0
     @y2 = args.y2 or 0
-    @strokeWidth = args.strokeWidth or 1
+    @strokeWidth = args.strokeWidth or 0
     @color = args.color or 'black'
     @capStyle = args.capStyle or 'round'
     @endCapShapes = args.endCapShapes or [null, null]

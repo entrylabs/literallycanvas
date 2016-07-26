@@ -11,6 +11,7 @@ module.exports = class Fill extends Tool
   name: 'Fill'
   iconName: 'fill'
   optionsStyle: 'color-palette'
+  cursor: 'url("/lib/literallycanvas/lib/img/handopen.cur"), default'
 
   constructor: (lc) ->
     super(lc)

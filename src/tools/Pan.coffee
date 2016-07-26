@@ -8,7 +8,7 @@ module.exports = class Pan extends Tool
   iconName: 'pan'
   usesSimpleAPI: false
   optionsStyle: 'move-attributes'
-  cursor: 'pointer'
+  cursor: 'url("/lib/literallycanvas/lib/img/handopen.cur"), default'
 
   didBecomeActive: (lc) ->
     unsubscribeFuncs = []
@@ -30,6 +30,9 @@ module.exports = class Pan extends Tool
         y: (rawY - @pointerStart.y) * lc.backingScale
       }
       lc.setPan(@oldPosition.x + dp.x, @oldPosition.y + dp.y)
+
+    unsubscribeFuncs.push lc.on 'lc-pointerup', ({rawX, rawY}) =>
+      lc.setCursor(@cursor)
 
   willBecomeInactive: (lc) ->
     @unsubscribe()
