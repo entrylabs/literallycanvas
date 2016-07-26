@@ -190,6 +190,7 @@ module.exports = class LiterallyCanvas
         if @isDragging
           @tool.continue p.x, p.y, this
           @trigger("drawContinue", {tool: @tool})
+        @trigger("lc-pointermove", {tool: @tool, x: p.x, y: p.y, rawX: x, rawY: y})
       else
         if @isDragging
           @trigger("lc-pointerdrag", {tool: @tool, x: p.x, y: p.y, rawX: x, rawY: y})

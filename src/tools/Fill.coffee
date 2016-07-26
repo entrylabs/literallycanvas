@@ -35,6 +35,7 @@ module.exports = class Fill extends Tool
       y: startPoint.y - (rect.y)
     fillColor = lc.colors.secondary
     didFinish = false
+    lc.setCursor("progress")
     @getFillImage lc.getImage(rect: rect), fillPoint, fillColor, @threshold, (image, isDone) ->
       shape = undefined
       if didFinish
@@ -48,6 +49,7 @@ module.exports = class Fill extends Tool
       if isDone
         lc.setShapesInProgress []
         lc.saveShape shape
+        lc.setCursor(this.cursor)
         didFinish = true
       else
         lc.setShapesInProgress [ shape ]
