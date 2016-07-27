@@ -16,8 +16,7 @@ module.exports = class Pencil extends ToolWithStroke
       for func in unsubscribeFuncs
         func()
 
-    @cursorShape = createShape('Ellipse', {
-        x: 0, y: 0, strokeWidth: 0, strokeColor: 'transparent', fillColor: "#000"})
+    @cursorShape = @createCursor()
     @cursorShape.width = 10;
     @cursorShape.height = 10;
 
@@ -30,14 +29,16 @@ module.exports = class Pencil extends ToolWithStroke
       @currentShape = @makeShape()
       @currentShape.addPoint(@makePoint(x, y, lc))
       @lastEventTime = Date.now()
-      lc.drawShapeInProgress(@currentShape)
+      lc.drawShapeInProgress(@cursorShape)
 
     unsubscribeFuncs.push lc.on 'lc-pointerdrag', ({x, y}) =>
       timeDiff = Date.now() - @lastEventTime
       if timeDiff > @eventTimeThreshold
         @lastEventTime += timeDiff
         @currentShape.addPoint(@makePoint(x, y, lc))
-        lc.drawShapeInProgress(@currentShape)
+        @updateCursor(x, y, lc)
+        lc.setShapesInProgress([@currentShape, @cursorShape])
+        lc.repaintLayer('main', false)
 
     unsubscribeFuncs.push lc.on 'lc-pointerup', ({x, y}) =>
       lc.saveShape(@currentShape)
@@ -55,6 +56,10 @@ module.exports = class Pencil extends ToolWithStroke
   makePoint: (x, y, lc) ->
     createShape('Point', {x, y, size: @strokeWidth, @color})
   makeShape: -> createShape('LinePath')
+
+  createCursor: () ->
+    createShape('Ellipse', {
+        x: 0, y: 0, strokeWidth: 0, strokeColor: 'transparent', fillColor: "#000"})
 
   updateCursor: (x, y, lc) ->
     @cursorShape.setUpperLeft({

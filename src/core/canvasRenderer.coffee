@@ -144,6 +144,7 @@ defineCanvasRenderer 'Line', (ctx, shape) ->
     y1 += 0.5
     y2 += 0.5
 
+  ctx.save()
   ctx.lineWidth = shape.strokeWidth
   ctx.strokeStyle = shape.color
   ctx.lineCap = shape.capStyle
@@ -153,6 +154,7 @@ defineCanvasRenderer 'Line', (ctx, shape) ->
   ctx.lineTo(x2, y2)
   ctx.stroke()
   ctx.setLineDash([]) if shape.dash
+  ctx.restore()
 
   arrowWidth = Math.max(shape.strokeWidth * 2.2, 5)
   if shape.endCapShapes[0]

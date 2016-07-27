@@ -365,7 +365,6 @@ module.exports = class LiterallyCanvas
     drawShapes = =>
       for shape in shapes
         renderShapeToContext(ctx, shape, {retryCallback})
-        console.log(shape)
     @clipped (=> @transformed(drawShapes, ctx)), ctx
 
   # Executes the given function after clipping the canvas to the image size.
@@ -531,3 +530,20 @@ module.exports = class LiterallyCanvas
   loadSnapshotJSON: (str) ->
     console.warn("lc.loadSnapshotJSON() is deprecated. use lc.loadSnapshot(JSON.parse(snapshot)) instead.")
     @loadSnapshot(JSON.parse(str))
+
+  addShape: (shapeRepr) ->
+    shape = JSONToShape(shapeRepr)
+    @execute(new actions.AddShapeAction(this, shape)) if shape
+    @repaintLayer('main')
+    shape
+
+  removeShape: (targetShape) ->
+    if @shapes[@shapes.length-1].id == targetShape.id
+      @shapes.pop()
+    # uncommon case: it's in the array somewhere
+    else
+      newShapes = []
+      for shape in @shapes
+        newShapes.push(shape) if shape.id != targetShape.id
+      @shapes = newShapes
+    @repaintLayer('main')

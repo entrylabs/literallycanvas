@@ -72,9 +72,14 @@ module.exports = class SelectShape extends Tool
     lc.setShapesInProgress []
 
   setShape: (lc, shape) ->
-    lc.setShapesInProgress [shape, createShape('SelectionBox', {
-      shape: shape
-    })]
+    if (!shape)
+      @selectedShape = null;
+      lc.setShapesInProgress []
+    else
+      @selectedShape = shape;
+      lc.setShapesInProgress [shape, createShape('SelectionBox', {
+        shape: shape
+      })]
     lc.repaintLayer 'main'
 
   _drawSelectCanvas: (lc) ->
