@@ -3,9 +3,9 @@
 
 module.exports = class SelectShape extends Tool
   name: 'SelectShape'
-  iconName: 'arrow'
+  iconName: 'pan'
   usesSimpleAPI: false
-  cursor: 'default'
+  cursor: 'url("/lib/literallycanvas/lib/img/handopen.cur"), default'
 
   constructor: (lc) ->
     # This is a 'shadow' canvas -- we'll reproduce the shapes here, each shape
@@ -21,13 +21,13 @@ module.exports = class SelectShape extends Tool
       for func in selectShapeUnsubscribeFuncs
         func()
 
-    onDown = ({ x, y }) =>
+    onDown = ({ x, y, rawX, rawY }) =>
       @didDrag = false
 
       shapeIndex = @_getPixel(x, y, lc, @selectCtx)
-      @selectedShape = lc.shapes[shapeIndex]
+      shape = lc.shapes[shapeIndex]
 
-      if @selectedShape?
+      if @selectedShape is shape
         lc.trigger 'shapeSelected', { @selectedShape }
         lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
           shape: @selectedShape
@@ -39,8 +39,15 @@ module.exports = class SelectShape extends Tool
           x: x - br.x,
           y: y - br.y
         }
+      else
+        @selectedShape = null
+        lc.setShapesInProgress []
+        lc.repaintLayer 'main'
+        @oldPosition = lc.position
+        @pointerStart = {x: rawX, y: rawY}
 
-    onDrag = ({ x, y }) =>
+    onDrag = ({ x, y, rawX, rawY }) =>
+      lc.setCursor('url("/lib/literallycanvas/lib/img/handclosed.cur"), default')
       if @selectedShape?
         @didDrag = true
 
@@ -52,6 +59,12 @@ module.exports = class SelectShape extends Tool
           shape: @selectedShape
         })]
         lc.repaintLayer 'main'
+      else
+        dp = {
+          x: (rawX - @pointerStart.x) * lc.backingScale,
+          y: (rawY - @pointerStart.y) * lc.backingScale
+        }
+        lc.setPan(@oldPosition.x + dp.x, @oldPosition.y + dp.y)
 
     onUp = ({ x, y }) =>
       if @didDrag
@@ -60,6 +73,7 @@ module.exports = class SelectShape extends Tool
         lc.trigger('drawingChange', {})
         lc.repaintLayer('main')
         @_drawSelectCanvas(lc)
+      lc.setCursor(@cursor)
 
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag
