@@ -11,7 +11,7 @@ defineOptionsStyle('color-palette', React.createClass({
 
     return <div className="strokePalette">
         <SelectedColorPanel tool={this.props.tool} imageURLPrefix={this.props.imageURLPrefix}
-            strokeColor="#000000" fillColor="#000000" lc={lc} isStroke={false}/>
+            fillColor="#000000" lc={lc} isStroke={false} disableTransparent={true}/>
     </div>;
   }
 }));

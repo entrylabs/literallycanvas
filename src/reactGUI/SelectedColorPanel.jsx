@@ -18,14 +18,16 @@ var Entry = Entry || {
 
 var Palette = React.createClass({
     getDefaultProps: function() {
-        return {
-            colourCodes: Entry.getColourCodes()
-        };
     },
 
     getInitialState: function() {
+        var colourCodes = Entry.getColourCodes();
+        if (this.props.disableTransparent) {
+            colourCodes[0] = "#FFFFFF"
+        }
         return {
-            paletteStyles: this.props.colourCodes.map(color => {
+            colourCodes,
+            paletteStyles: colourCodes.map(color => {
                 if (color === 'transparent') {
                     return { backgroundImage: `url(${this.props.imageURLPrefix}/transparent.png)` };
                 } else {
@@ -40,7 +42,7 @@ var Palette = React.createClass({
     },
 
     render: function() {
-        var colourCodes = this.props.colourCodes;
+        var colourCodes = this.state.colourCodes;
         return <div className="entryPlaygroundPainterAttrColorContainer">
         {this.state.paletteStyles.map( (style, idx) => {
             var colorCode = colourCodes[idx];
@@ -146,7 +148,7 @@ var SelectedColorPanel = React.createClass({
             </div> : null}
             <input value={this.state.fillColor} onChange={this.onColorCodeChange} />
 
-            <Palette colorPicked={this.colorPicked} imageURLPrefix={this.props.imageURLPrefix} />
+            <Palette colorPicked={this.colorPicked} imageURLPrefix={this.props.imageURLPrefix} disableTransparent={this.props.disableTransparent}/>
             <ColorSpoid imageURLPrefix={this.props.imageURLPrefix} lc={this.props.lc} selected={this.state.selected}/>
             </div>
     }
