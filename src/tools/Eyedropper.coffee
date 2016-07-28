@@ -1,4 +1,5 @@
 {Tool} = require './base'
+util = require '../core/util'
 
 
 getPixel = (ctx, {x, y}) ->
@@ -17,13 +18,13 @@ module.exports = class Eyedropper extends Tool
     @strokeOrFill = 'stroke'
 
   readColor: (x, y, lc) ->
-    offset = lc.getDefaultImageRect()
     canvas = lc.getImage()
+    scale = util.getBackingScale(lc.ctx)
     newColor = getPixel(
       canvas.getContext('2d'),
-      {x: x - offset.x, y: y - offset.y})
+      {x: x, y: y})
     color = newColor or lc.getColor('background')
-    lc.setColor(@selected, newColor)
+    lc.setColor(@selected, color)
 
   begin: (x, y, lc) -> @readColor(x, y, lc)
   continue: (x, y, lc) -> @readColor(x, y, lc)
