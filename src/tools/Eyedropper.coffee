@@ -11,7 +11,7 @@ module.exports = class Eyedropper extends Tool
 
   name: 'Eyedropper'
   iconName: 'none'
-  cursor: 'crosshair'
+  cursor: 'url("/lib/literallycanvas/lib/img/spoid.cur") 2 16, default'
 
   constructor: (lc) ->
     super(lc)
