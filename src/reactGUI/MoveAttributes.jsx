@@ -8,6 +8,21 @@ var MoveAttributes = React.createClass({
           rotate: this.props.rotate,
       }
   },
+  componentDidMount: function() {
+      var lc = this.props.lc;
+      this.unsubscribe = lc.on("shapeSelected", this.setShape);
+  },
+  setShape: function(shape) {
+    console.log(shape)
+    if (shape)
+      this.setState({
+        x: shape.width,
+        y: shape.height,
+      })
+  },
+  componentWillUnmount: function() {
+      this.unsubscribe();
+  },
   onChangeX: function(e) {
     this.setState({x: e.target.value})
   },
@@ -33,13 +48,13 @@ var MoveAttributes = React.createClass({
                 <div className="entryPlaygroundPainterAttrResizeX">
                     <div className="entryPlaygroundPainterAttrResizeXTop">X</div>
                     <input id="entryPainterAttrWidth" className="entryPlaygroundPainterNumberInput"
-                        value={x} onChange={this.onChangeX} />
+                        value={this.state.x} onChange={this.onChangeX} />
                 </div>
                 <div className="entryPlaygroundPainterSizeText">x</div>
                 <div className="entryPlaygroundAttrReiszeY">
                     <div className="entryPlaygroundPainterAttrResizeYTop">Y</div>
                     <input id="entryPainterAttrHeight" className="entryPlaygroundPainterNumberInput"
-                        value={y} onChange={this.onChangeY} />
+                        value={this.state.y} onChange={this.onChangeY} />
                 </div>
             </div>
         </fieldset>

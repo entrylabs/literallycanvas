@@ -123,6 +123,8 @@ defineShape 'Image',
     @scale = args.scale or 1
     @image = args.image or null
     @erase = args.erase or false
+    @width = @image.width
+    @height = @image.height
   getBoundingRect: ->
     {@x, @y, width: @image.width * @scale, height: @image.height * @scale}
   toJSON: -> {@x, @y, imageSrc: @image.src, imageObject: @image, @scale, @erase}

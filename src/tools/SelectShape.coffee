@@ -5,6 +5,7 @@ module.exports = class SelectShape extends Tool
   name: 'SelectShape'
   iconName: 'pan'
   usesSimpleAPI: false
+  optionsStyle: 'move-attributes'
   cursor: 'url("/lib/literallycanvas/lib/img/handopen.cur"), default'
 
   constructor: (lc) ->
@@ -28,11 +29,7 @@ module.exports = class SelectShape extends Tool
       shape = lc.shapes[shapeIndex]
 
       if @selectedShape is shape
-        lc.trigger 'shapeSelected', { @selectedShape }
-        lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
-          shape: @selectedShape
-        })]
-        lc.repaintLayer 'main'
+        @setShape(lc, shape)
 
         br = @selectedShape.getBoundingRect()
         @dragOffset = {
@@ -40,9 +37,7 @@ module.exports = class SelectShape extends Tool
           y: y - br.y
         }
       else
-        @selectedShape = null
-        lc.setShapesInProgress []
-        lc.repaintLayer 'main'
+        @setShape(lc, null)
         @oldPosition = lc.position
         @pointerStart = {x: rawX, y: rawY}
 
@@ -94,6 +89,7 @@ module.exports = class SelectShape extends Tool
       lc.setShapesInProgress [shape, createShape('SelectionBox', {
         shape: shape
       })]
+    lc.trigger("shapeSelected", @selectedShape)
     lc.repaintLayer 'main'
 
   _drawSelectCanvas: (lc) ->
