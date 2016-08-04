@@ -105,15 +105,25 @@ defineCanvasRenderer 'SelectionBox', do ->
 
 drawImage = (ctx, shape, retryCallback) ->
   if shape.image.width
-    if shape.erase
-      ctx.globalCompositeOperation = "destination-out"
-      ctx.beginPath()
-      ctx.drawImage(
-        shape.image, shape.x, shape.y,
-        shape.image.width * shape.scale, shape.image.height * shape.scale)
+    ctx.save()
+    x = shape.x
+    y = shape.y
+    width = shape.image.width * shape.scale
+    height = shape.image.height * shape.scale
+    scaleX = 1
+    scaleY = 1
+    if shape.flipX
+      x += width
+      scaleX = -1
+    if shape.flipY
+      y += height
+      scaleY = -1
+    ctx.translate(x, y)
+    ctx.scale(scaleX, scaleY)
     ctx.drawImage(
-      shape.image, shape.x, shape.y,
-      shape.image.width * shape.scale, shape.image.height * shape.scale)
+      shape.image, 0, 0,
+      width, height)
+    ctx.restore()
   else if retryCallback
     shape.image.onload = retryCallback
 
