@@ -10,7 +10,7 @@ defineOptionsStyle('move-attributes', React.createClass({
 
     return <div>
         <MoveAttributes imageURLPrefix={this.props.imageURLPrefix}
-            x="234" y="345" rotate="0" lc={lc}/>
+            x="0" y="0" rotate="0" lc={lc}/>
     </div>;
   }
 }));

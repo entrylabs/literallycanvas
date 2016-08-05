@@ -124,8 +124,9 @@ defineShape 'Image',
     @image = args.image or null
     @width = @image.width
     @height = @image.height
-    @flipX = args.flipX or true
-    @flipY = args.flipY or true
+    @flipX = args.flipX or false
+    @flipY = args.flipY or false
+    @isLoaded = !(@image.width is 0)
   getBoundingRect: ->
     {@x, @y, width: @image.width * @scale, height: @image.height * @scale}
   toJSON: -> {@x, @y, imageSrc: @image.src, imageObject: @image, @scale, @flipX, @flipY}

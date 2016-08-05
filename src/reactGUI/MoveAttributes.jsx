@@ -13,7 +13,6 @@ var MoveAttributes = React.createClass({
       this.unsubscribe = lc.on("shapeSelected", this.setShape);
   },
   setShape: function(shape) {
-    console.log(shape)
     if (shape)
       this.setState({
         x: shape.width,
