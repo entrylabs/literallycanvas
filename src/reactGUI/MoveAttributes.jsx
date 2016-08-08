@@ -3,8 +3,6 @@ const React = require('../reactGUI/React-shim');
 var MoveAttributes = React.createClass({
   getInitialState: function() {
       return {
-          x: this.props.x,
-          y: this.props.y,
           rotate: this.props.rotate,
       }
   },
@@ -13,20 +11,29 @@ var MoveAttributes = React.createClass({
       this.unsubscribe = lc.on("shapeSelected", this.setShape);
   },
   setShape: function(shape) {
+    this.setState({
+      shape: shape
+    })
     if (shape)
       this.setState({
-        x: shape.width,
-        y: shape.height,
+        width: shape.width,
+        height: shape.height,
       })
   },
   componentWillUnmount: function() {
       this.unsubscribe();
   },
   onChangeX: function(e) {
-    this.setState({x: e.target.value})
+    var width = e.target.value;
+    this.setState({width});
+    this.state.shape.width = width;
+    this.props.lc.trigger('drawingChange');
   },
   onChangeY: function(e) {
-    this.setState({y: e.target.value})
+    var height = e.target.value;
+    this.setState({height});
+    this.state.shape.height = height;
+    this.props.lc.trigger('drawingChange');
   },
   onChangeRotate: function(e) {
     this.setState({rotate: e.target.value})
@@ -38,25 +45,25 @@ var MoveAttributes = React.createClass({
     console.log('flipY');
   },
   render: function() {
-    let { x, y, rotate } = this.state;
+    let { width, height, rotate, shape } = this.state;
 
     return <div className="entryMoveAttributes">
-        <fieldset id="painterAttrResize" className="entryPlaygroundPainterAttrResize">
+        {this.state.shape ? <fieldset id="painterAttrResize" className="entryPlaygroundPainterAttrResize">
             <legend>크기</legend>
             <div id="painterAttrWrapper" className="painterAttrWrapper">
                 <div className="entryPlaygroundPainterAttrResizeX">
                     <div className="entryPlaygroundPainterAttrResizeXTop">X</div>
                     <input id="entryPainterAttrWidth" className="entryPlaygroundPainterNumberInput"
-                        value={this.state.x} onChange={this.onChangeX} />
+                        value={width} onChange={this.onChangeX} />
                 </div>
                 <div className="entryPlaygroundPainterSizeText">x</div>
                 <div className="entryPlaygroundAttrReiszeY">
                     <div className="entryPlaygroundPainterAttrResizeYTop">Y</div>
                     <input id="entryPainterAttrHeight" className="entryPlaygroundPainterNumberInput"
-                        value={this.state.y} onChange={this.onChangeY} />
+                        value={height} onChange={this.onChangeY} />
                 </div>
             </div>
-        </fieldset>
+        </fieldset> : null}
 
         <div id="painterAttrRotateArea" className="painterAttrRotateArea">
             <div className="painterAttrRotateName">회전</div>

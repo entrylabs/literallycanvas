@@ -81,10 +81,21 @@ module.exports = class SelectShape extends Tool
     dispose = () =>
       @setShape(lc, null)
 
+    update = () =>
+      if (@selectedShape)
+        lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
+          shape: @selectedShape
+        })]
+        lc.repaintLayer 'main'
+        console.log('asdf')
+      console.log('is')
+
+
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerup', onUp
     selectShapeUnsubscribeFuncs.push lc.on 'undo', dispose
+    selectShapeUnsubscribeFuncs.push lc.on 'drawingChange', update
 
     @_drawSelectCanvas(lc)
 

@@ -56,7 +56,6 @@ class EditShapeAction
 
   do: ->
     newOpts = {}
-    console.log(@opts)
     for key of @opts
       newOpts[key] = @shape[key]
       @shape[key] = @opts[key]
@@ -68,7 +67,6 @@ class EditShapeAction
 
   undo: ->
     newOpts = {}
-    console.log(@opts)
     for key of @opts
       newOpts[key] = @shape[key]
       @shape[key] = @opts[key]
