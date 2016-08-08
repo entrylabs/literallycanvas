@@ -105,6 +105,7 @@ defineCanvasRenderer 'SelectionBox', do ->
 
 drawImage = (ctx, shape, retryCallback) ->
   if shape.image.width
+    ctx.save()
     if !shape.isLoaded
       shape.width = shape.image.width
       shape.height = shape.image.height

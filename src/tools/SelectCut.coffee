@@ -31,8 +31,8 @@ module.exports = class SelectCut extends Tool
   end:(x, y, lc) ->
     lc.setShapesInProgress([])
     lc.repaintLayer('main')
-    x = Math.min(@currentShape.x)
-    y = Math.min(@currentShape.y)
+    x = @currentShape.x
+    y = @currentShape.y
     width = Math.abs(@currentShape.width)
     height = Math.abs(@currentShape.height)
     if (width && height)
