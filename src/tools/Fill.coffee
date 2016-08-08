@@ -36,9 +36,10 @@ module.exports = class Fill extends Tool
     fillColor = lc.colors.secondary
     didFinish = false
     lc.setCursor("progress")
-    @getFillImage lc.getImage(rect: rect), fillPoint, fillColor, @threshold, (image, isDone) ->
+    @getFillImage lc.getImage(rect: rect), fillPoint, fillColor, @threshold, (image, isDone) =>
       shape = undefined
       if didFinish
+        lc.setCursor(@cursor)
         return
       shape = LC.createShape('Image',
         x: rect.x
@@ -49,7 +50,7 @@ module.exports = class Fill extends Tool
       if isDone
         lc.setShapesInProgress []
         lc.saveShape shape
-        lc.setCursor(this.cursor)
+        lc.setCursor(@cursor)
         didFinish = true
       else
         lc.setShapesInProgress [ shape ]
