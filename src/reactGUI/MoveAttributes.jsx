@@ -14,26 +14,45 @@ var MoveAttributes = React.createClass({
     this.setState({
       shape: shape
     })
-    if (shape)
+    if (shape) {
       this.setState({
         width: shape.width,
         height: shape.height,
       })
+      this.width = shape.width;
+      this.height = shape.height;
+    }
   },
   componentWillUnmount: function() {
       this.unsubscribe();
   },
   onChangeX: function(e) {
-    var width = e.target.value;
+    var width = parseInt(e.target.value);
     this.setState({width});
     this.state.shape.width = width;
     this.props.lc.trigger('drawingChange');
   },
   onChangeY: function(e) {
-    var height = e.target.value;
+    var height = parseInt(e.target.value);
     this.setState({height});
     this.state.shape.height = height;
     this.props.lc.trigger('drawingChange');
+  },
+  applyX: function() {
+    this.props.lc.editShape(
+      this.state.shape,
+      {width: this.state.width},
+      {width: this.width}
+    );
+    this.width = this.state.width;
+  },
+  applyY: function() {
+    this.props.lc.editShape(
+      this.state.shape,
+      {height: this.state.height},
+      {height: this.height}
+    );
+    this.height = this.state.height;
   },
   onChangeRotate: function(e) {
     this.setState({rotate: e.target.value})
@@ -54,13 +73,13 @@ var MoveAttributes = React.createClass({
                 <div className="entryPlaygroundPainterAttrResizeX">
                     <div className="entryPlaygroundPainterAttrResizeXTop">X</div>
                     <input id="entryPainterAttrWidth" className="entryPlaygroundPainterNumberInput"
-                        value={width} onChange={this.onChangeX} />
+                        value={width} onChange={this.onChangeX} onBlur={this.applyX}/>
                 </div>
                 <div className="entryPlaygroundPainterSizeText">x</div>
                 <div className="entryPlaygroundAttrReiszeY">
                     <div className="entryPlaygroundPainterAttrResizeYTop">Y</div>
                     <input id="entryPainterAttrHeight" className="entryPlaygroundPainterNumberInput"
-                        value={height} onChange={this.onChangeY} />
+                        value={height} onChange={this.onChangeY} onBlur={this.applyY} />
                 </div>
             </div>
         </fieldset> : null}

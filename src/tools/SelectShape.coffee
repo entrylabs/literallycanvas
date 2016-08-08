@@ -87,8 +87,6 @@ module.exports = class SelectShape extends Tool
           shape: @selectedShape
         })]
         lc.repaintLayer 'main'
-        console.log('asdf')
-      console.log('is')
 
 
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
