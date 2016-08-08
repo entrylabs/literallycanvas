@@ -50,5 +50,29 @@ class AddShapeAction
       @lc.shapes = newShapes
     @lc.repaintLayer('main')
 
+class EditShapeAction
 
-module.exports = {ClearAction, AddShapeAction}
+  constructor: (@lc, @shape, @opts, @prevOpts=null) ->
+
+  do: ->
+    newOpts = {}
+    console.log(@opts)
+    for key of @opts
+      newOpts[key] = @shape[key]
+      @shape[key] = @opts[key]
+    if (@prevOpts)
+      @opts = @prevOpts
+    else
+      @opts = newOpts
+    @lc.repaintLayer('main')
+
+  undo: ->
+    newOpts = {}
+    console.log(@opts)
+    for key of @opts
+      newOpts[key] = @shape[key]
+      @shape[key] = @opts[key]
+    @opts = newOpts
+    @lc.repaintLayer('main')
+
+module.exports = {ClearAction, AddShapeAction, EditShapeAction}

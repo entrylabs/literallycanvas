@@ -36,6 +36,10 @@ module.exports = class SelectShape extends Tool
           x: x - br.x,
           y: y - br.y
         }
+        @prevOpts = {
+          x: @selectedShape.x,
+          y: @selectedShape.y
+        }
       else
         @setShape(lc, null)
         @oldPosition = lc.position
@@ -64,15 +68,23 @@ module.exports = class SelectShape extends Tool
     onUp = ({ x, y }) =>
       if @didDrag
         @didDrag = false
+        lc.editShape(@selectedShape, {
+          x: x - @dragOffset.x,
+          y: y - @dragOffset.y
+        }, @prevOpts)
         lc.trigger('shapeMoved', { shape: @selectedShape })
         lc.trigger('drawingChange', {})
         lc.repaintLayer('main')
         @_drawSelectCanvas(lc)
       lc.setCursor(@cursor)
 
+    dispose = () =>
+      @setShape(lc, null)
+
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerup', onUp
+    selectShapeUnsubscribeFuncs.push lc.on 'undo', dispose
 
     @_drawSelectCanvas(lc)
 

@@ -234,6 +234,12 @@ module.exports = class LiterallyCanvas
       @trigger('shapeSave', {shape, previousShapeId})
     @trigger('drawingChange')
 
+  editShape: (shape, opts, prevOpts, triggerShapeEditEvent=true) ->
+    @execute(new actions.EditShapeAction(this, shape, opts, prevOpts))
+    if triggerShapeEditEvent
+      @trigger('shapeEdit', {shape, opts})
+    @trigger('drawingChange')
+
   pan: (x, y) ->
     # Subtract because we are moving the viewport
     @setPan(@position.x - x, @position.y - y)
