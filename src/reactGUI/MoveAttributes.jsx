@@ -58,10 +58,16 @@ var MoveAttributes = React.createClass({
     this.setState({rotate: e.target.value})
   },
   flipX: function() {
-    console.log('flipX');
+    this.props.lc.editShape(
+      this.state.shape,
+      {flipX: !this.state.shape.flipX}
+    );
   },
   flipY: function() {
-    console.log('flipY');
+    this.props.lc.editShape(
+      this.state.shape,
+      {flipY: !this.state.shape.flipY}
+    );
   },
   render: function() {
     let { width, height, rotate, shape } = this.state;
