@@ -4,22 +4,11 @@ require './fontmetrics.js'
 parseFontString = (font) ->
   fontItems = font.split(' ')
 
-  fontSize = 0
+  fontStyle = fontItems.unshift()
+  fontSize = parseInt(fontItems.unshift())
+  fontFamily = fontItems.join(' ')
 
-  for item in fontItems
-    maybeSize = parseInt(item.replace("px", ""), 10)
-    unless isNaN(maybeSize)
-      fontSize = maybeSize
-  throw "Font size not found" unless fontSize
-
-  remainingFontString = font.substring(fontItems[0].length + 1)
-    .replace('bold ', '')
-    .replace('italic ', '')
-    .replace('underline ', '')
-
-  fontFamily = remainingFontString
-
-  {fontSize, fontFamily}
+  {fontSize, fontFamily, fontStyle}
 
 
 getNextLine = (ctx, text, forcedWidth) ->
@@ -87,7 +76,7 @@ getLinesToRender = (ctx, text, forcedWidth) ->
 
 class TextRenderer
   constructor: (ctx, @text, @font, @forcedWidth, @forcedHeight) ->
-    {fontFamily, fontSize} = parseFontString(@font)
+    {fontFamily, fontSize, fontStyle} = parseFontString(@font)
 
     ctx.font = @font
     ctx.textBaseline = 'baseline'
