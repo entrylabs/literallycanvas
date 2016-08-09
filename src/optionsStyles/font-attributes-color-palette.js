@@ -10,8 +10,8 @@ defineOptionsStyle('font-attributes-color-palette', React.createClass({
 
     return <div className="strokePalette">
         <FontAttributes lc={lc} tool={this.props.tool}/>
-        <SelectedColorPanel tool={this.props.tool} isFill={false} imageURLPrefix={this.props.imageURLPrefix}
-            strokeColor="#000000" fillColor="#000000" lc={lc}/>
+        <SelectedColorPanel tool={this.props.tool} imageURLPrefix={this.props.imageURLPrefix}
+            strokeColor="#000000" fillColor="transparent" lc={lc}/>
     </div>;
   }
 }));

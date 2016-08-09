@@ -267,8 +267,7 @@ defineCanvasRenderer(
 
 defineCanvasRenderer 'Text', (ctx, shape) ->
   shape._makeRenderer(ctx) unless shape.renderer
-  ctx.fillStyle = shape.color
-  shape.renderer.draw(ctx, shape.x, shape.y)
+  shape.renderer.draw(ctx, shape.x, shape.y, shape.color, shape.bgColor)
 
 
 defineCanvasRenderer 'Polygon', (ctx, shape) ->

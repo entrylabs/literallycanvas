@@ -464,6 +464,7 @@ defineShape 'Text',
     @v = args.v or 0  # version (<1 needs position repaired)
     @text = args.text or ''
     @color = args.color or 'black'
+    @bgColor = args.bgColor or 'transparent'
     @font  = args.font or '18px sans-serif'
     @forcedWidth = args.forcedWidth or null
     @forcedHeight = args.forcedHeight or null
@@ -522,7 +523,7 @@ defineShape 'Text',
       width: Math.ceil(@renderer.getWidth(true)),
       height: Math.ceil(@renderer.getHeight())
     }
-  toJSON: -> {@x, @y, @text, @color, @font, @forcedWidth, @forcedHeight, @v}
+  toJSON: -> {@x, @y, @text, @color, @bgColor,  @font, @forcedWidth, @forcedHeight, @v}
   fromJSON: (data) -> createShape('Text', data)
   move: ( moveInfo={} ) ->
     @x = @x - moveInfo.xDiff

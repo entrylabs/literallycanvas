@@ -106,10 +106,13 @@ class TextRenderer
 
     @boundingBoxWidth = Math.ceil(@metrics.width)
 
-  draw: (ctx, x, y) ->
+  draw: (ctx, x, y, color, bgColor) ->
     ctx.textBaseline = 'top'
     ctx.font = @font
     i = 0
+    ctx.fillStyle = bgColor
+    ctx.fillRect(x, y, @metrics.width, @metrics.leading * @lines.length)
+    ctx.fillStyle = color
     for line in @lines
       ctx.fillText(line, x, y + i * @metrics.leading)
       i += 1

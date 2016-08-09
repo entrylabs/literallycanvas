@@ -51,6 +51,12 @@ module.exports = class Text extends Tool
       @_updateInputEl(lc)
       lc.repaintLayer('main')
 
+    unsubscribeFuncs.push lc.on 'secondaryColorChange', (newColor) =>
+      return unless @currentShape
+      @currentShape.bgColor = newColor
+      @_updateInputEl(lc)
+      lc.repaintLayer('main')
+
     unsubscribeFuncs.push lc.on 'setFont', (font) =>
       return unless @currentShape
       @font = font
@@ -120,7 +126,8 @@ module.exports = class Text extends Tool
         @_exitEditingState(lc)
     else
       @color = lc.getColor('primary')
-      @currentShape = createShape('Text', {x, y, @text, @color, @font, v: 1})
+      @bgColor = lc.getColor('transparent')
+      @currentShape = createShape('Text', {x, y, @text, @color, @bgColor, @font, v: 1})
       @dragAction = 'place'
       @currentShapeState = 'selected'
 
