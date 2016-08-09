@@ -12,4 +12,6 @@ module.exports = class Magnifier extends Tool
 
   end: (x, y, lc) ->
     lc.setZoom(lc.scale + 0.1)
+    oldPosition = lc.position
+    #lc.setPan(lc.canvas.width, oldPosition.y + dp.y)
 

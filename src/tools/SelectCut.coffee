@@ -40,13 +40,14 @@ module.exports = class SelectCut extends Tool
       tempCanvas = document.createElement("canvas")
       tCtx = tempCanvas.getContext("2d")
       scale = util.getBackingScale(lc.ctx) * lc.scale
-      tempCanvas.width = width * scale
-      tempCanvas.height = height * scale
+      tempCanvas.width = width
+      tempCanvas.height = height
       pan = lc.position
+      tCtx.scale(1 / scale, 1 / scale)
       tCtx.drawImage(lc.canvas, -x * scale - pan.x, -y * scale - pan.y)
       image.src = tempCanvas.toDataURL()
       newErase = createShape('ErasedRectangle', {x, y, width, height})
-      newShape = createShape('Image', {x, y, image, scale: 1/scale})
+      newShape = createShape('Image', {x, y, image})
       newErase.isPass = true
       newShape.isPass = true
       lc.saveShape(newErase)
