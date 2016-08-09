@@ -146,6 +146,12 @@ defineShape 'Image',
   setUpperLeft: (upperLeft={}) ->
     @x = upperLeft.x
     @y = upperLeft.y
+  setSize: (forcedWidth, forcedHeight) ->
+    @width = Math.max(forcedWidth, 0)
+    @height = Math.max(forcedHeight, 0)
+  setPosition: (x, y) ->
+    @x = x
+    @y = y
 
 rectangleFuncs =
   constructor: (args={}) ->
