@@ -47,6 +47,8 @@ module.exports = class SelectCut extends Tool
       image.src = tempCanvas.toDataURL()
       newErase = createShape('ErasedRectangle', {x, y, width, height})
       newShape = createShape('Image', {x, y, image, scale: 1/scale})
+      newErase.isPass = true
+      newShape.isPass = true
       lc.saveShape(newErase)
       lc.saveShape(newShape)
       lc.setTool(lc.tools.SelectShape)
