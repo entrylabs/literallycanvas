@@ -32,6 +32,8 @@ var StrokeThickness = React.createClass({
     // console.log('lc:', lc);
     // console.log('tool.name:', lc.tool.name);
     // console.log('strokeWidth:', this.state.strokeWidth);
+    let numArray = [...Array(70).keys()];
+    let thickness = numArray.map(i => i + 1);
 
     return <div className="entryPlaygroundentryPlaygroundPainterAttrThickArea">
       {/*<span> {this.state.strokeWidth} </span>*/}
@@ -39,7 +41,7 @@ var StrokeThickness = React.createClass({
       <fieldset id="entryPainterAttrThick" className="entryPlaygroundPainterAttrThick">
         <div className="paintAttrThickTop"></div>
         <select id="entryPainterAttrThick" className="entryPlaygroundPainterAttrThickInput" size="1" value={this.state.strokeWidth} onChange={this.onChange}>
-            {[1,2,3,4,5,6,7,8,9,10].map((num) => {
+            {thickness.map((num) => {
                 return <option key={num} value={num} >{num}</option>
             })}
         </select>

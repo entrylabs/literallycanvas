@@ -35,7 +35,7 @@ var FontAttributes = React.createClass({
   },
   render: function() {
     let numArray0to52 = [...Array(65).keys()];
-    let fontThickness = numArray0to52.map(i => i + 8); // 20~72까지의 숫자 배열.
+    let fontThickness = numArray0to52.map(i => i + 8);
 
     return <div id="painterAttrFont" className="entryPlaygroundPainterAttrFont">
         <div className="entryPlaygroundPainterAttrTop">
