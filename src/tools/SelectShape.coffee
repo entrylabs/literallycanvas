@@ -15,6 +15,8 @@ module.exports = class SelectShape extends Tool
   optionsStyle: 'move-attributes'
   cursor: 'url("/lib/literallycanvas/lib/img/handopen.cur"), default'
 
+  nextIsPass: false
+
   constructor: (lc) ->
     # This is a 'shadow' canvas -- we'll reproduce the shapes here, each shape
     # with a different color that corresponds to their index. That way we'll
@@ -117,7 +119,8 @@ module.exports = class SelectShape extends Tool
           @didDrag = false
           lc.editShape(@selectedShape, {
             x: x - @dragOffset.x,
-            y: y - @dragOffset.y
+            y: y - @dragOffset.y,
+            isPass: @nextIsPass
           }, @prevOpts)
           lc.trigger('shapeMoved', { shape: @selectedShape })
         else
@@ -125,9 +128,11 @@ module.exports = class SelectShape extends Tool
             x: @selectedShape.x,
             y: @selectedShape.y,
             width: @selectedShape.width,
-            height: @selectedShape.height
+            height: @selectedShape.height,
+            isPass: @nextIsPass
           }, @prevOpts)
           lc.trigger('shapeResized', {shape: @selectedShape})
+        @nextIsPass = false
         lc.trigger('drawingChange', {})
         lc.repaintLayer('main')
         @_drawSelectCanvas(lc)
@@ -156,7 +161,7 @@ module.exports = class SelectShape extends Tool
     @_selectShapeUnsubscribe()
     lc.setShapesInProgress []
 
-  setShape: (lc, shape) ->
+  setShape: (lc, shape, @nextIsPass) ->
     if (!shape)
       @selectedShape = null;
       lc.setShapesInProgress []
