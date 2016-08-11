@@ -149,11 +149,31 @@ module.exports = class SelectShape extends Tool
         })]
         lc.repaintLayer 'main'
 
+    onKeyDown = (e) =>
+      if (!@selectedShape)
+        return
+      console.log(e)
+      pos = {
+        x: @selectedShape.x
+        y: @selectedShape.y
+      }
+      diff = 5
+      if (e.shiftKey)
+        diff = 1
+      switch e.keyCode
+        when 38 then pos.y = pos.y - diff
+        when 40 then pos.y = pos.y + diff
+        when 37 then pos.x = pos.x - diff
+        when 39 then pos.x = pos.x + diff
+      lc.editShape(@selectedShape, pos)
+
+
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerup', onUp
     selectShapeUnsubscribeFuncs.push lc.on 'undo', dispose
     selectShapeUnsubscribeFuncs.push lc.on 'drawingChange', update
+    selectShapeUnsubscribeFuncs.push lc.on 'keyDown', onKeyDown
 
     @_drawSelectCanvas(lc)
 
