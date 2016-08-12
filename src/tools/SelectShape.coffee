@@ -152,7 +152,6 @@ module.exports = class SelectShape extends Tool
     onKeyDown = (e) =>
       if (!@selectedShape)
         return
-      console.log(e)
       pos = {
         x: @selectedShape.x
         y: @selectedShape.y
@@ -166,7 +165,6 @@ module.exports = class SelectShape extends Tool
         when 37 then pos.x = pos.x - diff
         when 39 then pos.x = pos.x + diff
       lc.editShape(@selectedShape, pos)
-
 
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag

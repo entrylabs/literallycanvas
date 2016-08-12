@@ -208,7 +208,6 @@ module.exports = class Text extends Tool
     @inputEl.className = 'text-tool-input'
     @inputEl.style.position = 'absolute'
     @inputEl.style.transformOrigin = '0px 0px'
-    @inputEl.style.backgroundColor = 'transparent'
     @inputEl.style.border = 'none'
     @inputEl.style.outline = 'none'
     @inputEl.style.margin = '0'
@@ -254,6 +253,7 @@ module.exports = class Text extends Tool
     br = @currentShape.getBoundingRect(lc.ctx, true)
     @inputEl.style.font = @currentShape.font
     @inputEl.style.color = @currentShape.color
+    @inputEl.style.backgroundColor = @currentShape.bgColor
     @inputEl.style.left =
       "#{lc.position.x / lc.backingScale + br.x * lc.scale - 4}px"
     @inputEl.style.top =
@@ -261,15 +261,15 @@ module.exports = class Text extends Tool
 
     if withMargin and not @currentShape.forcedWidth
       @inputEl.style.width =
-        "#{br.width + 10 + @currentShape.renderer.emDashWidth}px"
+        "#{br.width + 5 + @currentShape.renderer.emDashWidth}px"
     else
-      @inputEl.style.width = "#{br.width + 12}px"
+      @inputEl.style.width = "#{br.width + 7}px"
 
     if withMargin
       @inputEl.style.height =
-        "#{br.height + 10 + @currentShape.renderer.metrics.leading}px"
+        "#{br.height + 8 + @currentShape.renderer.metrics.leading}px"
     else
-      @inputEl.style.height = "#{br.height + 10}px"
+      @inputEl.style.height = "#{br.height + 8}px"
 
     transformString = "scale(#{lc.scale})"
     @inputEl.style.transform = transformString
