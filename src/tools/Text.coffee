@@ -18,7 +18,7 @@ module.exports = class Text extends Tool
 
   constructor: ->
     @text = ''
-    @font = 'bold 18px sans-serif'
+    @font = 'normal 20px "KoPub Batang"'
     @currentShape = null
     @currentShapeState = null
     @initialShapeBoundingRect = null
