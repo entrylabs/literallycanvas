@@ -35,9 +35,6 @@ renderShapeToCanvas = (canvas, shape, opts) ->
 defineCanvasRenderer 'Rectangle', (ctx, shape) ->
   x = shape.x
   y = shape.y
-  if shape.strokeWidth % 2 != 0
-    x += 0.5
-    y += 0.5
 
   if shape.fillPattern
     ctx.fillStyle = ctx.createPattern(shape.fillPattern, "repeat");

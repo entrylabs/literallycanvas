@@ -29,25 +29,26 @@ module.exports = class SelectCut extends Tool
     lc.repaintLayer('main')
 
   end:(x, y, lc) ->
+    image = new Image()
     lc.setShapesInProgress([])
     lc.repaintLayer('main')
     x = @currentShape.x
+    if (@currentShape.width < 0)
+      x += @currentShape.width
     y = @currentShape.y
+    if (@currentShape.height < 0)
+      y += @currentShape.height
     width = Math.abs(@currentShape.width)
     height = Math.abs(@currentShape.height)
     if (width && height)
-      image = new Image()
       tempCanvas = document.createElement("canvas")
       tCtx = tempCanvas.getContext("2d")
-      scale = util.getBackingScale(lc.ctx) * lc.scale
       tempCanvas.width = width
       tempCanvas.height = height
-      pan = lc.position
-      tCtx.scale(1 / scale, 1 / scale)
-      tCtx.drawImage(lc.canvas, -x * scale - pan.x, -y * scale - pan.y)
+      tCtx.drawImage(lc.getImage(), -x, -y)
       image.src = tempCanvas.toDataURL()
       newErase = createShape('ErasedRectangle', {x, y, width, height})
-      newShape = createShape('Image', {x, y, image})
+      newShape = createShape('Image', {x, y, image, width, height})
       newErase.isPass = true
       newShape.isPass = true
       lc.saveShape(newErase)
