@@ -21,6 +21,7 @@ var MoveAttributes = React.createClass({
       })
       this.width = shape.width;
       this.height = shape.height;
+      this.rotate = shape.rotate;
     }
   },
   componentWillUnmount: function() {
@@ -28,12 +29,14 @@ var MoveAttributes = React.createClass({
   },
   onChangeX: function(e) {
     var width = parseInt(e.target.value);
+    if (!width) width = 0
     this.setState({width});
     this.state.shape.width = width;
     this.props.lc.trigger('drawingChange');
   },
   onChangeY: function(e) {
     var height = parseInt(e.target.value);
+    if (!height) height = 0
     this.setState({height});
     this.state.shape.height = height;
     this.props.lc.trigger('drawingChange');
@@ -55,7 +58,11 @@ var MoveAttributes = React.createClass({
     this.height = this.state.height;
   },
   onChangeRotate: function(e) {
-    this.setState({rotate: e.target.value})
+    var rotate = parseInt(e.target.value);
+    if (!rotate) rotate = 0
+    this.setState({rotate});
+    this.state.shape.rotate = rotate;
+    this.props.lc.trigger('drawingChange');
   },
   flipX: function() {
     this.props.lc.editShape(
@@ -90,21 +97,19 @@ var MoveAttributes = React.createClass({
             </div>
         </fieldset> : null}
 
-        {/*
-        <div id="painterAttrRotateArea" className="painterAttrRotateArea">
+        {this.state.shape ? <div id="painterAttrRotateArea" className="painterAttrRotateArea">
             <div className="painterAttrRotateName">회전</div>
             <fieldset id="entryPainterAttrRotate" className="entryPlaygroundPainterAttrRotate">
                 <div className="painterAttrRotateTop">ο</div>
                 <input id="entryPainterAttrDegree" className="entryPlaygroundPainterNumberInput"
-                    value={rotate} onChange={this.onChangeRotate} />
+                    value={rotate} onChange={this.onChangeRotate} onBlur={this.applyRotate} />
             </fieldset>
-        </div>
-        */}
+        </div> : null}
 
-        {this.state.shape ? <div id="entryPictureFlip" className="entryPlaygroundPainterFlip  ">
+        <div id="entryPictureFlip" className="entryPlaygroundPainterFlip  ">
             <div id="entryPictureFlipX" onClick={this.flipX} title="좌우뒤집기" className="entryPlaygroundPainterFlipX"></div>
             <div id="entryPictureFlipY" onClick={this.flipY} title="상하뒤집기" className="entryPlaygroundPainterFlipY"></div>
-        </div> : null}
+        </div>
     </div>
   }
 });

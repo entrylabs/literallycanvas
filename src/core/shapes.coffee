@@ -127,9 +127,12 @@ defineShape 'Image',
     @flipX = args.flipX or false
     @flipY = args.flipY or false
     @isLoaded = !(@image.width is 0)
+    @rotate = args.rotate or 0
   getBoundingRect: ->
-    {@x, @y, width: @width * @scale, height: @height * @scale}
-  toJSON: -> {@x, @y, imageSrc: @image.src, imageObject: @image, @scale, @flipX, @flipY, @width, @height}
+    width = @width * @scale
+    height = @height * @scale
+    {x: @x - width / 2, y: @y - height / 2, width, height}
+  toJSON: -> {@x, @y, imageSrc: @image.src, imageObject: @image, @scale, @flipX, @flipY, @width, @height, @rotate}
   fromJSON: (data) ->
     img = null
     if data.imageObject?.width
@@ -139,7 +142,7 @@ defineShape 'Image',
       img.src = data.imageSrc
     createShape('Image', {
         x: data.x, y: data.y, image: img, scale: data.scale,
-        flipX: data.flipX, flipY: data.flipY, width: data.width, height: data.height})
+        flipX: data.flipX, flipY: data.flipY, width: data.width, height: data.height, rotate: data.rotate})
   move: ( moveInfo={} ) ->
     @x = @x - moveInfo.xDiff
     @y = @y - moveInfo.yDiff

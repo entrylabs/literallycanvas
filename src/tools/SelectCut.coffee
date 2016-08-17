@@ -48,7 +48,9 @@ module.exports = class SelectCut extends Tool
       tCtx.drawImage(lc.getImage(), -x, -y)
       image.src = tempCanvas.toDataURL()
       newErase = createShape('ErasedRectangle', {x, y, width, height})
-      newShape = createShape('Image', {x, y, image, width, height})
+      newShape = createShape('Image', {
+        x: x + width / 2, y: y + height / 2, image, width, height
+      })
       newErase.isPass = true
       newShape.isPass = true
       lc.saveShape(newErase)

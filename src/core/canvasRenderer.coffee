@@ -35,6 +35,9 @@ renderShapeToCanvas = (canvas, shape, opts) ->
 defineCanvasRenderer 'Rectangle', (ctx, shape) ->
   x = shape.x
   y = shape.y
+  if shape.strokeWidth % 2 != 0
+    x += 0.5
+    y += 0.5
 
   if shape.fillPattern
     ctx.fillStyle = ctx.createPattern(shape.fillPattern, "repeat");
@@ -120,6 +123,8 @@ drawImage = (ctx, shape, retryCallback) ->
       y += height
       scaleY = -1
     ctx.translate(x, y)
+    ctx.rotate(shape.rotate * Math.PI / 180)
+    ctx.translate(- width / 2, - height / 2)
     ctx.scale(scaleX, scaleY)
     ctx.drawImage(shape.image, 0, 0, width, height)
     ctx.restore()

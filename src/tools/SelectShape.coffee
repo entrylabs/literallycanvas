@@ -51,6 +51,7 @@ module.exports = class SelectShape extends Tool
         else if @selectedShape is shape
           @dragAction = 'move'
           @setShape(lc, shape)
+          @prevPoint = point
 
         @initialShapeBoundingRect = @selectedShape.getBoundingRect(lc.ctx)
         @prevOpts = {
@@ -99,9 +100,10 @@ module.exports = class SelectShape extends Tool
             @didDrag = true
 
             @selectedShape.setUpperLeft {
-              x: x - @dragOffset.x,
-              y: y - @dragOffset.y
+              x: @selectedShape.x - @prevPoint.x + x,
+              y: @selectedShape.y - @prevPoint.y + y
             }
+            @prevPoint = {x, y}
         lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
           shape: @selectedShape
         })]
@@ -118,8 +120,8 @@ module.exports = class SelectShape extends Tool
         if @didDrag
           @didDrag = false
           lc.editShape(@selectedShape, {
-            x: x - @dragOffset.x,
-            y: y - @dragOffset.y,
+            x: @selectedShape.x,
+            y: @selectedShape.y,
             isPass: @nextIsPass
           }, @prevOpts)
           lc.trigger('shapeMoved', { shape: @selectedShape })
