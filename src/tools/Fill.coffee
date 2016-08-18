@@ -42,8 +42,8 @@ module.exports = class Fill extends Tool
         lc.setCursor(@cursor)
         return
       shape = LC.createShape('Image',
-        x: rect.x
-        y: rect.y
+        x: rect.x + lc.width / 2
+        y: rect.y + lc.height / 2
         image: image
         erase: fillColor is 'transparent' ? true : false
       )

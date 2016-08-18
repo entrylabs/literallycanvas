@@ -22,7 +22,6 @@ module.exports = class SelectShape extends Tool
     # with a different color that corresponds to their index. That way we'll
     # be able to find which shape to select on the main canvas by pixel color.
     @selectCanvas = document.createElement('canvas')
-    document.body.appendChild(@selectCanvas)
     @selectCanvas.style['background-color'] = 'transparent'
     @selectCtx = @selectCanvas.getContext('2d')
 
