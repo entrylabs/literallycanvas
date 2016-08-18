@@ -45,7 +45,8 @@ module.exports = class SelectShape extends Tool
           x: @selectedShape.x,
           y: @selectedShape.y,
           width: @selectedShape.width,
-          height: @selectedShape.height
+          height: @selectedShape.height,
+          rotate: @selectedShape.rotate
         }
         br = @selectedShape.getBoundingRect()
         @dragOffset = {
@@ -76,9 +77,14 @@ module.exports = class SelectShape extends Tool
             rotate = - (@selectedShape.rotate) * Math.PI / 180
             xC = (@selectedShape.x - x) * 2
             yC = (@selectedShape.y - y) * 2
-            width = Math.abs(Math.cos(rotate) * xC - Math.sin(rotate) * yC - 5)
-            height = Math.abs(Math.sin(rotate) * xC + Math.cos(rotate) * yC - 5)
+            width = Math.abs(Math.abs(Math.cos(rotate) * xC - Math.sin(rotate) * yC) - 5)
+            height = Math.abs(Math.abs(Math.sin(rotate) * xC + Math.cos(rotate) * yC) - 5)
             @selectedShape.setSize(width, height)
+          when 3 # resize
+            rotate = - Math.atan2(-(@selectedShape.y - y) , (@selectedShape.x - x)) / Math.PI * 180 - 90
+            if (rotate < 0)
+              rotate += 360
+            @selectedShape.rotate = rotate
         lc.trigger('handleShape')
         lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
           shape: @selectedShape
@@ -93,23 +99,30 @@ module.exports = class SelectShape extends Tool
 
     onUp = ({ x, y }) =>
       if @dragAction
-        if @didDrag
-          @didDrag = false
-          lc.editShape(@selectedShape, {
-            x: @selectedShape.x,
-            y: @selectedShape.y,
-            isPass: @nextIsPass
-          }, @prevOpts)
-          lc.trigger('shapeMoved', { shape: @selectedShape })
-        else
-          lc.editShape(@selectedShape, {
-            x: @selectedShape.x,
-            y: @selectedShape.y,
-            width: @selectedShape.width,
-            height: @selectedShape.height,
-            isPass: @nextIsPass
-          }, @prevOpts)
-          lc.trigger('shapeResized', {shape: @selectedShape})
+        switch @dragAction
+          when 1
+            @didDrag = false
+            lc.editShape(@selectedShape, {
+              x: @selectedShape.x,
+              y: @selectedShape.y,
+              isPass: @nextIsPass
+            }, @prevOpts)
+            lc.trigger('shapeMoved', { shape: @selectedShape })
+          when 2
+            lc.editShape(@selectedShape, {
+              x: @selectedShape.x,
+              y: @selectedShape.y,
+              width: @selectedShape.width,
+              height: @selectedShape.height,
+              isPass: @nextIsPass
+            }, @prevOpts)
+            lc.trigger('shapeResized', {shape: @selectedShape})
+          when 3
+            lc.editShape(@selectedShape, {
+              rotate: @selectedShape.rotate,
+              isPass: @nextIsPass
+            }, @prevOpts)
+            lc.trigger('shapeResized', {shape: @selectedShape})
         @nextIsPass = false
         lc.trigger('handleShape')
         lc.trigger('drawingChange', {})

@@ -130,10 +130,10 @@ var MoveAttributes = React.createClass({
             </fieldset>
         </div> : null}
 
-        <div id="entryPictureFlip" className="entryPlaygroundPainterFlip  ">
+        {this.state.shape ? <div id="entryPictureFlip" className="entryPlaygroundPainterFlip  ">
             <div id="entryPictureFlipX" onClick={this.flipX} title="좌우뒤집기" className="entryPlaygroundPainterFlipX"></div>
             <div id="entryPictureFlipY" onClick={this.flipY} title="상하뒤집기" className="entryPlaygroundPainterFlipY"></div>
-        </div>
+        </div> : null}
     </div>
   }
 });

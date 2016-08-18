@@ -96,6 +96,15 @@ defineCanvasRenderer 'SelectionBox', do ->
     _drawHandle(ctx, shape.getBottomLeftHandleRect(), handleSize, shape)
     _drawHandle(ctx, shape.getBottomRightHandleRect(), handleSize, shape)
 
+    #drawRotateHandle
+    if (shape.isMask)
+      ctx.fillStyle = '#000003'
+    else
+      ctx.strokeStyle = '#000'
+      ctx.strokeRect(-5, - shape.shape.height / 2 - 30, handleSize, handleSize)
+      ctx.fillStyle = '#fff'
+    ctx.fillRect(-5, - shape.shape.height / 2 - 30, handleSize, handleSize)
+
     if shape.backgroundColor
       ctx.fillStyle = shape.backgroundColor
       ctx.fillRect(
@@ -110,6 +119,9 @@ defineCanvasRenderer 'SelectionBox', do ->
       - shape.shape.width / 2 - shape.margin,
       - shape.shape.height / 2 - shape.margin,
       shape._br.width + shape.margin * 2, shape._br.height + shape.margin * 2)
+    ctx.strokeRect(
+      0, - shape.shape.height / 2, 0, -20)
+
 
     ctx.setLineDash([])
 
