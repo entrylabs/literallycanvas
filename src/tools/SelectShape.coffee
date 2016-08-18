@@ -22,6 +22,7 @@ module.exports = class SelectShape extends Tool
     # with a different color that corresponds to their index. That way we'll
     # be able to find which shape to select on the main canvas by pixel color.
     @selectCanvas = document.createElement('canvas')
+    document.body.appendChild(@selectCanvas)
     @selectCanvas.style['background-color'] = 'transparent'
     @selectCtx = @selectCanvas.getContext('2d')
 
@@ -32,6 +33,7 @@ module.exports = class SelectShape extends Tool
         func()
 
     onDown = ({ x, y, rawX, rawY }) =>
+      @_drawSelectCanvas(lc)
       @didDrag = false
 
       @dragAction = @_getPixel(x, y, lc, @selectCtx)
@@ -71,9 +73,13 @@ module.exports = class SelectShape extends Tool
             }
             @prevPoint = {x, y}
           when 2 # resize
-            width = Math.abs(Math.abs(@selectedShape.x - x) - 5) * 2
-            height = Math.abs(Math.abs(@selectedShape.y - y) - 5) * 2
+            rotate = - (@selectedShape.rotate) * Math.PI / 180
+            xC = (@selectedShape.x - x) * 2
+            yC = (@selectedShape.y - y) * 2
+            width = Math.abs(Math.cos(rotate) * xC - Math.sin(rotate) * yC - 5)
+            height = Math.abs(Math.sin(rotate) * xC + Math.cos(rotate) * yC - 5)
             @selectedShape.setSize(width, height)
+        lc.trigger('handleShape')
         lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
           shape: @selectedShape
         })]
@@ -105,9 +111,9 @@ module.exports = class SelectShape extends Tool
           }, @prevOpts)
           lc.trigger('shapeResized', {shape: @selectedShape})
         @nextIsPass = false
+        lc.trigger('handleShape')
         lc.trigger('drawingChange', {})
         lc.repaintLayer('main')
-        @_drawSelectCanvas(lc)
         @dragAction = null
       lc.setCursor(@cursor)
 

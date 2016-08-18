@@ -9,6 +9,7 @@ var MoveAttributes = React.createClass({
   componentDidMount: function() {
       var lc = this.props.lc;
       this.unsubscribe = lc.on("shapeSelected", this.setShape);
+      this.unsubscribePaint = lc.on("handleShape", this.updateShape);
   },
   setShape: function(shape) {
     this.setState({
@@ -18,6 +19,20 @@ var MoveAttributes = React.createClass({
       this.setState({
         width: shape.width,
         height: shape.height,
+        rotate: shape.rotate
+      })
+      this.width = shape.width;
+      this.height = shape.height;
+      this.rotate = shape.rotate;
+    }
+  },
+  updateShape: function() {
+    if (this.state.shape) {
+      var shape = this.state.shape;
+      this.setState({
+        width: shape.width,
+        height: shape.height,
+        rotate: shape.rotate
       })
       this.width = shape.width;
       this.height = shape.height;
@@ -26,6 +41,7 @@ var MoveAttributes = React.createClass({
   },
   componentWillUnmount: function() {
       this.unsubscribe();
+      this.unsubscribePaint();
   },
   onChangeX: function(e) {
     var width = parseInt(e.target.value);
