@@ -64,6 +64,14 @@ var MoveAttributes = React.createClass({
     this.state.shape.rotate = rotate;
     this.props.lc.trigger('drawingChange');
   },
+  applyRotate: function(e) {
+    this.props.lc.editShape(
+      this.state.shape,
+      {rotate: this.state.rotate},
+      {rotate: this.rotate}
+    );
+    this.rotate = this.state.rotate;
+  },
   flipX: function() {
     this.props.lc.editShape(
       this.state.shape,

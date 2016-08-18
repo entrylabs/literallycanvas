@@ -73,32 +73,42 @@ defineCanvasRenderer 'Ellipse', (ctx, shape) ->
 
 
 defineCanvasRenderer 'SelectionBox', do ->
-  _drawHandle = (ctx, {x, y}, handleSize) ->
+  _drawHandle = (ctx, {x, y}, handleSize, shape) ->
     return if handleSize == 0
+    x -= shape.shape.x
+    y -= shape.shape.y
 
-    ctx.fillStyle = '#fff'
+    if (shape.isMask)
+      ctx.fillStyle = '#000002'
+    else
+      ctx.strokeStyle = '#000'
+      ctx.strokeRect(x, y, handleSize, handleSize)
+      ctx.fillStyle = '#fff'
     ctx.fillRect(x, y, handleSize, handleSize)
-    ctx.strokeStyle = '#000'
-    ctx.strokeRect(x, y, handleSize, handleSize)
 
   (ctx, shape) ->
-    _drawHandle(ctx, shape.getTopLeftHandleRect(), shape.handleSize)
-    _drawHandle(ctx, shape.getTopRightHandleRect(), shape.handleSize)
-    _drawHandle(ctx, shape.getBottomLeftHandleRect(), shape.handleSize)
-    _drawHandle(ctx, shape.getBottomRightHandleRect(), shape.handleSize)
+    ctx.translate(shape.shape.x, shape.shape.y)
+    if shape.shape.rotate
+      ctx.rotate(shape.shape.rotate * Math.PI / 180)
+    handleSize = shape.handleSize
+    _drawHandle(ctx, shape.getTopLeftHandleRect(), handleSize, shape)
+    _drawHandle(ctx, shape.getTopRightHandleRect(), handleSize, shape)
+    _drawHandle(ctx, shape.getBottomLeftHandleRect(), handleSize, shape)
+    _drawHandle(ctx, shape.getBottomRightHandleRect(), handleSize, shape)
 
     if shape.backgroundColor
       ctx.fillStyle = shape.backgroundColor
       ctx.fillRect(
-        shape._br.x - shape.margin,
-        shape._br.y - shape.margin,
+        - shape.shape.width / 2 - shape.margin,
+        - shape.shape.height / 2 - shape.margin,
         shape._br.width + shape.margin * 2,
         shape._br.height + shape.margin * 2)
     ctx.lineWidth = 1
     ctx.strokeStyle = '#000'
     ctx.setLineDash([2, 4])
     ctx.strokeRect(
-      shape._br.x - shape.margin, shape._br.y - shape.margin,
+      - shape.shape.width / 2 - shape.margin,
+      - shape.shape.height / 2 - shape.margin,
       shape._br.width + shape.margin * 2, shape._br.height + shape.margin * 2)
 
     ctx.setLineDash([])

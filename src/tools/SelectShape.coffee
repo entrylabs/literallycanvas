@@ -34,25 +34,10 @@ module.exports = class SelectShape extends Tool
     onDown = ({ x, y, rawX, rawY }) =>
       @didDrag = false
 
-      shapeIndex = @_getPixel(x, y, lc, @selectCtx)
-      shape = lc.shapes[shapeIndex]
+      @dragAction = @_getPixel(x, y, lc, @selectCtx)
 
-      point = {x, y}
-      if @selectedShape
-        selectionShape = createShape('SelectionBox', {shape: @selectedShape})
-        if getIsPointInBox(point, selectionShape.getBottomRightHandleRect())
-          @dragAction = 'resizeBottomRight'
-        else if getIsPointInBox(point, selectionShape.getTopLeftHandleRect())
-          @dragAction = 'resizeTopLeft'
-        else if getIsPointInBox(point, selectionShape.getBottomLeftHandleRect())
-          @dragAction = 'resizeBottomLeft'
-        else if getIsPointInBox(point, selectionShape.getTopRightHandleRect())
-          @dragAction = 'resizeTopRight'
-        else if @selectedShape is shape
-          @dragAction = 'move'
-          @setShape(lc, shape)
-          @prevPoint = point
-
+      if @dragAction
+        @prevPoint = {x, y}
         @initialShapeBoundingRect = @selectedShape.getBoundingRect(lc.ctx)
         @prevOpts = {
           x: @selectedShape.x,
@@ -65,7 +50,7 @@ module.exports = class SelectShape extends Tool
           x: x - br.x,
           y: y - br.y
         }
-      if !@dragAction?
+      else
         @setShape(lc, null)
         @oldPosition = lc.position
         @pointerStart = {x: rawX, y: rawY}
@@ -77,26 +62,7 @@ module.exports = class SelectShape extends Tool
         brRight = br.x + br.width
         brBottom = br.y + br.height
         switch @dragAction
-          when 'resizeBottomRight'
-            @selectedShape.setSize(
-              x - (@dragOffset.x - @initialShapeBoundingRect.width) - br.x,
-              y - (@dragOffset.y - @initialShapeBoundingRect.height) - br.y)
-          when 'resizeTopLeft'
-            @selectedShape.setSize(
-              brRight - x + @dragOffset.x,
-              brBottom - y + @dragOffset.y)
-            @selectedShape.setPosition(x - @dragOffset.x, y - @dragOffset.y)
-          when 'resizeBottomLeft'
-            @selectedShape.setSize(
-              brRight - x + @dragOffset.x,
-              y - (@dragOffset.y - @initialShapeBoundingRect.height) - br.y)
-            @selectedShape.setPosition(x - @dragOffset.x, @selectedShape. y)
-          when 'resizeTopRight'
-            @selectedShape.setSize(
-              x - (@dragOffset.x - @initialShapeBoundingRect.width) - br.x,
-              brBottom - y + @dragOffset.y)
-            @selectedShape.setPosition(@selectedShape.x, y - @dragOffset.y)
-          when 'move'
+          when 1 #drag
             @didDrag = true
 
             @selectedShape.setUpperLeft {
@@ -104,6 +70,10 @@ module.exports = class SelectShape extends Tool
               y: @selectedShape.y - @prevPoint.y + y
             }
             @prevPoint = {x, y}
+          when 2 # resize
+            width = Math.abs(Math.abs(@selectedShape.x - x) - 5) * 2
+            height = Math.abs(Math.abs(@selectedShape.y - y) - 5) * 2
+            @selectedShape.setSize(width, height)
         lc.setShapesInProgress [@selectedShape, createShape('SelectionBox', {
           shape: @selectedShape
         })]
@@ -192,17 +162,19 @@ module.exports = class SelectShape extends Tool
       })]
     lc.trigger("shapeSelected", @selectedShape)
     lc.repaintLayer 'main'
+    @_drawSelectCanvas(lc)
 
   _drawSelectCanvas: (lc) ->
     @selectCanvas.width = lc.canvas.width
     @selectCanvas.height = lc.canvas.height
     @selectCtx.clearRect(0, 0, @selectCanvas.width, @selectCanvas.height)
-    shapes = lc.shapes.map (shape, index) =>
-      createShape('SelectionBox', {
-        shape: shape,
-        backgroundColor: "##{@_intToHex(index)}"
+    if (@selectedShape)
+      shape = createShape('SelectionBox', {
+        shape: @selectedShape,
+        backgroundColor: "#000001",
+        isMask: true
       })
-    lc.draw(shapes, @selectCtx)
+      lc.draw([shape], @selectCtx)
 
   _intToHex: (i) ->
     "000000#{i.toString 16}".slice(-6)

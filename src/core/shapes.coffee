@@ -546,6 +546,8 @@ defineShape 'SelectionBox',
     @margin = args.margin or 0
     @backgroundColor = args.backgroundColor or null
     @_br = @shape.getBoundingRect(args.ctx)
+    @rotate = @shape.rotate or 0
+    @isMask = args.isMask or false
 
   toJSON: -> {shape: shapeToJSON(@shape), @backgroundColor}
   fromJSON: ({shape, handleSize, margin, backgroundColor}) ->
@@ -553,32 +555,36 @@ defineShape 'SelectionBox',
 
   getTopLeftHandleRect: ->
     {
-      x: @_br.x - @handleSize - @margin, y: @_br.y - @handleSize - @margin,
+      x: @shape.x - @handleSize - @margin - @shape.width / 2,
+      y: @shape.y - @handleSize - @margin - @shape.height / 2,
       width: @handleSize, height: @handleSize
     }
 
   getBottomLeftHandleRect: ->
     {
-      x: @_br.x - @handleSize - @margin, y: @_br.y + @_br.height + @margin,
+      x: @shape.x - @handleSize - @margin - @shape.width / 2,
+      y: @shape.y + @margin + @shape.height / 2,
       width: @handleSize, height: @handleSize
     }
 
   getTopRightHandleRect: ->
     {
-      x: @_br.x + @_br.width + @margin, y: @_br.y - @handleSize - @margin,
+      x: @shape.x + @margin + @shape.width / 2,
+      y: @shape.y - @handleSize - @margin - @shape.height / 2,
       width: @handleSize, height: @handleSize
     }
 
   getBottomRightHandleRect: ->
     {
-      x: @_br.x + @_br.width + @margin, y: @_br.y + @_br.height + @margin,
+      x: @shape.x + @margin + @shape.width / 2,
+      y: @shape.y + @margin + @shape.height / 2,
       width: @handleSize, height: @handleSize
     }
 
   getBoundingRect: ->
     {
-      x: @_br.x - @margin, y: @_br.y - @margin,
-      width: @_br.width + @margin * 2, height: @_br.height + @margin * 2
+      x: @shape.x - @margin, y: @shape.y - @margin,
+      width: @shape.width + @margin * 2, height: @shape.height + @margin * 2
     }
 
 
