@@ -125,6 +125,38 @@ defineCanvasRenderer 'SelectionBox', do ->
 
     ctx.setLineDash([])
 
+defineCanvasRenderer 'SelectTool', do ->
+  _drawHandle = (ctx, {x, y}, handleSize) ->
+    return if handleSize == 0
+
+    ctx.fillStyle = '#fff'
+    ctx.fillRect(x, y, handleSize, handleSize)
+    ctx.strokeStyle = '#000'
+    ctx.strokeRect(x, y, handleSize, handleSize)
+
+  (ctx, shape) ->
+    _drawHandle(ctx, shape.getTopLeftHandleRect(), shape.handleSize)
+    _drawHandle(ctx, shape.getTopRightHandleRect(), shape.handleSize)
+    _drawHandle(ctx, shape.getBottomLeftHandleRect(), shape.handleSize)
+    _drawHandle(ctx, shape.getBottomRightHandleRect(), shape.handleSize)
+
+    if shape.backgroundColor
+      ctx.fillStyle = shape.backgroundColor
+      ctx.fillRect(
+        shape._br.x - shape.margin,
+        shape._br.y - shape.margin,
+        shape._br.width + shape.margin * 2,
+        shape._br.height + shape.margin * 2)
+    ctx.lineWidth = 1
+    ctx.strokeStyle = '#000'
+    ctx.setLineDash([2, 4])
+    ctx.strokeRect(
+      shape._br.x - shape.margin, shape._br.y - shape.margin,
+      shape._br.width + shape.margin * 2, shape._br.height + shape.margin * 2)
+
+    ctx.setLineDash([])
+
+
 drawImage = (ctx, shape, retryCallback) ->
   if shape.image.width
     ctx.save()

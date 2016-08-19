@@ -471,6 +471,7 @@ defineShape 'Text',
     @font  = args.font or '18px sans-serif'
     @forcedWidth = args.forcedWidth or null
     @forcedHeight = args.forcedHeight or null
+    @rotate = args.rotate or 0
 
   _makeRenderer: (ctx) ->
     ctx.lineHeight = 1.2
@@ -585,6 +586,51 @@ defineShape 'SelectionBox',
     {
       x: @shape.x - @margin, y: @shape.y - @margin,
       width: @shape.width + @margin * 2, height: @shape.height + @margin * 2
+    }
+
+defineShape 'SelectTool',
+  constructor: (args={}) ->
+    @shape = args.shape
+    if args.handleSize?
+      @handleSize = args.handleSize
+    else
+      @handleSize = 10
+    @margin = args.margin or 0
+    @backgroundColor = args.backgroundColor or null
+    @_br = @shape.getBoundingRect(args.ctx)
+
+  toJSON: -> {shape: shapeToJSON(@shape), @backgroundColor}
+  fromJSON: ({shape, handleSize, margin, backgroundColor}) ->
+    createShape('SelectTool', {shape: JSONToShape(shape), backgroundColor})
+
+  getTopLeftHandleRect: ->
+    {
+      x: @_br.x - @handleSize - @margin, y: @_br.y - @handleSize - @margin,
+      width: @handleSize, height: @handleSize
+    }
+
+  getBottomLeftHandleRect: ->
+    {
+      x: @_br.x - @handleSize - @margin, y: @_br.y + @_br.height + @margin,
+      width: @handleSize, height: @handleSize
+    }
+
+  getTopRightHandleRect: ->
+    {
+      x: @_br.x + @_br.width + @margin, y: @_br.y - @handleSize - @margin,
+      width: @handleSize, height: @handleSize
+    }
+
+  getBottomRightHandleRect: ->
+    {
+      x: @_br.x + @_br.width + @margin, y: @_br.y + @_br.height + @margin,
+      width: @handleSize, height: @handleSize
+    }
+
+  getBoundingRect: ->
+    {
+      x: @_br.x - @margin, y: @_br.y - @margin,
+      width: @_br.width + @margin * 2, height: @_br.height + @margin * 2
     }
 
 

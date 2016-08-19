@@ -90,7 +90,7 @@ module.exports = class Text extends Tool
     lc.repaintLayer('main')
 
   _getSelectionShape: (ctx, backgroundColor=null) ->
-    createShape('SelectionBox', {shape: @currentShape, ctx, backgroundColor, margin: 4})
+    createShape('SelectTool', {shape: @currentShape, ctx, backgroundColor, margin: 4})
 
   _setShapesInProgress: (lc) ->
     switch @currentShapeState
