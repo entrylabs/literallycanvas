@@ -146,7 +146,7 @@ var SelectedColorPanel = React.createClass({
             style={strokeStyle} onClick={this.onClickStrokePanel} >
             <div className="entrySelectedColorPanelStrokeInner" />
             </div> : null}
-            <input value={this.state.fillColor} onChange={this.onColorCodeChange} />
+            <input value={this.state.selected === "primary" ? this.state.strokeColor : this.state.fillColor} onChange={this.onColorCodeChange} />
 
             <Palette colorPicked={this.colorPicked} imageURLPrefix={this.props.imageURLPrefix} disableTransparent={this.props.disableTransparent}/>
             <ColorSpoid imageURLPrefix={this.props.imageURLPrefix} lc={this.props.lc} selected={this.state.selected}/>

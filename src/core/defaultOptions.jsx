@@ -1,7 +1,7 @@
 module.exports = {
   imageURLPrefix: 'lib/img',
-  primaryColor: 'hsla(0, 0%, 0%, 1)',
-  secondaryColor: 'hsla(0, 0%, 100%, 1)',
+  primaryColor: '#000000',
+  secondaryColor: '#FFFFFF',
   backgroundColor: 'transparent',
   strokeWidths: [1, 2, 5, 10, 20, 30],
   defaultStrokeWidth: 5,
