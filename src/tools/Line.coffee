@@ -42,8 +42,14 @@ module.exports = class Line extends Pencil
       lc.saveShape(@currentShape)
       @currentShape = undefined
       @updateCursor(x, y, lc)
+      lc.setShapesInProgress([@cursorShape])
       lc.drawShapeInProgress(@cursorShape)
 
     unsubscribeFuncs.push lc.on 'setStrokeWidth', (strokeWidth) =>
       @strokeWidth = strokeWidth
       lc.trigger('toolDidUpdateOptions')
+
+  willBecomeInactive: (lc) ->
+    @unsubscribe()
+    lc.setShapesInProgress([])
+    lc.repaintLayer('main', false)

@@ -52,6 +52,8 @@ module.exports = class Pencil extends ToolWithStroke
 
   willBecomeInactive: (lc) ->
     @unsubscribe()
+    lc.setShapesInProgress([])
+    lc.repaintLayer('main', false)
 
   makePoint: (x, y, lc) ->
     createShape('Point', {x, y, size: @strokeWidth, @color})

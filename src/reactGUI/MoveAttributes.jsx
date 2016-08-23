@@ -110,13 +110,13 @@ var MoveAttributes = React.createClass({
                 <div className="entryPlaygroundPainterAttrResizeX">
                     <div className="entryPlaygroundPainterAttrResizeXTop">X</div>
                     <input id="entryPainterAttrWidth" className="entryPlaygroundPainterNumberInput"
-                        value={width} onChange={this.onChangeX} onBlur={this.applyX}/>
+                        value={Math.round(width * 10) / 10} onChange={this.onChangeX} onBlur={this.applyX}/>
                 </div>
                 <div className="entryPlaygroundPainterSizeText">x</div>
                 <div className="entryPlaygroundAttrReiszeY">
                     <div className="entryPlaygroundPainterAttrResizeYTop">Y</div>
                     <input id="entryPainterAttrHeight" className="entryPlaygroundPainterNumberInput"
-                        value={height} onChange={this.onChangeY} onBlur={this.applyY} />
+                        value={Math.round(height * 10) / 10} onChange={this.onChangeY} onBlur={this.applyY} />
                 </div>
             </div>
         </fieldset> : null}
@@ -126,7 +126,7 @@ var MoveAttributes = React.createClass({
             <fieldset id="entryPainterAttrRotate" className="entryPlaygroundPainterAttrRotate">
                 <div className="painterAttrRotateTop">ο</div>
                 <input id="entryPainterAttrDegree" className="entryPlaygroundPainterNumberInput"
-                    value={rotate} onChange={this.onChangeRotate} onBlur={this.applyRotate} />
+                    value={Math.round(rotate * 10) / 10} onChange={this.onChangeRotate} onBlur={this.applyRotate} />
             </fieldset>
         </div> : null}
 
