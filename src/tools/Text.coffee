@@ -65,6 +65,25 @@ module.exports = class Text extends Tool
       @_updateInputEl(lc)
       lc.repaintLayer('main')
 
+    unsubscribeFuncs.push lc.on 'lc-pointermove', ({ x, y }) =>
+      if (!@currentShape)
+        return
+      point = {x, y}
+      br = @currentShape.getBoundingRect(lc.ctx)
+      selectionShape = @_getSelectionShape(lc.ctx)
+      if getIsPointInBox(point, br)
+        lc.setCursor("move")
+      else if getIsPointInBox(point, selectionShape.getBottomRightHandleRect())
+        lc.setCursor('nwse-resize')
+      else if getIsPointInBox(point, selectionShape.getTopLeftHandleRect())
+        lc.setCursor('nwse-resize')
+      else if getIsPointInBox(point, selectionShape.getBottomLeftHandleRect())
+        lc.setCursor('nesw-resize')
+      else if getIsPointInBox(point, selectionShape.getTopRightHandleRect())
+        lc.setCursor('nesw-resize')
+      else
+        lc.setCursor(@cursor)
+
   willBecomeInactive: (lc) ->
     if @currentShape
       @_ensureNotEditing(lc)

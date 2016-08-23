@@ -54,8 +54,35 @@ module.exports = class SelectShape extends Tool
         }
       else
         @setShape(lc, null)
+        @selectedShape = null
         @oldPosition = lc.position
         @pointerStart = {x: rawX, y: rawY}
+
+    onMove = ({ x, y }) =>
+      if (!@selectedShape)
+        return
+      @_drawSelectCanvas(lc)
+      dragAction = @_getPixel(x, y, lc, @selectCtx)
+      switch dragAction
+        when 1 #drag
+          lc.setCursor("move")
+        when 2 #resize
+          rotate = - Math.atan2(-(@selectedShape.y - y) , (@selectedShape.x - x)) / Math.PI * 180 - 90
+          if (rotate < 0)
+            rotate += 360
+          switch Math.round(rotate / 45) % 4
+            when 0
+              lc.setCursor('ns-resize')
+            when 1
+              lc.setCursor('nesw-resize')
+            when 2
+              lc.setCursor('ew-resize')
+            when 3
+              lc.setCursor('nwse-resize')
+        when 3 #rotate
+          lc.setCursor("url(/lib/literallycanvas/lib/img/rotate.cur) 8 8, default")
+        else
+          lc.setCursor(@cursor)
 
     onDrag = ({ x, y, rawX, rawY }) =>
       lc.setCursor('url("/lib/literallycanvas/lib/img/handclosed.cur"), default')
@@ -158,6 +185,7 @@ module.exports = class SelectShape extends Tool
 
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag
+    selectShapeUnsubscribeFuncs.push lc.on 'lc-pointermove', onMove
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerup', onUp
     selectShapeUnsubscribeFuncs.push lc.on 'undo', dispose
     selectShapeUnsubscribeFuncs.push lc.on 'drawingChange', update
