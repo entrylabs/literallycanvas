@@ -48,8 +48,3 @@ module.exports = class Line extends Pencil
     unsubscribeFuncs.push lc.on 'setStrokeWidth', (strokeWidth) =>
       @strokeWidth = strokeWidth
       lc.trigger('toolDidUpdateOptions')
-
-  willBecomeInactive: (lc) ->
-    @unsubscribe()
-    lc.setShapesInProgress([])
-    lc.repaintLayer('main', false)

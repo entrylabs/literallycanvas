@@ -87,4 +87,6 @@ module.exports = bindEvents = (lc, canvas, panWithKeyboard = false) ->
     document.addEventListener 'keydown', listener
     unsubs.push -> document.removeEventListener(listener)
 
+  canvas.addEventListener 'mousemove', mouseMoveListener
+
   -> f() for f in unsubs
