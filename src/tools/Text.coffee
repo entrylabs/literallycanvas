@@ -84,6 +84,10 @@ module.exports = class Text extends Tool
       else
         lc.setCursor(@cursor)
 
+    unsubscribeFuncs.push lc.on 'dispose', () =>
+      @commit(lc)
+      return
+
   willBecomeInactive: (lc) ->
     if @currentShape
       @_ensureNotEditing(lc)

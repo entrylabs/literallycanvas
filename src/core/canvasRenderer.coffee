@@ -178,8 +178,8 @@ drawImage = (ctx, shape, retryCallback) ->
       scaleY = -1
     ctx.translate(x, y)
     ctx.rotate(shape.rotate * Math.PI / 180)
-    ctx.translate(- width / 2, - height / 2)
     ctx.scale(scaleX, scaleY)
+    ctx.translate(- width / 2 * scaleX, - height / 2 * scaleY)
     ctx.drawImage(shape.image, 0, 0, width, height)
     ctx.restore()
   else if retryCallback

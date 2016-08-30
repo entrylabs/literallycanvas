@@ -183,6 +183,10 @@ module.exports = class SelectShape extends Tool
         when 39 then pos.x = pos.x + diff
       lc.editShape(@selectedShape, pos)
 
+    dispose = (e) =>
+      @setShape(lc, null)
+      @selectedShape = null
+
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdown', onDown
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointerdrag', onDrag
     selectShapeUnsubscribeFuncs.push lc.on 'lc-pointermove', onMove
@@ -190,6 +194,7 @@ module.exports = class SelectShape extends Tool
     selectShapeUnsubscribeFuncs.push lc.on 'undo', dispose
     selectShapeUnsubscribeFuncs.push lc.on 'drawingChange', update
     selectShapeUnsubscribeFuncs.push lc.on 'keyDown', onKeyDown
+    selectShapeUnsubscribeFuncs.push lc.on 'dispose', dispose
 
     @_drawSelectCanvas(lc)
 
