@@ -32,8 +32,9 @@ var StrokeThickness = React.createClass({
     // console.log('lc:', lc);
     // console.log('tool.name:', lc.tool.name);
     // console.log('strokeWidth:', this.state.strokeWidth);
-    let numArray = [...Array(70).keys()];
-    let thickness = numArray.map(i => i + 1);
+    let thickness = []
+    for (var i = 1; i <= 70; i++)
+        thickness.push(i)
 
     return <div className="entryPlaygroundentryPlaygroundPainterAttrThickArea">
       {/*<span> {this.state.strokeWidth} </span>*/}

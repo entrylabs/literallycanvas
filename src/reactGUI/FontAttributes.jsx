@@ -34,8 +34,9 @@ var FontAttributes = React.createClass({
     this.props.lc.trigger('setFont', font);
   },
   render: function() {
-    let numArray0to52 = [...Array(65).keys()];
-    let fontThickness = numArray0to52.map(i => i + 8);
+    let fontThickness = []
+    for (var i = 1; i <= 65; i++)
+        fontThickness.push(i)
 
     return <div id="painterAttrFont" className="entryPlaygroundPainterAttrFont">
         <div className="entryPlaygroundPainterAttrTop">
