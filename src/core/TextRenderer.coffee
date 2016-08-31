@@ -4,8 +4,8 @@ require './fontmetrics.js'
 parseFontString = (font) ->
   fontItems = font.split(' ')
 
-  fontStyle = fontItems.unshift()
-  fontSize = parseInt(fontItems.unshift())
+  fontStyle = fontItems.shift()
+  fontSize = parseInt(fontItems.shift())
   fontFamily = fontItems.join(' ')
 
   {fontSize, fontFamily, fontStyle}

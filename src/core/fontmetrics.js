@@ -151,7 +151,8 @@
         var descent = (i/w4)|0;
 
         // find the min-x coordinate
-        for(i = 0; i<len && pixelData[i] === 255; ) {
+        var j = 0
+        for(i = 0; i<len && j<len && pixelData[i] === 255; j++) {
           i += w4;
           if(i>=len) { i = (i-len) + 4; }}
         var minx = ((i%w4)/4) | 0;
