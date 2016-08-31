@@ -51,6 +51,7 @@ $selectedColor: #6e5ae6;
 
 .literally.toolbar-at-bottom {
   // height: $toolbarHeight;
+  overflow: hidden;
   .lc-drawing { bottom: $optionsHeight; top: 0; }
   .lc-options {
     bottom: 0;
@@ -66,8 +67,10 @@ $selectedColor: #6e5ae6;
 .literally {
   position: absolute;
   background-color: $canvasBackground;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;

@@ -32,7 +32,7 @@ createToolButton = (tool) ->
       (div {
         className,
         style: style
-        onClick: (-> onSelect(tool)), title: _(displayName)})
+        onClick: (-> onSelect(tool)), title: _(Lang.Workspace[displayName])})
 
 
 module.exports = createToolButton
