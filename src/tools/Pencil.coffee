@@ -41,6 +41,8 @@ module.exports = class Pencil extends ToolWithStroke
         lc.repaintLayer('main', false)
 
     unsubscribeFuncs.push lc.on 'lc-pointerup', ({x, y}) =>
+      if (@currentShape.points.length is 1)
+        @convertToPoint(x, y, lc)
       lc.saveShape(@currentShape)
       @currentShape = undefined
       @updateCursor(x, y, lc)
@@ -58,6 +60,15 @@ module.exports = class Pencil extends ToolWithStroke
   makePoint: (x, y, lc) ->
     createShape('Point', {x, y, size: @strokeWidth, @color})
   makeShape: -> createShape('LinePath')
+
+  convertToPoint: (x, y, lc) ->
+    if (!@currentShape)
+      return
+    @currentShape = createShape('Ellipse', {
+      x: x - @strokeWidth / 2, y: y - @strokeWidth / 2, 0,
+      width: @strokeWidth, height: @strokeWidth,
+      strokeColor: 'transparent',
+      fillColor: lc.getColor('primary')})
 
   createCursor: () ->
     createShape('Ellipse', {

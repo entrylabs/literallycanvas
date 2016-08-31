@@ -39,6 +39,8 @@ module.exports = class Line extends Pencil
       lc.repaintLayer('main', false)
 
     unsubscribeFuncs.push lc.on 'lc-pointerup', ({x, y}) =>
+      if ((@currentShape.x1 is @currentShape.x2) and (@currentShape.y1 is @currentShape.y2))
+        @convertToPoint(x, y, lc)
       lc.saveShape(@currentShape)
       @currentShape = undefined
       @updateCursor(x, y, lc)
