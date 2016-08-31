@@ -51,11 +51,9 @@ module.exports = class LiterallyCanvas
     @buffer.style['background-color'] = 'transparent'
     @ctx = @canvas.getContext('2d')
     @ctx.imageSmoothingEnabled = false
-    @ctx.webkitImageSmoothingEnabled = false
 
     @bufferCtx = @buffer.getContext('2d')
     @bufferCtx.imageSmoothingEnabled = false
-    @bufferCtx.webkitImageSmoothingEnabled = false
 
     @backingScale = util.getBackingScale(@ctx)
 

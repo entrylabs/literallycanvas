@@ -273,7 +273,6 @@ module.exports = class Text extends Tool
     return unless @inputEl
     br = @currentShape.getBoundingRect(lc.ctx, true)
     @inputEl.style.font = @currentShape.font
-    @inputEl.style.color = @currentShape.color
     @inputEl.style.backgroundColor = @currentShape.bgColor
     @inputEl.style.left =
       "#{lc.position.x / lc.backingScale + br.x * lc.scale - 4}px"
