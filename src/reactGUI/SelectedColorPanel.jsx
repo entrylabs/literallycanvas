@@ -23,12 +23,16 @@ var Palette = React.createClass({
     getInitialState: function() {
         var colourCodes = Entry.getColourCodes();
         if (this.props.disableTransparent) {
-            colourCodes[0] = "#FFFFFF"
+            for (var i = 0; i < 7; i++)
+                colourCodes[i * 10] = colourCodes[i * 10 + 10]
+            colourCodes[70] = "#DDDDDD"
         }
         return {
             colourCodes,
             paletteStyles: colourCodes.map(color => {
                 if (color === 'transparent') {
+                    return { backgroundImage: `url(${this.props.imageURLPrefix}/transparent.png)` };
+                } else if (color === 'disabled') {
                     return { backgroundImage: `url(${this.props.imageURLPrefix}/transparent.png)` };
                 } else {
                     return { backgroundColor: color};
@@ -38,6 +42,8 @@ var Palette = React.createClass({
     },
 
     onClickWithColor: function(colorCode) {
+        if (colorCode === "disabled")
+            return
         this.props.colorPicked(colorCode);
     },
 
