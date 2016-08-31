@@ -120,11 +120,16 @@ var SelectedColorPanel = React.createClass({
         this.setState({ selected: "primary" });
     },
 
-    onColorCodeChange: function(e) {
-        this.setState({colorCode: e.target.value});
+    colorPicked: function(colorCode) {
+        if (this.state.selected === "primary")
+            this.setState({strokeColor: colorCode});
+        else
+            this.setState({fillColor: colorCode});
+        this.props.lc.setColor(this.state.selected, colorCode)
     },
 
-    colorPicked: function(colorCode) {
+    onColorCodeChange: function(e) {
+        var colorCode = e.target.value;
         if (this.state.selected === "primary")
             this.setState({strokeColor: colorCode});
         else
