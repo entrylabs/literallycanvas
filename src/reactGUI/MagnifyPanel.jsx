@@ -3,14 +3,13 @@ const React = require('../reactGUI/React-shim');
 var MagnifyPanel = React.createClass({
     getInitialState: function() {
         var lc = this.props.lc;
-        return {value: lc.scale};
+        return {value: Math.round(lc.scale * 100) + "%"}
     },
     setZoom: function(amount) {
         var lc = this.props.lc;
         amount = Math.max(amount, lc.config.zoomMin);
         amount = Math.min(amount, lc.config.zoomMax);
         lc.setZoom(amount);
-        this.setState({value: amount});
     },
     zoomIn: function() {
         var lc = this.props.lc;
@@ -21,12 +20,21 @@ var MagnifyPanel = React.createClass({
         this.setZoom(lc.scale - 0.1);
     },
     handleChange: function(event) {
+        event.target.value
+        this.setState({value: event.target.value});
+    },
+    handleBlur: function(event) {
         var lc = this.props.lc;
-        var value = Number(event.target.value.replace("%", "")) / 100;
-        this.setZoom(value);
+        var value = parseInt(event.target.value);
+        this.setZoom(value / 100);
+    },
+    handleEnter: function(event) {
+        if (event.key === 'Enter')
+            this.setZoom(this.state.value / 100)
     },
     zoomEvent: function(event) {
-        this.setState({value: event.newScale});
+        var value = event.newScale
+        this.setState({value: Math.round(value * 100) + "%"});
     },
     componentDidMount: function() {
         var lc = this.props.lc;
@@ -38,7 +46,7 @@ var MagnifyPanel = React.createClass({
     render: function() {
         return <div className="entryPaintMagnifier" >
             <div onClick={this.zoomOut} id="zoomOut">-</div>
-            <input value={Math.round(this.state.value * 100) + "%"} onChange={this.handleChange}/>
+            <input value={this.state.value} onKeyPress={this.handleEnter} onChange={this.handleChange} onBlur={this.handleBlur}/>
             <div onClick={this.zoomIn} id="zoomIn">+</div>
         </div>;
     }
