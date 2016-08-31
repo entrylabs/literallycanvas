@@ -26,11 +26,15 @@ var MagnifyPanel = React.createClass({
     handleBlur: function(event) {
         var lc = this.props.lc;
         var value = parseInt(event.target.value);
+        if (isNaN(value)) value = 100;
         this.setZoom(value / 100);
     },
     handleEnter: function(event) {
-        if (event.key === 'Enter')
-            this.setZoom(this.state.value / 100)
+        if (event.key === 'Enter') {
+            var value = parseInt(this.state.value);
+            if (isNaN(value)) value = 100;
+            this.setZoom(value / 100)
+        }
     },
     zoomEvent: function(event) {
         var value = event.newScale

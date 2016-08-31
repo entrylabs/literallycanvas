@@ -2,10 +2,12 @@ const React = require('../reactGUI/React-shim');
 
 var FontAttributes = React.createClass({
   getInitialState: function() {
+      var font = this.props.lc.getFont();
+      var fontArray = font.split(" ")
       return {
-          font: "KoPub Batang",
-          size: 20,
-          style: "normal"
+          style: fontArray.shift(),
+          size: fontArray.shift().replace("px", ""),
+          font: fontArray.join(" ")
       }
   },
   onChangeSize: function(e) {
@@ -31,7 +33,7 @@ var FontAttributes = React.createClass({
   },
   applyFont: function() {
     var font = this.state.style + " " + this.state.size + "px " + this.state.font;
-    this.props.lc.trigger('setFont', font);
+    this.props.lc.setFont(font);
   },
   render: function() {
     let fontThickness = []
@@ -41,7 +43,7 @@ var FontAttributes = React.createClass({
     return <div id="painterAttrFont" className="entryPlaygroundPainterAttrFont">
         <div className="entryPlaygroundPainterAttrTop">
             <div className="entryPlaygroundPaintAttrTop_"></div>
-            <select id="entryPainterAttrFontName" className="entryPlaygroundPainterAttrFontName" size="1" onChange={this.onChangeFont}>
+            <select value={this.state.font} id="entryPainterAttrFontName" className="entryPlaygroundPainterAttrFontName" size="1" onChange={this.onChangeFont}>
                 <option value="KoPub Batang">바탕체</option>
                 <option value="Nanum Myeongjo">명조체</option>
                 <option value="Nanum Gothic">고딕체</option>
@@ -52,7 +54,7 @@ var FontAttributes = React.createClass({
         </div>
         <div className="painterAttrFontSizeArea">
             <div className="painterAttrFontSizeTop"></div>
-            <select id="entryPainterAttrFontSize" defaultValue="20" className="entryPlaygroundPainterAttrFontSize" size="1" onChange={this.onChangeSize}>
+            <select value={this.state.size}  id="entryPainterAttrFontSize" className="entryPlaygroundPainterAttrFontSize" size="1" onChange={this.onChangeSize}>
                 { fontThickness.map(size => {
                     return <option key={size} value={size}>{size}</option>
                 })}
@@ -60,7 +62,7 @@ var FontAttributes = React.createClass({
         </div>
         <div className="entryPlaygroundPainterAttrFontStyleArea">
             <div className="entryPlaygroundPainterAttrFontTop"></div>
-            <select id="entryPainterAttrFontStyle" className="entryPlaygroundPainterAttrFontStyle" size="1" onChange={this.onChangeStyle}>
+            <select value={this.state.style} id="entryPainterAttrFontStyle" className="entryPlaygroundPainterAttrFontStyle" size="1" onChange={this.onChangeStyle}>
                 <option value="normal">보통</option>
                 <option value="bold">굵게</option>
                 <option value="italic">기울임</option>

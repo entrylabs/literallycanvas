@@ -36,6 +36,8 @@ module.exports = class LiterallyCanvas
       secondary: opts.secondaryColor or '#fff'
       background: opts.backgroundColor or 'transparent'
 
+    @font = 'normal 20px "KoPub Batang"'
+
     @watermarkImage = opts.watermarkImage
     @watermarkScale = opts.watermarkScale or 1
 
@@ -223,6 +225,13 @@ module.exports = class LiterallyCanvas
     @trigger "drawingChange" if name == 'background'
 
   getColor: (name) -> @colors[name]
+
+  setFont: (font) ->
+    @font = font
+    @trigger "fontChange", @font
+    console.log(font)
+
+  getFont: () -> @font
 
   saveShape: (shape, triggerShapeSaveEvent=true, previousShapeId=null) ->
     unless previousShapeId

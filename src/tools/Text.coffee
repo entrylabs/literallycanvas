@@ -18,7 +18,6 @@ module.exports = class Text extends Tool
 
   constructor: ->
     @text = ''
-    @font = 'normal 20px "KoPub Batang"'
     @currentShape = null
     @currentShapeState = null
     @initialShapeBoundingRect = null
@@ -57,9 +56,8 @@ module.exports = class Text extends Tool
       @_updateInputEl(lc)
       lc.repaintLayer('main')
 
-    unsubscribeFuncs.push lc.on 'setFont', (font) =>
+    unsubscribeFuncs.push lc.on 'fontChange', (font) =>
       return unless @currentShape
-      @font = font
       @currentShape.setFont(font)
       @_setShapesInProgress(lc)
       @_updateInputEl(lc)
@@ -150,7 +148,7 @@ module.exports = class Text extends Tool
     else
       @color = lc.getColor('primary')
       @bgColor = lc.getColor('transparent')
-      @currentShape = createShape('Text', {x, y, @text, @color, @bgColor, @font, v: 1})
+      @currentShape = createShape('Text', {x, y, @text, @color, @bgColor, font: lc.getFont(), v: 1})
       @dragAction = 'place'
       @currentShapeState = 'selected'
 
