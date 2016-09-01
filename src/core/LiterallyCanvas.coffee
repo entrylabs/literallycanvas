@@ -284,6 +284,8 @@ module.exports = class LiterallyCanvas
 
   setZoom: (scale) ->
     oldScale = @scale
+    scale = Math.max(@config.zoomMin, scale)
+    scale = Math.min(@config.zoomMax, scale)
     @scale = scale
 
     @position.x = math.scalePositionScalar(
