@@ -116,6 +116,7 @@ $selectedColor: #6e5ae6;
     bottom: 190px;
     top: $menuHeight;
     background-image: url('../img/transparent-pattern.png');
+    overflow: hidden;
 
     .polygon-toolbar {
       top: auto;

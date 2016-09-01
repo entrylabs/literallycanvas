@@ -147,7 +147,7 @@ module.exports = class Text extends Tool
         @_exitEditingState(lc)
     else
       @color = lc.getColor('primary')
-      @bgColor = lc.getColor('transparent')
+      @bgColor = lc.getColor('secondary')
       @currentShape = createShape('Text', {x, y, @text, @color, @bgColor, font: lc.getFont(), v: 1})
       @dragAction = 'place'
       @currentShapeState = 'selected'
