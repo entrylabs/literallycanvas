@@ -138,7 +138,7 @@ $selectedColor: #6e5ae6;
 .literally .lc-picker {
   z-index: 201;
   // border-right: $basicBorder;
-  height: 200%;
+  height: 100%;
 
   $buttonMargin: 2px;
   $buttonActualSize: $pickerButtonSize - $buttonMargin * 2;
@@ -252,7 +252,6 @@ $selectedColor: #6e5ae6;
 
 .literally .horz-toolbar {
   height: $optionsHeight;
-  width: 100%;
   overflow: hidden;
 
   background-color: $toolbarBackground;

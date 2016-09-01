@@ -18,6 +18,8 @@ module.exports = class Eyedropper extends Tool
     @strokeOrFill = 'stroke'
 
   readColor: (x, y, lc) ->
+    if (x < 0 || y < 0 || x > lc.width || y > lc.height)
+      return
     canvas = lc.getImage()
     scale = util.getBackingScale(lc.ctx)
     newColor = getPixel(

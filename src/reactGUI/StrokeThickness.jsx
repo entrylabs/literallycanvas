@@ -15,7 +15,6 @@ var StrokeThickness = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     //   console.log('componentWillReceiveProps nextProps:', nextProps);
     if (this.state.toolName !== nextProps.tool.name) {
-      console.log('tool changed!');
       this.setState(this.getState(nextProps));
     }
   },
