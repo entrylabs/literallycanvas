@@ -8,7 +8,7 @@ module.exports = class Magnifier extends Tool
 
   name: 'Magnifier'
   iconName: 'magnifier'
-  cursor: 'zoom-in'
+  cursor: 'url("/lib/literallycanvas/lib/img/zoom-in.cur"), default'
 
   didBecomeActive: (lc) ->
     eventUnsubscribeFuncs = []
@@ -19,13 +19,12 @@ module.exports = class Magnifier extends Tool
     onKeyDown = (e) =>
       if (e.shiftKey && (e.keyCode is 16 || e.which is 16))
         @isShift = true
-        lc.setCursor('zoom-out')
+        lc.setCursor('url("/lib/literallycanvas/lib/img/zoom-out.cur"), default')
 
     onKeyUp = (e) =>
       if e.keyCode is 16 || e.which is 16
         @isShift = false
-        lc.setCursor('zoom-in')
-        console.log('in')
+        lc.setCursor(this.cursor)
 
     eventUnsubscribeFuncs.push lc.on 'keyDown', onKeyDown
     eventUnsubscribeFuncs.push lc.on 'keyUp', onKeyUp
@@ -36,7 +35,7 @@ module.exports = class Magnifier extends Tool
   end: (x, y, lc) ->
     scale = util.getBackingScale(lc.ctx)
     oldPosition = lc.position
-    if (lc.scale < 0.5 || lc.scale > 3)
+    if (lc.scale <= 0.5 || lc.scale >= 3)
       return
     panX = (x - lc.canvas.width / 2 / scale) * lc.scale * 0.1
     panY = (y - lc.canvas.height / 2 / scale) * lc.scale * 0.1
