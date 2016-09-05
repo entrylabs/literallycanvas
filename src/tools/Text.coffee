@@ -236,6 +236,7 @@ module.exports = class Text extends Tool
     @inputEl.style.zIndex = '1000'
     @inputEl.style.overflow = 'hidden'
     @inputEl.style.resize = 'none'
+    @inputEl.style.color = '#000'
 
     @inputEl.value = @currentShape.text
 
