@@ -23,3 +23,12 @@ module.exports = class Eraser extends Pencil
     })
     @cursorShape.width = @strokeWidth + 1;
     @cursorShape.height = @strokeWidth + 1;
+
+  convertToPoint: (x, y, lc) ->
+    if (!@currentShape)
+      return
+    @currentShape = createShape('ErasedEllipse', {
+      x: x - @strokeWidth / 2, y: y - @strokeWidth / 2, 0,
+      width: @strokeWidth, height: @strokeWidth,
+      strokeColor: 'transparent',
+      fillColor: '#000000'})

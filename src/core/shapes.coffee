@@ -212,6 +212,30 @@ defineShape 'Ellipse',
     @x = upperLeft.x
     @y = upperLeft.y
 
+defineShape 'ErasedEllipse',
+  constructor: (args={}) ->
+    @x = args.x or 0
+    @y = args.y or 0
+    @width = args.width or 0
+    @height = args.height or 0
+    @strokeWidth = args.strokeWidth or 0
+    @strokeColor = args.strokeColor or 'black'
+    @fillColor = args.fillColor or 'transparent'
+
+  getBoundingRect: -> {
+    x: @x - @strokeWidth / 2,
+    y: @y - @strokeWidth / 2,
+    width: @width + @strokeWidth,
+    height: @height + @strokeWidth,
+  }
+  toJSON: -> {@x, @y, @width, @height, @strokeWidth, @strokeColor, @fillColor}
+  fromJSON: (data) -> createShape('Ellipse', data)
+  move: ( moveInfo={} ) ->
+    @x = @x - moveInfo.xDiff
+    @y = @y - moveInfo.yDiff
+  setUpperLeft: (upperLeft={}) ->
+    @x = upperLeft.x
+    @y = upperLeft.y
 
 defineShape 'Line',
   constructor: (args={}) ->
