@@ -123,6 +123,8 @@ module.exports = class Text extends Tool
         lc.setShapesInProgress([@currentShape])
 
   begin:(x, y, lc) ->
+    if (x < 0 || y < 0 || x > lc.width || y > lc.height)
+      return
     @dragAction = 'none'
     @didDrag = false
 

@@ -75,24 +75,14 @@ drawErasedEllipse = (ctx, shape) ->
   ctx.save()
   ctx.globalCompositeOperation = "destination-out"
   halfWidth = Math.floor(shape.width / 2)
-  halfHeight = Math.floor(shape.height / 2)
   centerX = shape.x + halfWidth
   centerY = shape.y + halfHeight
 
   ctx.translate(centerX, centerY)
-  ctx.scale(1, Math.abs(shape.height / shape.width))
   ctx.beginPath()
   ctx.arc(0, 0, Math.abs(halfWidth), 0, Math.PI * 2)
-  ctx.closePath()
-  ctx.restore()
-
-  ctx.save()
-  ctx.globalCompositeOperation = "destination-out"
   ctx.fillStyle = shape.fillColor
   ctx.fill()
-  ctx.lineWidth = shape.strokeWidth
-  ctx.strokeStyle = shape.strokeColor
-  ctx.stroke()
   ctx.restore()
 
 drawErasedEllipseLatest = (ctx, bufferCtx, shape) ->
