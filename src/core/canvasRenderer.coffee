@@ -76,7 +76,7 @@ drawErasedEllipse = (ctx, shape) ->
   ctx.globalCompositeOperation = "destination-out"
   halfWidth = Math.floor(shape.width / 2)
   centerX = shape.x + halfWidth
-  centerY = shape.y + halfHeight
+  centerY = shape.y + halfWidth
 
   ctx.translate(centerX, centerY)
   ctx.beginPath()
@@ -261,6 +261,7 @@ _drawRawLinePath = (ctx, points, close=false, lineCap='round') ->
   return unless points.length
 
   ctx.lineCap = lineCap
+  ctx.lineJoin = "round"
 
   ctx.strokeStyle = points[0].color
   ctx.lineWidth = points[0].size
