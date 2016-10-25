@@ -37,7 +37,7 @@ var StrokeThickness = React.createClass({
 
     return <div className="entryPlaygroundentryPlaygroundPainterAttrThickArea">
       {/*<span> {this.state.strokeWidth} </span>*/}
-      <legend className="painterAttrThickName">굵기</legend>
+      <legend className="painterAttrThickName">Lang.Workspace.thickness</legend>
       <fieldset id="entryPainterAttrThick" className="entryPlaygroundPainterAttrThick">
         <div className="paintAttrThickTop"></div>
         <select id="entryPainterAttrThick" className="entryPlaygroundPainterAttrThickInput" size="1" value={this.state.strokeWidth} onChange={this.onChange}>

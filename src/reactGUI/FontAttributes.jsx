@@ -44,12 +44,12 @@ var FontAttributes = React.createClass({
         <div className="entryPlaygroundPainterAttrTop">
             <div className="entryPlaygroundPaintAttrTop_"></div>
             <select value={this.state.font} id="entryPainterAttrFontName" className="entryPlaygroundPainterAttrFontName" size="1" onChange={this.onChangeFont}>
-                <option value="KoPub Batang">바탕체</option>
-                <option value="Nanum Myeongjo">명조체</option>
-                <option value="Nanum Gothic">고딕체</option>
-                <option value="Nanum Pen Script">필기체</option>
-                <option value="Jeju Hallasan">한라산체</option>
-                <option value="Nanum Gothic Coding">코딩고딕체</option>
+                <option value="KoPub Batang">Lang.Fonts.batang</option>
+                <option value="Nanum Myeongjo">Lang.Fonts.myeongjo</option>
+                <option value="Nanum Gothic">Lang.Fonts.gothic</option>
+                <option value="Nanum Pen Script">Lang.Fonts.pen_script</option>
+                <option value="Jeju Hallasan">Lang.Fonts.jeju_hallasan</option>
+                <option value="Nanum Gothic Coding">Lang.Fonts.gothic_coding</option>
             </select>
         </div>
         <div className="painterAttrFontSizeArea">
@@ -63,9 +63,9 @@ var FontAttributes = React.createClass({
         <div className="entryPlaygroundPainterAttrFontStyleArea">
             <div className="entryPlaygroundPainterAttrFontTop"></div>
             <select value={this.state.style} id="entryPainterAttrFontStyle" className="entryPlaygroundPainterAttrFontStyle" size="1" onChange={this.onChangeStyle}>
-                <option value="normal">보통</option>
-                <option value="bold">굵게</option>
-                <option value="italic">기울임</option>
+                <option value="normal">Lang.Workspace.regular</option>
+                <option value="bold">Lang.Workspace.bold</option>
+                <option value="italic">Lang.Workspace.italic</option>
             </select>
         </div>
     </div>
