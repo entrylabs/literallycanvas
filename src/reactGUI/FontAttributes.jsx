@@ -44,12 +44,12 @@ var FontAttributes = React.createClass({
         <div className="entryPlaygroundPainterAttrTop">
             <div className="entryPlaygroundPaintAttrTop_"></div>
             <select value={this.state.font} id="entryPainterAttrFontName" className="entryPlaygroundPainterAttrFontName" size="1" onChange={this.onChangeFont}>
-                <option value="KoPub Batang">Lang.Fonts.batang</option>
-                <option value="Nanum Myeongjo">Lang.Fonts.myeongjo</option>
-                <option value="Nanum Gothic">Lang.Fonts.gothic</option>
-                <option value="Nanum Pen Script">Lang.Fonts.pen_script</option>
-                <option value="Jeju Hallasan">Lang.Fonts.jeju_hallasan</option>
-                <option value="Nanum Gothic Coding">Lang.Fonts.gothic_coding</option>
+                <option value="KoPub Batang">{Lang.Fonts.batang}</option>
+                <option value="Nanum Myeongjo">{Lang.Fonts.myeongjo}</option>
+                <option value="Nanum Gothic">{Lang.Fonts.gothic}</option>
+                <option value="Nanum Pen Script">{Lang.Fonts.pen_script}</option>
+                <option value="Jeju Hallasan">{Lang.Fonts.jeju_hallasan}</option>
+                <option value="Nanum Gothic Coding">{Lang.Fonts.gothic_coding}</option>
             </select>
         </div>
         <div className="painterAttrFontSizeArea">
@@ -63,9 +63,9 @@ var FontAttributes = React.createClass({
         <div className="entryPlaygroundPainterAttrFontStyleArea">
             <div className="entryPlaygroundPainterAttrFontTop"></div>
             <select value={this.state.style} id="entryPainterAttrFontStyle" className="entryPlaygroundPainterAttrFontStyle" size="1" onChange={this.onChangeStyle}>
-                <option value="normal">Lang.Workspace.regular</option>
-                <option value="bold">Lang.Workspace.bold</option>
-                <option value="italic">Lang.Workspace.italic</option>
+                <option value="normal">{Lang.Workspace.regular}</option>
+                <option value="bold">{Lang.Workspace.bold}</option>
+                <option value="italic">{Lang.Workspace.italic}</option>
             </select>
         </div>
     </div>

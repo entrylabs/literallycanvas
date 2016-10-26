@@ -105,7 +105,7 @@ var MoveAttributes = React.createClass({
 
     return <div className="entryMoveAttributes">
         {this.state.shape ? <fieldset id="painterAttrResize" className="entryPlaygroundPainterAttrResize">
-            <legend>크기</legend>
+            <legend>{Lang.Workspace.picture_size}</legend>
             <div id="painterAttrWrapper" className="painterAttrWrapper">
                 <div className="entryPlaygroundPainterAttrResizeX">
                     <div className="entryPlaygroundPainterAttrResizeXTop">X</div>
@@ -122,7 +122,7 @@ var MoveAttributes = React.createClass({
         </fieldset> : null}
 
         {this.state.shape ? <div id="painterAttrRotateArea" className="painterAttrRotateArea">
-            <div className="painterAttrRotateName">회전</div>
+            <div className="painterAttrRotateName">{Lang.Workspace.picture_rotation}</div>
             <fieldset id="entryPainterAttrRotate" className="entryPlaygroundPainterAttrRotate">
                 <div className="painterAttrRotateTop">ο</div>
                 <input id="entryPainterAttrDegree" className="entryPlaygroundPainterNumberInput"
