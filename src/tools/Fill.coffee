@@ -11,9 +11,9 @@ module.exports = class Fill extends Tool
   name: 'Fill'
   iconName: 'fill'
   optionsStyle: 'color-palette'
-  cursor: 'url("/lib/literallycanvas/lib/img/paint_line.cur"), default'
 
   constructor: (lc) ->
+    @cursor = 'url("' + lc.opts.imageURLPrefix + '/paint_line.cur"), default'
     super(lc)
 
   threshold: 20
@@ -120,10 +120,10 @@ module.exports = class Fill extends Tool
     imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data
     outputData = new ArrayBuffer(imageData.length)
     outputPoints = []
-    pixelStack = [ [
+    pixelStack = [[
       point.x
       point.y
-    ] ]
+    ]]
     startColor = @getColorArray(imageData, @getIndex(point.x, point.y, rect.width))
     ewCanvas = document.createElement('canvas')
     ewCanvas.width = canvas.width

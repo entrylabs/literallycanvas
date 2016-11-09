@@ -11,9 +11,9 @@ module.exports = class Eyedropper extends Tool
 
   name: 'Eyedropper'
   iconName: 'none'
-  cursor: 'url("/lib/literallycanvas/lib/img/spoid.cur"), default'
 
   constructor: (lc) ->
+    @cursor = 'url("' + lc.opts.imageURLPrefix + '/spoid.cur"), default'
     super(lc)
     @strokeOrFill = 'stroke'
 

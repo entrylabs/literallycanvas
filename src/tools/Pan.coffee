@@ -8,9 +8,9 @@ module.exports = class Pan extends Tool
   iconName: 'pan'
   usesSimpleAPI: false
   optionsStyle: 'move-attributes'
-  cursor: 'url("/lib/literallycanvas/lib/img/handopen.cur"), default'
 
   didBecomeActive: (lc) ->
+    @cursor = 'url("' + lc.opts.imageURLPrefix + '/handopen.cur"), default'
     unsubscribeFuncs = []
     @unsubscribe = =>
       for func in unsubscribeFuncs

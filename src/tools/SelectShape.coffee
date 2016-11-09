@@ -13,11 +13,11 @@ module.exports = class SelectShape extends Tool
   iconName: 'pan'
   usesSimpleAPI: false
   optionsStyle: 'move-attributes'
-  cursor: 'url("/lib/literallycanvas/lib/img/handopen.cur"), default'
 
   nextIsPass: false
 
   constructor: (lc) ->
+    @cursor = 'url("' + lc.opts.imageURLPrefix + '/handopen.cur"), default'
     # This is a 'shadow' canvas -- we'll reproduce the shapes here, each shape
     # with a different color that corresponds to their index. That way we'll
     # be able to find which shape to select on the main canvas by pixel color.
@@ -80,12 +80,12 @@ module.exports = class SelectShape extends Tool
             when 3
               lc.setCursor('nwse-resize')
         when 3 #rotate
-          lc.setCursor("url(/lib/literallycanvas/lib/img/rotate.cur) 8 8, default")
+          lc.setCursor('url("' + lc.opts.imageURLPrefix + '/rotate.cur") 8 8, default')
         else
           lc.setCursor(@cursor)
 
     onDrag = ({ x, y, rawX, rawY }) =>
-      lc.setCursor('url("/lib/literallycanvas/lib/img/handclosed.cur"), default')
+      lc.setCursor('url("' + lc.opts.imageURLPrefix + '/handclosed.cur"), default')
       if @dragAction
         br = @initialShapeBoundingRect
         brRight = br.x + br.width

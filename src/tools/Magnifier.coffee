@@ -8,9 +8,9 @@ module.exports = class Magnifier extends Tool
 
   name: 'Magnifier'
   iconName: 'magnifier'
-  cursor: 'url("/lib/literallycanvas/lib/img/zoom-in.cur"), default'
 
   didBecomeActive: (lc) ->
+    @cursor = 'url("' + lc.opts.imageURLPrefix + '/zoom-in.cur"), default'
     eventUnsubscribeFuncs = []
     @_eventUnsubscribe = =>
       for func in eventUnsubscribeFuncs
@@ -19,7 +19,7 @@ module.exports = class Magnifier extends Tool
     onKeyDown = (e) =>
       if (e.shiftKey && (e.keyCode is 16 || e.which is 16))
         @isShift = true
-        lc.setCursor('url("/lib/literallycanvas/lib/img/zoom-out.cur"), default')
+        lc.setCursor('url("' + lc.opts.imageURLPrefix + '/zoom-out.cur"), default')
 
     onKeyUp = (e) =>
       if e.keyCode is 16 || e.which is 16
