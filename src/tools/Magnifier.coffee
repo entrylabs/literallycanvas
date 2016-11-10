@@ -9,8 +9,11 @@ module.exports = class Magnifier extends Tool
   name: 'Magnifier'
   iconName: 'magnifier'
 
-  didBecomeActive: (lc) ->
+  constructor: (lc) ->
     @cursor = 'url("' + lc.opts.imageURLPrefix + '/zoom-in.cur"), default'
+    super(lc)
+
+  didBecomeActive: (lc) ->
     eventUnsubscribeFuncs = []
     @_eventUnsubscribe = =>
       for func in eventUnsubscribeFuncs
