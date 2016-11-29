@@ -200,10 +200,9 @@ drawImage = (ctx, shape, retryCallback) ->
       scaleX = -1
     if shape.flipY
       scaleY = -1
-    ctx.translate(x,y)
+    ctx.translate(Math.round(x - (width / 2)), Math.round( y - (height / 2)));
     ctx.rotate(shape.rotate * Math.PI / 180)
     ctx.scale(scaleX, scaleY)
-    ctx.translate(- width / 2, - height / 2)
     ctx.drawImage(shape.image, 0, 0, width, height)
     ctx.restore()
   else if retryCallback
