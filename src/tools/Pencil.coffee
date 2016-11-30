@@ -43,7 +43,8 @@ module.exports = class Pencil extends ToolWithStroke
     unsubscribeFuncs.push lc.on 'lc-pointerup', ({x, y}) =>
       if (@currentShape.points.length is 1)
         @convertToPoint(x, y, lc)
-      lc.saveShape(@currentShape)
+      if @currentShape
+        lc.saveShape(@currentShape)
       @currentShape = undefined
       @updateCursor(x, y, lc)
       lc.drawShapeInProgress(@cursorShape)

@@ -27,8 +27,4 @@ module.exports = class Eraser extends Pencil
   convertToPoint: (x, y, lc) ->
     if (!@currentShape)
       return
-    @currentShape = createShape('ErasedEllipse', {
-      x: x - @strokeWidth / 2, y: y - @strokeWidth / 2, 0,
-      width: @strokeWidth, height: @strokeWidth,
-      strokeColor: 'transparent',
-      fillColor: '#000000'})
+    @currentShape = null
