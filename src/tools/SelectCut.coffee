@@ -32,6 +32,10 @@ module.exports = class SelectCut extends Tool
     image = new Image()
     lc.setShapesInProgress([])
     lc.repaintLayer('main')
+    @currentShape.x = Math.ceil(@currentShape.x);
+    @currentShape.y = Math.ceil(@currentShape.y);
+    @currentShape.width = Math.ceil(@currentShape.width);
+    @currentShape.height = Math.ceil(@currentShape.height);
     x = @currentShape.x
     if (@currentShape.width < 0)
       x += @currentShape.width
