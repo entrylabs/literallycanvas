@@ -5,11 +5,23 @@ class ClearAction
   constructor: (@lc, @oldShapes, @newShapes) ->
 
   do: ->
-    @lc.shapes = @newShapes
+    @lc.shapes = @newShapes.slice(0)
     @lc.repaintLayer('main')
 
   undo: ->
-    @lc.shapes = @oldShapes
+    @lc.shapes = @oldShapes.slice(0)
+    @lc.repaintLayer('main')
+
+class RemoveAction
+
+  constructor: (@lc, @oldShapes, @newShapes) ->
+
+  do: ->
+    @lc.shapes = @newShapes.slice(0)
+    @lc.repaintLayer('main')
+
+  undo: ->
+    @lc.shapes = @oldShapes.slice(0)
     @lc.repaintLayer('main')
 
 
@@ -73,4 +85,4 @@ class EditShapeAction
     @opts = newOpts
     @lc.repaintLayer('main')
 
-module.exports = {ClearAction, AddShapeAction, EditShapeAction}
+module.exports = {ClearAction, RemoveAction, AddShapeAction, EditShapeAction}

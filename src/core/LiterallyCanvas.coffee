@@ -421,7 +421,7 @@ module.exports = class LiterallyCanvas
       ctx.restore()
 
   clear: (triggerClearEvent=true) ->
-    oldShapes = @shapes
+    oldShapes = @shapes.slice(0)
     newShapes = []
     @setShapesInProgress []
     @execute(new actions.ClearAction(this, oldShapes, newShapes))
@@ -552,7 +552,8 @@ module.exports = class LiterallyCanvas
     @repaintLayer('main')
     shape
 
-  removeShape: (targetShape) ->
+  removeShape: (targetShape, triggerClearEvent=true) ->
+    oldShapes = @shapes.slice(0)
     if @shapes[@shapes.length-1].id == targetShape.id
       @shapes.pop()
     # uncommon case: it's in the array somewhere
@@ -561,4 +562,7 @@ module.exports = class LiterallyCanvas
       for shape in @shapes
         newShapes.push(shape) if shape.id != targetShape.id
       @shapes = newShapes
+    @execute(new actions.RemoveAction(this, oldShapes, @shapes.slice(0)))
     @repaintLayer('main')
+    if triggerClearEvent
+      @trigger('remove', {@shapes})
