@@ -38,7 +38,7 @@ module.exports = class Magnifier extends Tool
   end: (x, y, lc) ->
     scale = util.getBackingScale(lc.ctx)
     oldPosition = lc.position
-    if (lc.scale <= 0.5 || lc.scale >= 3)
+    if ((lc.scale <= 0.5 && @isShift) || (lc.scale >= 3 && !@isShift))
       return
     panX = (x - lc.canvas.width / 2 / scale) * lc.scale * 0.1
     panY = (y - lc.canvas.height / 2 / scale) * lc.scale * 0.1
