@@ -475,7 +475,8 @@ module.exports = class LiterallyCanvas
     return util.getDefaultImageRect(
       (s.getBoundingRect(@ctx) for s in @shapes.concat(@backgroundShapes)),
       explicitSize,
-      margin )
+      margin,
+      @backgroundShapes )
 
   getImage: (opts={}) ->
     opts.includeWatermark ?= true
