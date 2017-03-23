@@ -79,7 +79,7 @@ util =
     ".replace(/(\r\n|\n|\r)/gm,"")
 
   # [{x, y, width, height}]
-  getBoundingRect: (rects, width, height) ->
+  getBoundingRect: (rects, width, height, backgroundShapes = []) ->
     return {x: 0, y: 0, width: 0 or width, height: 0 or height} unless rects.length
 
     # Calculate the bounds for infinite canvas
@@ -93,9 +93,14 @@ util =
       maxX = Math.ceil Math.max(maxX, rect.x + rect.width)
       maxY = Math.ceil Math.max(maxY, rect.y + rect.height)
 
+    if backgroundShapes.length > 0
+      rect = backgroundShapes[0]
+      maxX = rect.x + rect.width
+      maxY = rect.y + rect.height
+
     # Use the image size bounds if they exist
-    minX = if width then 0 else minX
-    minY = if height then 0 else minY
+    minX = if width then 0 else Math.max(minX, 0)
+    minY = if height then 0 else Math.max(minY, 0)
     maxX = width or maxX
     maxY = height or maxY
 
@@ -105,13 +110,15 @@ util =
   getDefaultImageRect: (
       shapeBoundingRects,
       explicitSize={width: 0, height: 0},
-      margin={top: 0, right: 0, bottom: 0, left: 0}) ->
+      margin={top: 0, right: 0, bottom: 0, left: 0},
+      backgroundShapes=[]) ->
     {width, height} = explicitSize
 
     rect = util.getBoundingRect(
       shapeBoundingRects,
       if width == 'infinite' then 0 else width,
-      if height == 'infinite' then 0 else height)
+      if height == 'infinite' then 0 else height,
+      backgroundShapes)
 
     rect.x -= margin.left
     rect.y -= margin.top
