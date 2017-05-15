@@ -48,7 +48,7 @@ module.exports = class Pencil extends ToolWithStroke
       @currentShape = undefined
       @updateCursor(x, y, lc)
       lc.drawShapeInProgress(@cursorShape)
-      # ShapesInProgress를 초기화 해서 쓰레기 데이더 삭제
+      # ShapesInProgress를 초기화 해서 쓰레기 데이터 삭제
       lc.setShapesInProgress([])
 
     unsubscribeFuncs.push lc.on 'setStrokeWidth', (strokeWidth) =>
