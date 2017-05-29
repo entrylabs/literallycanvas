@@ -196,8 +196,10 @@ drawImage = (ctx, shape, retryCallback) ->
     height = shape.height * shape.scale
     scaleX = 1
     scaleY = 1
-    shapeWidth = -Math.abs(Math.round(width / 2))
-    shapeHeight = -Math.abs(Math.round(height / 2))
+    shapeDx = Math.abs(Math.round(width / 2))
+    shapeDy = Math.abs(Math.round(height / 2))
+    shapeWidth = -Math.abs(width)
+    shapeHeight = -Math.abs(height)
     if shape.flipX
       scaleX = -1
     if shape.flipY
@@ -205,7 +207,7 @@ drawImage = (ctx, shape, retryCallback) ->
     ctx.translate(x, y);
     ctx.rotate(shape.rotate * Math.PI / 180)
     ctx.scale(scaleX, scaleY)
-    ctx.drawImage(shape.image, shapeWidth, shapeHeight)
+    ctx.drawImage(shape.image, shapeDx, shapeDy, shapeWidth, shapeHeight)
     ctx.restore()
   else if retryCallback
     shape.image.onload = retryCallback
