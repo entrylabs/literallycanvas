@@ -118,16 +118,27 @@ _mid = (a, b) ->
 defineShape 'Image',
   # TODO: allow resizing/filling
   constructor: (args={}) ->
+    @maxWidth = 960
+    @maxHeight = 540
     @x = args.x or 0
     @y = args.y or 0
     @scale = args.scale or 1
     @image = args.image or null
-    @width = args.width or @image.width
-    @height = args.height or @image.height
+    @setImageSize(args)
     @flipX = args.flipX or false
     @flipY = args.flipY or false
     @isLoaded = !(@image.width is 0)
     @rotate = args.rotate or 0
+  setImageSize: (args={}) -> 
+    @width = args.width or @image.width
+    @height = args.height or @image.height
+    if @maxWidth < @width or @maxHeight < @height
+      ratio = Math.ceil(Math.max @width / @maxWidth, @height / @maxHeight)
+      @width = Math.floor @width / ratio;
+      @height = Math.floor @height / ratio;
+      if @image != null
+        @image.width = @width
+        @image.height = @height
   getBoundingRect: ->
     width = @width * @scale
     height = @height * @scale
