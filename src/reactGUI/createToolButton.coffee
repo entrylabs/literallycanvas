@@ -18,20 +18,18 @@ createToolButton = (tool) ->
     render: ->
       {div, img} = React.DOM
       {imageURLPrefix, selected, onSelect} = @props
-
       className = classSet
         'lc-pick-tool': true
         'toolbar-button': true
         'thin-button': true
         'selected': selected is displayName
+        "#{imageName}-icon": true
       if (imageName is "none")
         style = {'display': 'none'}
-      else
-        src = "#{imageURLPrefix}/#{imageName}.png"
-        style = {'backgroundImage': "url(#{src})"}
       (div {
         className,
         style: style
+        iconName: tool.iconName
         onClick: (-> onSelect(tool)), title: _(Lang.Workspace[displayName])})
 
 

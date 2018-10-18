@@ -19,6 +19,7 @@ util =
 
   classSet: (classNameToIsPresent) ->
     classNames = []
+    console.log(classNameToIsPresent);
     for key of classNameToIsPresent
       if classNameToIsPresent[key]
         classNames.push(key)

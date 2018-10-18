@@ -161,7 +161,7 @@ ColorWell = React.createClass
             style: {backgroundColor: @state.colorString}
           },
           " "
-        ),
+        )
       ),
       @renderPicker()
     )

@@ -51,7 +51,7 @@ Picker = React.createClass
           bottom: 0,
           left: 0,
           right: 0,
-        },
+        }
         # ColorPickers({lc: @props.lc})
         # UndoRedoButtons({lc, imageURLPrefix})
         # ZoomButtons({lc, imageURLPrefix})

@@ -10,7 +10,7 @@ ColorPickers = React.createFactory React.createClass
     {div} = React.DOM
     (div {className: 'lc-color-pickers'},
       (ColorWell {lc, colorName: 'primary'})
-      (ColorWell {lc, colorName: 'secondary'}),
+      (ColorWell {lc, colorName: 'secondary'})
     #   (ColorWell {lc, colorName: 'background'})
     )
 

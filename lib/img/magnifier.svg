@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+    <defs>
+        <path id="a" d="M2.5.61h3v6.28a1.5 1.5 0 0 1-3 0V.61z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(21 20)">
+            <rect width="3.536" height="4.243" x=".982" y="1.129" fill="#979797" fill-rule="nonzero" rx="1.768" transform="rotate(-45 2.75 3.25)"/>
+            <g transform="translate(3 3)">
+                <mask id="b" fill="#fff">
+                    <use xlink:href="#a"/>
+                </mask>
+                <path stroke="#979797" d="M2 .11h4v6.78a2 2 0 1 1-4 0V.11z"/>
+                <rect width="1.328" height="4.794" x="4.501" y="3.158" fill="#979797" fill-rule="nonzero" mask="url(#b)" rx=".5" transform="rotate(45 5.165 5.555)"/>
+                <rect width="1.328" height="3.932" x=".976" y="-.106" fill="#FFF" fill-rule="nonzero" mask="url(#b)" rx=".5" transform="rotate(45 1.64 1.86)"/>
+            </g>
+        </g>
+        <circle cx="18" cy="17" r="7" fill="#FFF" fill-rule="nonzero" stroke="#979797" stroke-width="2"/>
+        <path fill="#979797" fill-rule="nonzero" d="M17.25 16.25v-1.5a.75.75 0 1 1 1.5 0v1.5h1.5a.75.75 0 1 1 0 1.5h-1.5v1.5a.75.75 0 1 1-1.5 0v-1.5h-1.5a.75.75 0 1 1 0-1.5h1.5z"/>
+    </g>
+</svg>
