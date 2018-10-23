@@ -21,7 +21,7 @@ ZoomButtons = React.createFactory require './ZoomButtons'
 
 Picker = React.createClass
   displayName: 'Picker'
-  getInitialState: -> {selectedTool: "Pan"}
+  getInitialState: -> {selectedTool: "SelectShape"}
   componentWillMount: ->
     @unobserve = @props.lc.on("toolChange", @applyTool)
   componentWillUnmount:
@@ -40,6 +40,7 @@ Picker = React.createClass
             key: ix
             selected: @state.selectedTool,
             onSelect: (tool) =>
+              tool.isSelect = true;
               lc.setTool(tool)
           }
         )

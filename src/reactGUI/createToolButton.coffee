@@ -28,9 +28,11 @@ createToolButton = (tool) ->
         style = {'display': 'none'}
       (div {
         className,
-        style: style
-        iconName: tool.iconName
-        onClick: (-> onSelect(tool)), title: _(Lang.Workspace[displayName])})
+        style: style,
+        # iconName: tool.iconName,
+        onClick: (-> onSelect(tool)), 
+        title: _(Lang.Workspace[displayName]),
+        alt: _(Lang.Workspace[displayName])})
 
 
 module.exports = createToolButton

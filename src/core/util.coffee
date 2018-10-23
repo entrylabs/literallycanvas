@@ -19,7 +19,6 @@ util =
 
   classSet: (classNameToIsPresent) ->
     classNames = []
-    console.log(classNameToIsPresent);
     for key of classNameToIsPresent
       if classNameToIsPresent[key]
         classNames.push(key)
@@ -35,6 +34,7 @@ util =
           el.setAttribute('height', el.offsetHeight * scale)
       callback()
 
+    $(elementToMatch).on 'resize', resize 
     elementToMatch.addEventListener 'resize', resize
     window.addEventListener 'resize', resize
     window.addEventListener 'orientationchange', resize

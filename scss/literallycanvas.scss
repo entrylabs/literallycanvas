@@ -4,16 +4,22 @@ $pickerWidth: 60px;
 $pickerButtonSize: 40px;
 $menuHeight: 57px;
 $optionsHeight: 31px;
-$toolbarHeight: 680px;
+$toolbarHeight: 100%;
+$optionsHeight: 100px;
 $optionsButtonSize: $optionsHeight - 3px;
 
 $white: #fff;
+$black: #000;
 $canvasBackground: #fff;
 // $toolbarBackground: rgb(230, 230, 230);
 $toolbarBackground: #f9f9f9;
 $selectedColor: #4f80ff;
+$warmgray100: #f9f9f9;
+$warmgray200: #f2f2f2;
 $warmgray300: #e2e2e2;
+$warmgray400: #d8d8d8;
 $warmgray700: #555555;
+$textColor: #2c313d;
 
 @mixin fill-container {
     position: absolute;
@@ -54,6 +60,27 @@ $warmgray700: #555555;
         }
     }
 }
+
+.entryPlaygroundPainter {
+    position: absolute;
+    left: 240px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    border-left: 1px solid $warmgray300;
+    background-color: $warmgray100;
+
+    &.fullscreen {
+        position: fixed;
+        left: 0;
+        z-index: 1000;
+        .entryPlaygroundPainterFullscreenButton {
+            background-image: url(../img/btn-normal.svg);
+        }
+    }
+}
+
 .literally .button-style-1 {
     @include button-style-1;
 }
@@ -130,6 +157,7 @@ $warmgray700: #555555;
         padding: 10px;
         padding-top: 20px;
         border: solid 1px $warmgray300;
+        border-top: none;
         background-color: $toolbarBackground;
     }
 
@@ -153,7 +181,7 @@ $warmgray700: #555555;
         right: 0;
         left: $pickerWidth;
         cursor: default;
-        bottom: 190px;
+        bottom: $optionsHeight;
         top: $menuHeight;
         background-image: url('../img/transparent-pattern.png');
         overflow: hidden;
@@ -358,7 +386,10 @@ $warmgray700: #555555;
     right: 0;
     left: $pickerWidth;
     bottom: 0;
-    height: 190px;
+    height: $optionsHeight;
+    border: solid 1px $warmgray300;
+    border-left: none;
+    background-color: $warmgray100;
 
     .lc-font-settings {
         height: $optionsHeight - 1px;
@@ -377,163 +408,317 @@ $warmgray700: #555555;
 }
 
 .canvas-top-menu {
+    min-width: 420px;
     right: 0;
     left: 0;
     height: $menuHeight;
     border: solid 1px $warmgray300;
     background-color: $toolbarBackground;
+    z-index: 202;
+
+    .entryPlaygroundPainterFullscreenButton {
+        display: inline-block;
+        position: absolute;
+        background-image: url(../img/btn-fullscreen.svg);
+        top: 7px;
+        left: 7px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
 
     .entryPlaygroundPainterTopMenu {
-        ul {
-            margin-top: 0px;
-            padding-left: $pickerWidth;
+        @mixin textStyle {
+            font-size: 14px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: -0.3px;
+            color: $textColor;
+        }
 
-            @mixin textStyle {
-                font-size: 14px;
-                font-weight: bold;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: normal;
-                letter-spacing: -0.3px;
-                color: $warmgray700;
+        display: inline-block;
+        margin-top: 0px;
+        padding-top: 12px;
+        padding-left: $pickerWidth;
+
+        > div {
+            @include textStyle;
+            padding-left: 10px;
+            padding-right: 10px;
+            display: inline-block;
+            vertical-align: top;
+            min-width: 72px;
+            height: 32px;
+            border: solid 1px $warmgray300;
+            line-height: 30px;
+            background-color: $white;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+
+            &.entryPlaygroundPainterTopMenuFile,
+            &.entryPlaygroundPainterTopMenuEdit {
+                &::after {
+                    content: '';
+                    width: 8px;
+                    height: 6px;
+                    margin-left: 18px;
+                    margin-top: -3px;
+                    vertical-align: middle;
+                    display: inline-block;
+                    background-image: url(../img/menu-arrow.svg);
+                }
+
+                &.active {
+                    .entryPlaygroundPainterTopMenuFileDropdown,
+                    .entryPlaygroundPainterTopMenuEditDropdown {
+                        display: block;
+                    }
+                }
             }
-            li {
-                width: 72px;
-                height: 32px;
+
+            .entryPlaygroundPainterTopMenuFileDropdown,
+            .entryPlaygroundPainterTopMenuEditDropdown {
+                display: none;
+                z-index: 2;
+                &::before {
+                    content: '';
+                    display: inline-block;
+                    width: 15px;
+                    height: 15px;
+                    position: absolute;
+                    top: -8.5px;
+                    left: calc(50% - 12px);
+                    // object-fit: contain;
+                    // background-image: url(../img/dropdown-arrow.svg);
+
+                    box-shadow: -2px -2px 6px -3px rgba(0, 0, 0, 0.25);
+                    border-left: 1px solid $warmgray300;
+                    border-top: 1px solid $warmgray300;
+                    transform: rotate(45deg) skew(-6deg, -6deg);
+                    background-color: $white;
+                    border-radius: 2px;
+                    z-index: 0;
+                }
+                position: absolute;
+                width: 168px;
                 border: solid 1px $warmgray300;
                 background-color: $white;
-                a {
-                    @include textStyle;
+                border-radius: 6px;
+                box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
+                left: calc(50% - 84px);
+                top: 40px;
+
+                div {
+                    position: relative;
+                    text-align: left;
+                    z-index: 1;
+                    height: 46px;
+                    margin-left: 8px;
+                    margin-right: 8px;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    border-bottom: solid 1px $warmgray200;
+                    line-height: 46px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    font-style: normal;
+                    font-stretch: normal;
+                    letter-spacing: normal;
+                    color: $textColor;
+                    &:last-child {
+                        border-bottom: none;
+                    }
                 }
-                &#entryPainterTopMenuFile,
-                &#entryPainterTopMenuEdit {
-                    @include textStyle;
-                }
+            }
+
+            &:first-child {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+                border-right: none;
+            }
+            &:last-child {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+                border-left: none;
             }
         }
     }
-}
 
-.entryPlaygroundentryPlaygroundPainterAttrThickArea {
-    position: absolute;
-    // left: 150px;
-
-    .painterAttrThickName {
-        width: 50px;
-        margin-bottom: 0;
-        border-bottom: 0;
-        font-size: 9pt;
-        padding-left: 5px;
-    }
-
-    .paintAttrThickTop {
-        width: 40px;
-        height: 10px;
-    }
-
-    fieldset {
-        padding: 0;
-        margin: 0;
-        border: 0;
-        min-width: 0;
-    }
-
-    .entryPlaygroundPainterAttrThickInput {
-        font-size: 9pt;
-        width: 45px;
-        height: 20px;
-        background-color: transparent;
-        border: 0px;
-        color: white;
-    }
-
-    .entryPlaygroundPainterAttrThick {
-        width: 45px;
-        height: 40px;
-        top: 20px;
-        background-color: #643cd9;
-        border-radius: 3px;
+    .entryPlaygroundPainterTopStageXY {
+        display: inline-block;
+        margin-left: 20px;
+        vertical-align: sub;
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.3px;
+        color: $textColor;
     }
 }
 
 .strokePalette {
     position: relative;
+    min-width: 420px;
+    padding-top: 14px;
+    .entryStrokePaletteTitle {
+        display: inline-block;
+        border-right: solid 1px $warmgray400;
+        padding-top: 2px;
+        width: 58px;
+        height: 72px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.3px;
+        vertical-align: top;
+        color: $black;
+    }
+
+    .entryPlaygroundentryPlaygroundPainterAttrThickArea {
+        margin-top: 9px;
+        margin-left: 16px;
+        margin-right: 22px;
+        display: inline-block;
+        padding: 0;
+        border: 0;
+        min-width: 0;
+        vertical-align: top;
+        .painterAttrThickName {
+            margin-bottom: 0;
+            border-bottom: 0;
+            padding: 0;
+            font-size: 12px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: -0.1px;
+            color: $textColor;
+        }
+
+        .entryPainterAttrThickControll {
+            margin-top: 8px;
+            .entryPainterAttrThickMinus,
+            .entryPainterAttrThickPlus {
+                width: 32px;
+                height: 32px;
+                background-size: cover;
+                display: inline-block;
+                border: solid 1px $warmgray300;
+                background-color: $warmgray200;
+                cursor: pointer;
+            }
+
+            .entryPainterAttrThickMinus {
+                background-image: url(../img/thick-minus.svg);
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            .entryPainterAttrThickPlus {
+                background-image: url(../img/thick-plus.svg);
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        }
+
+        .entryPlaygroundPainterAttrThickInput {
+            font-size: 12px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: -0.5px;
+            text-align: center;
+            color: $textColor;
+            width: 40px;
+            height: 32px;
+            border: solid 1px $warmgray300;
+            vertical-align: top;
+            border-left: 0;
+            border-right: 0;
+            background-color: $white;
+            -moz-appearance: textfield;
+            appearance: textfield;
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: textfield;
+            }
+        }
+    }
 }
 
 .entrySelectedColorPanel {
-    left: 130px;
-    top: 10px;
-    position: relative;
+    display: inline-block;
+    margin-top: 9px;
+    margin-left: 16px;
+    margin-right: 22px;
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+    vertical-align: top;
 
-    .entrySelectedColorPanelFill {
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        top: 12px;
-        left: 15px;
+    .title {
+        margin-bottom: 8px;
+        border-bottom: 0;
+        padding: 0;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.1px;
+        color: $textColor;
     }
 
-    .entrySelectedColorPanelFill.dominant {
-        top: 30px;
-        left: 30px;
-    }
-
-    .entrySelectedColorPanelFill.transparent,
-    .entrySelectedColorPanelStroke.transparent {
-        background-image: url(../img/transparent-pattern.png);
-    }
-
-    .entrySelectedColorPanelStroke {
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        top: 30px;
-        left: 30px;
-
-        .entrySelectedColorPanelStrokeInner {
-            width: 20px;
-            height: 20px;
-            margin: 10px;
-            background-color: $toolbarBackground;
+    .colorViwer {
+        display: inline-block;
+        width: 39px;
+        height: 32px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border: solid 1px $warmgray300;
+        background-color: $white;
+        .color {
+            width: 31px;
+            height: 24px;
+            border-radius: 2px;
+            border: solid 1px $warmgray300;
+            margin: 3px;
         }
     }
-
-    input {
-        position: absolute;
-        display: block;
-        top: 80px;
-        left: 25px;
-        width: 55px;
-        height: 15px;
-        font-size: 5pt;
+    .colorPicker {
+        cursor: pointer;
     }
+    .colorPickerButton {
+        display: inline-block;
+        vertical-align: top;
+        width: 26px;
+        height: 32px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border: solid 1px $warmgray300;
+        border-left: none;
+        background-color: $warmgray200;
+        line-height: 28px;
+        text-align: center;
 
-    .entryPlaygroundPainterAttrColorContainer {
-        position: relative;
-        width: 160px;
-        height: 160px;
-        left: 90px;
-        top: 10px;
-
-        .entryPlaygroundPainterAttrColorElement {
-            float: left;
-            width: 15px;
-            height: 15px;
+        &::after {
+            content: '';
+            width: 8px;
+            height: 6px;
+            vertical-align: middle;
+            display: inline-block;
+            background-image: url(../img/menu-arrow.svg);
         }
-    }
-
-    .entryColorSpoid {
-        background-image: url(../img/color_off_spoid.png);
-        position: relative;
-        width: 27px;
-        height: 27px;
-        background-repeat: no-repeat;
-        left: 205px;
-        top: -25px;
-    }
-
-    .entryColorSpoid.toggled {
-        background-image: url(../img/color_on_spoid.png);
     }
 }
 
@@ -610,13 +795,13 @@ $warmgray700: #555555;
         }
     }
     .entryPlaygroundPainterAttrFontStyle option {
-        color: black;
+        color: $textColor;
     }
     .entryPlaygroundPainterAttrFontSize option {
-        color: black;
+        color: $textColor;
     }
     .entryPlaygroundPainterAttrFontName option {
-        color: black;
+        color: $textColor;
     }
     .entryPlaygroundPainterAttrFontTop {
         width: 67px;
@@ -626,47 +811,63 @@ $warmgray700: #555555;
 
 // Move attributes
 .entryMoveAttributes {
-    fieldset {
+    min-width: 420px;
+    padding-top: 14px;
+    .entryMoveTitle {
+        display: inline-block;
+        border-right: solid 1px $warmgray400;
+        padding-top: 2px;
+        width: 58px;
+        height: 72px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.3px;
+        vertical-align: top;
+        color: $black;
+    }
+    .entryPlaygroundPainterAttrResize {
+        margin-top: 9px;
+        margin-left: 16px;
+        margin-right: 22px;
+        display: inline-block;
         padding: 0;
-        margin: 0;
         border: 0;
         min-width: 0;
+        vertical-align: top;
+        .title {
+            margin-bottom: 0;
+            border-bottom: 0;
+            padding: 0;
+            font-size: 12px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: -0.1px;
+            color: $textColor;
+        }
     }
 
     .painterAttrWrapper {
-        margin-top: -7px;
+        margin-top: 8px;
     }
 
-    .entryPlaygroundPainterAttrResize {
-        padding: 4px 4px 0px 4px;
-    }
-    .entryPlaygroundPainterAttrResize > legend {
-        background-color: transparent;
-        padding: 2px;
-        width: 30px;
-        margin-bottom: 0;
-        border-bottom: 0;
-        font-size: 9pt;
-    }
-    .entryPlaygroundPainterAttrResize > span {
-        font-size: 9pt;
-        padding: 2px;
-        margin: 0;
-    }
     .painterAttrRotateTop {
         padding-left: 28px;
         color: white;
     }
+
     .entryPlaygroundPainterAttrRotate {
-        width: 40px;
-        height: 40px;
-        background-color: #643cd9;
-        border-radius: 3px;
-        margin-top: -3px;
+        margin-top: 8px;
     }
+
     .entryPlaygroundPainterSizeText {
         width: 10px;
-        color: black;
+        color: $textColor;
         display: inline-block;
         margin-left: 5px;
         margin-right: 1px;
@@ -675,108 +876,95 @@ $warmgray700: #555555;
         width: 40px;
         height: 10px;
     }
-    .entryPlaygroundPainterNumberInput {
-        width: 30px;
-        font-size: 9pt;
-        color: white;
-        padding-left: 3px;
-        padding-right: 3px;
-    }
     .entryPlaygroundPainterAttrResizeX {
         display: inline-block;
-        width: 40px;
-        height: 40px;
-        background-color: #643cd9;
-        border-radius: 3px 3px 3px 3px;
+        margin-right: 16px;
     }
     .entryPlaygroundPainterAttrResizeXTop {
-        width: 40px;
-        height: 10px;
-        border-radius: 3px 3px 0 0;
-        background-color: #643cd9;
-        padding: 0 0 0 3px;
-        font-size: 11px;
-        color: white;
-    }
-    .entryPlaygroundPainterAttrResizeXBottom {
-        width: 40px;
-        height: 10px;
-        border-radius: 0 0 3px 3px;
-        background-color: #aaa;
-    }
-    .entryPlaygroundPainterNumberInput {
-        width: 40px;
-        height: 20px;
-        background-color: transparent;
-        border: 0px;
+        display: inline-block;
+        font-size: 10px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.4px;
+        color: $textColor;
+        margin-top: 3px;
+        margin-right: 9px;
+        vertical-align: top;
     }
 
-    .entryPlaygroundPainterAttrResizeYTop {
-        width: 40px;
-        height: 10px;
-        border-radius: 3px 3px 0 0;
-        background-color: #643cd9;
-        padding: 0 0 0 3px;
-        font-size: 11px;
-        color: white;
-    }
-    .entryPlaygroundPainterAttrResizeYBottom {
-        width: 40px;
-        height: 10px;
-        border-radius: 0 0 3px 3px;
-        background-color: #643cd9;
-    }
-    .entryPlaygroundAttrReiszeY {
-        top: 17px;
-        left: 60px;
-        width: 40px;
-        height: 40px;
-        background-color: #643cd9;
-        border-radius: 3px;
+    .entryPlaygroundPainterAttrReiszeY {
         display: inline-block;
     }
+    .entryPlaygroundPainterAttrResizeYTop {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.4px;
+        color: $textColor;
+        margin-top: 3px;
+        margin-right: 9px;
+        vertical-align: top;
+    }
 
-    #painterAttrRotateArea {
-        padding: 4px 4px 0px 4px;
+    .entryPlaygroundPainterNumberInput {
+        display: inline-block;
+        width: 48px;
+        height: 32px;
+        border-radius: 4px;
+        border: solid 1px $warmgray300;
+        color: $textColor;
+        background-color: $white;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.5px;
+        text-align: center;
+    }
+
+    .painterAttrRotateArea {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 22px;
     }
 
     .painterAttrRotateName,
+    .painterAttrFlipName,
     .painterAttrOpacityName {
-        top: 60px;
-        left: 9px;
-        width: 30px;
-        background-color: transparent;
-        margin-bottom: 0;
-        border-bottom: 0;
-        left: 2px;
-        padding: 2px;
-        font-size: 9pt;
+        margin-top: 9px;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.1px;
+        color: $warmgray700;
         display: block;
     }
 
     .entryPlaygroundPainterFlip {
-        width: 200px;
-
+        display: inline-block;
         .entryPlaygroundPainterFlipX {
-            position: absolute;
-            top: 90px;
-            left: 60px;
-            background-image: url(../img/vertical.png);
+            display: inline-block;
+            margin-top: 8px;
+            background-image: url(../img/vertical.svg);
             background-repeat: no-repeat;
-            border-radius: 3px;
-            width: 28px;
-            height: 28px;
+            background-size: cover;
+            margin-right: 16px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
         }
 
         .entryPlaygroundPainterFlipY {
-            position: absolute;
-            top: 90px;
-            left: 90px;
-            background-image: url(../img/horizontal.png);
-            background-repeat: no-repeat;
-            border-radius: 3px;
-            width: 28px;
-            height: 28px;
+            @extend .entryPlaygroundPainterFlipX;
+            background-image: url(../img/horizontal.svg);
         }
     }
 }

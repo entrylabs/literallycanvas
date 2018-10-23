@@ -22,13 +22,25 @@ Options = React.createClass
   }
   getInitialState: -> @getState()
   mixins: [createSetStateOnEventMixin('toolChange')]
-
+  applyTool: ->
+    if @props.lc.tool.isSelect
+      @isDefaultShape = true;
+      @props.lc.tool.isSelect = false;
+    else 
+      @isDefaultShape = false;
+  componentWillMount: ->
+    @unobserve = @props.lc.on("toolChange", @applyTool)
+  componentWillUnmount:
+    @unobserve() if @unobserve
   renderBody: ->
     # style can be null; cast it as a string
     style = "" + @state.style
     optionsStyles[style] && optionsStyles[style]({
-      lc: @props.lc, tool: @state.tool, imageURLPrefix: @props.imageURLPrefix})
-
+      lc: @props.lc, 
+      tool: @state.tool, 
+      imageURLPrefix: @props.imageURLPrefix,
+      isDefaultShape: @isDefaultShape
+    })
   render: ->
     {div} = React.DOM
     (div {className: 'lc-options horz-toolbar'},
