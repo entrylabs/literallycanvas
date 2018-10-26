@@ -24,11 +24,14 @@ util =
         classNames.push(key)
     return classNames.join(' ')
 
-  matchElementSize: (elementToMatch, elementsToResize, scale, callback = ->) ->
+  matchElementSize: (elementToMatch, elementsToResize, scale, lc, callback = ->) ->
     resize = =>
+      paddingHeight = 0
+      if lc.tool == lc.tools.Text
+        paddingHeight = 68
       for el in elementsToResize
         el.style.width = "#{elementToMatch.offsetWidth}px"
-        el.style.height = "#{elementToMatch.offsetHeight}px"
+        el.style.height = "#{elementToMatch.offsetHeight - paddingHeight}px"
         if el.width?
           el.setAttribute('width', el.offsetWidth * scale)
           el.setAttribute('height', el.offsetHeight * scale)

@@ -42,8 +42,9 @@ Options = React.createClass
       isDefaultShape: @isDefaultShape
     })
   render: ->
+    {style} = @state
     {div} = React.DOM
-    (div {className: 'lc-options horz-toolbar'},
+    (div {className: "lc-options horz-toolbar #{style}"},
       this.renderBody()
     #   ColorPickers({lc: @props.lc})
     )

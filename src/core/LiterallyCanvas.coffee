@@ -106,7 +106,7 @@ module.exports = class LiterallyCanvas
         @repaintAllLayers()
 
     @respondToSizeChange = util.matchElementSize(
-      @containerEl, [@backgroundCanvas, @canvas], @backingScale, repaintAll)
+      @containerEl, [@backgroundCanvas, @canvas], @backingScale, this, repaintAll)
 
     if @watermarkImage
       @watermarkImage.onload = => @repaintLayer('background')
@@ -164,6 +164,9 @@ module.exports = class LiterallyCanvas
     @trigger('toolChange', {tool})
     if @isBound
       @tool.didBecomeActive(this)
+    event = document.createEvent "Event";
+    event.initEvent "resize", false, true; 
+    @containerEl && @containerEl.dispatchEvent(event);
 
   setCursor: (cursor) ->
     if cursor
@@ -227,7 +230,6 @@ module.exports = class LiterallyCanvas
   setFont: (font) ->
     @font = font
     @trigger "fontChange", @font
-    console.log(font)
 
   getFont: () -> @font
 

@@ -10,6 +10,7 @@ $optionsButtonSize: $optionsHeight - 3px;
 
 $white: #fff;
 $black: #000;
+$bc_base: #4f80ff;
 $canvasBackground: #fff;
 // $toolbarBackground: rgb(230, 230, 230);
 $toolbarBackground: #f9f9f9;
@@ -329,14 +330,21 @@ $textColor: #2c313d;
 
     background-color: $toolbarBackground;
 
+    &.font-attributes-color-palette {
+        height: 168px;
+        .entryStrokePaletteTitle {
+            height: 140px;
+        }
+    }
+
     .label {
-        line-height: $optionsHeight - 1px;
+        // line-height: $optionsHeight - 1px;
         margin: 0 0.25em 0 0.25em;
         font-size: 12px;
     }
 
     span {
-        line-height: $optionsHeight - 1px;
+        // line-height: $optionsHeight - 1px;
         margin: 0 0.25em 0 0.25em;
         font-size: 12px;
         float: left;
@@ -579,7 +587,11 @@ $textColor: #2c313d;
         line-height: normal;
         letter-spacing: -0.3px;
         vertical-align: top;
-        color: $black;
+        color: $textColor;
+    }
+
+    .entryStrokePalettePalette {
+        display: inline-block;
     }
 
     .entryPlaygroundentryPlaygroundPainterAttrThickArea {
@@ -618,13 +630,13 @@ $textColor: #2c313d;
             }
 
             .entryPainterAttrThickMinus {
-                background-image: url(../img/thick-minus.svg);
+                background-image: url(../img/size-minus.svg);
                 border-top-left-radius: 4px;
                 border-bottom-left-radius: 4px;
             }
 
             .entryPainterAttrThickPlus {
-                background-image: url(../img/thick-plus.svg);
+                background-image: url(../img/size-plus.svg);
                 border-top-right-radius: 4px;
                 border-bottom-right-radius: 4px;
             }
@@ -656,7 +668,6 @@ $textColor: #2c313d;
 }
 
 .entrySelectedColorPanel {
-    display: inline-block;
     margin-top: 9px;
     margin-left: 16px;
     margin-right: 22px;
@@ -720,92 +731,184 @@ $textColor: #2c313d;
             background-image: url(../img/menu-arrow.svg);
         }
     }
+
+    .strokeColor,
+    .fillColor {
+        display: inline-block;
+    }
+
+    .strokeColor {
+        margin-right: 22px;
+    }
 }
 
 // font 속성
 .entryPlaygroundPainterAttrFont {
-    position: absolute;
-    left: 0px;
-    padding: 4px;
-    width: 100px;
-    height: 40px;
-    font-size: 15px;
-
-    .entryPlaygroundPainterAttrTop {
-        position: absolute;
-        top: 20px;
-        width: 93px;
-        height: 40px;
-        border-radius: 3px;
-        color: white;
-        background-color: #643cd9;
-
-        select {
-            color: inherit;
-            font: inherit;
-            // font-size: inherit;
-            line-height: inherit;
-        }
+    display: inline-block;
+    margin-top: 9px;
+    margin-left: 16px;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+    vertical-align: top;
+    .title {
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.1px;
+        color: $textColor;
     }
-    .entryPlaygroundPaintAttrTop_ {
-        width: 93px;
-        height: 10px;
+    .entryPlaygroundPainterAttrTop {
+        display: inline-block;
+        margin-right: 22px;
+        vertical-align: top;
+        color: $textColor;
+
+        .fontDropdown {
+            cursor: pointer;
+            margin-top: 8px;
+            .fontName {
+                display: inline-block;
+                width: 95px;
+                height: 32px;
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+                border: solid 1px $warmgray300;
+                background-color: $white;
+                font-size: 12px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: -0.5px;
+                text-align: center;
+                color: $textColor;
+                vertical-align: top;
+                padding-top: 8px;
+                padding-left: 8px;
+                padding-right: 8px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            .fontDropdownButton {
+                vertical-align: top;
+                display: inline-block;
+                width: 26px;
+                height: 32px;
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+                border: solid 1px $warmgray300;
+                border-left: none;
+                background-color: $warmgray200;
+                line-height: 28px;
+                text-align: center;
+
+                &::after {
+                    content: '';
+                    width: 8px;
+                    height: 6px;
+                    vertical-align: middle;
+                    display: inline-block;
+                    background-image: url(../img/menu-arrow.svg);
+                }
+            }
+        }
     }
 
     .painterAttrFontSizeArea {
-        position: absolute;
-        top: 70px;
-        background-color: #643cd9;
-        width: 44px;
-        height: 40px;
-        color: white;
-        border-radius: 3px;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 22px;
+        margin-bottom: 8px;
 
-        select {
-            color: inherit;
-            font: inherit;
-            font-size: inherit;
-            line-height: inherit;
+        .entryPainterAttrFontSizeControll {
+            margin-top: 8px;
+            .entryPainterAttrFontSizeMinus,
+            .entryPainterAttrFontSizePlus {
+                width: 32px;
+                height: 32px;
+                background-size: cover;
+                display: inline-block;
+                border: solid 1px $warmgray300;
+                background-color: $warmgray200;
+                cursor: pointer;
+            }
+
+            .entryPainterAttrFontSizeMinus {
+                background-image: url(../img/size-minus.svg);
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+
+            .entryPainterAttrFontSizePlus {
+                background-image: url(../img/size-plus.svg);
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+
+            .entryPlaygroundPainterAttrFontSizeInput {
+                font-size: 12px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: -0.5px;
+                text-align: center;
+                color: $textColor;
+                width: 40px;
+                height: 32px;
+                border: solid 1px $warmgray300;
+                vertical-align: top;
+                border-left: 0;
+                border-right: 0;
+                background-color: $white;
+                -moz-appearance: textfield;
+                appearance: textfield;
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: textfield;
+                }
+            }
         }
-    }
-    .painterAttrFontSizeTop {
-        width: 40px;
-        height: 10px;
-    }
-    .entryPlaygroundPainterAttrFontName,
-    .entryPlaygroundPainterAttrFontSize,
-    .entryPlaygroundPainterAttrFontStyle {
-        background: transparent;
-        border: 0px;
     }
     .entryPlaygroundPainterAttrFontStyleArea {
-        position: absolute;
-        background-color: #643cd9;
-        top: 120px;
-        width: 67px;
-        height: 40px;
-        border-radius: 3px;
-        color: white;
+        display: inline-block;
+        margin-right: 22px;
+        .title {
+            margin-bottom: 8px;
+        }
 
-        select {
-            color: inherit;
-            font: inherit;
-            font-size: inherit;
-            line-height: inherit;
+        .fontStyleBold {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-image: url(../img/bold-normal.svg);
+            background-size: cover;
+            border-radius: 4px;
+            border: solid 1px $warmgray300;
+            background-color: $white;
+            cursor: pointer;
+            margin-right: 10px;
+
+            &.select {
+                background-image: url(../img/bold-select.svg);
+                border-color: $bc_base;
+            }
+        }
+        .fontStyleItalic {
+            @extend .fontStyleBold;
+            background-image: url(../img/italic-normal.svg);
+            margin-right: 0px;
+            &.select {
+                background-image: url(../img/italic-select.svg);
+                border-color: $bc_base;
+            }
         }
     }
-    .entryPlaygroundPainterAttrFontStyle option {
-        color: $textColor;
-    }
-    .entryPlaygroundPainterAttrFontSize option {
-        color: $textColor;
-    }
-    .entryPlaygroundPainterAttrFontName option {
-        color: $textColor;
-    }
-    .entryPlaygroundPainterAttrFontTop {
-        width: 67px;
-        height: 10px;
+    .entrySelectedColorPanel {
+        margin: 0;
     }
 }
 
@@ -827,7 +930,7 @@ $textColor: #2c313d;
         line-height: normal;
         letter-spacing: -0.3px;
         vertical-align: top;
-        color: $black;
+        color: $textColor;
     }
     .entryPlaygroundPainterAttrResize {
         margin-top: 9px;
@@ -839,6 +942,7 @@ $textColor: #2c313d;
         min-width: 0;
         vertical-align: top;
         .title {
+            display: inline-block;
             margin-bottom: 0;
             border-bottom: 0;
             padding: 0;
@@ -945,6 +1049,9 @@ $textColor: #2c313d;
         line-height: normal;
         letter-spacing: -0.1px;
         color: $warmgray700;
+        display: inline-block;
+    }
+    .painterAttrFlipName {
         display: block;
     }
 
@@ -969,36 +1076,104 @@ $textColor: #2c313d;
     }
 }
 
-.entryPaintMagnifier {
-    margin-top: 12px;
-}
-
-.entryPaintMagnifier > input {
-    border: none;
-    border-top: 1px solid $selectedColor;
-    border-bottom: 1px solid $selectedColor;
-    height: 28px;
-    width: 56px;
+.selectCut {
     text-align: center;
+    padding-top: 18px;
+    .selectCutImage {
+        display: inline-block;
+        margin-bottom: 7px;
+        width: 46px;
+        height: 45px;
+        background-image: url(../img/img-cutting.svg);
+    }
+    .selectCutDesc {
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 0;
+        letter-spacing: -0.3px;
+        color: $warmgray700;
+    }
 }
 
-.entryPaintMagnifier > div {
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    color: white;
-    background-color: $selectedColor;
-    cursor: pointer;
-    text-align: center;
-    line-height: 28px;
-}
+.magnifierPalette {
+    position: relative;
+    min-width: 420px;
+    padding-top: 14px;
+    .entryPaintMagnifierTitle {
+        display: inline-block;
+        border-right: solid 1px $warmgray400;
+        padding-top: 2px;
+        padding-left: 16px;
+        padding-right: 16px;
+        height: 72px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.3px;
+        vertical-align: top;
+        color: $textColor;
+    }
+    .entryPaintMagnifier {
+        margin-top: 9px;
+        margin-left: 16px;
+        margin-right: 22px;
+        display: inline-block;
+        padding: 0;
+        border: 0;
+        min-width: 0;
+        vertical-align: top;
+        .entryPaintMagnifierControll {
+            margin-top: 8px;
+            .entryPaintMagnifierMinus,
+            .entryPaintMagnifierPlus {
+                width: 32px;
+                height: 32px;
+                background-size: cover;
+                display: inline-block;
+                border: solid 1px $warmgray300;
+                background-color: $warmgray200;
+                cursor: pointer;
+            }
 
-.entryPaintMagnifier > #zoomOut {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
+            .entryPaintMagnifierMinus {
+                background-image: url(../img/size-minus.svg);
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
 
-.entryPaintMagnifier > #zoomIn {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+            .entryPaintMagnifierPlus {
+                background-image: url(../img/size-plus.svg);
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        }
+
+        .entryPaintMagnifierInput {
+            font-size: 12px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: -0.5px;
+            text-align: center;
+            color: $textColor;
+            width: 48px;
+            height: 32px;
+            border: solid 1px $warmgray300;
+            vertical-align: top;
+            border-left: 0;
+            border-right: 0;
+            background-color: $white;
+            -moz-appearance: textfield;
+            appearance: textfield;
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: textfield;
+            }
+        }
+    }
 }

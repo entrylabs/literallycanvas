@@ -1,11 +1,18 @@
 require './fontmetrics.js'
 
+fontStyleList = ['bold', 'italic', 'normal']
 
 parseFontString = (font) ->
   fontItems = font.split(' ')
-
-  fontStyle = fontItems.shift()
-  fontSize = parseInt(fontItems.shift())
+  styles = []
+  item = null
+  while true 
+    item = fontItems.shift()
+    if !item || fontStyleList.indexOf(item) == -1
+      break;
+    styles.push(item)
+  fontStyle = styles.join(' ')
+  fontSize = parseInt(item, 10)
   fontFamily = fontItems.join(' ')
 
   {fontSize, fontFamily, fontStyle}

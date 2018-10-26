@@ -1,4 +1,4 @@
-const React = require('../reactGUI/React-shim');
+const React = require('react');
 
 var MoveAttributes = React.createClass({
     getInitialState: function() {

@@ -10,6 +10,7 @@ const defaultOptions = require('../core/defaultOptions');
 require('../optionsStyles/font');
 require('../optionsStyles/stroke-width');
 require('../optionsStyles/color-palette');
+require('../optionsStyles/select-cut');
 require('../optionsStyles/stroke-palette');
 require('../optionsStyles/stroke-thickness');
 require('../optionsStyles/move-attributes');

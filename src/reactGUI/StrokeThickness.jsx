@@ -44,17 +44,16 @@ var StrokeThickness = React.createClass({
     },
 
     render: function() {
-        const lc = this.props.lc;
-        // console.log('lc:', lc);
-        // console.log('tool.name:', lc.tool.name);
-        // console.log('strokeWidth:', this.state.strokeWidth);
+        const { lc, name } = this.props;
         let thickness = [];
-        for (var i = 1; i <= 70; i++) thickness.push(i);
-
+        for (var i = 1; i <= 70; i++) {
+            thickness.push(i);
+        }
+        const displayName = name || Lang.Workspace.thickness;
         return (
             <div className="entryPlaygroundentryPlaygroundPainterAttrThickArea">
                 {/*<span> {this.state.strokeWidth} </span>*/}
-                <div className="painterAttrThickName">{Lang.Workspace.thickness}</div>
+                <div className="painterAttrThickName">{displayName}</div>
                 <div id="entryPainterAttrThick" className="entryPlaygroundPainterAttrThick">
                     <div className="entryPainterAttrThickControll">
                         <div

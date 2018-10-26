@@ -216,7 +216,7 @@ var SelectedColorPanel = React.createClass({
 
     render: function() {
         // console.log('Palette render! isOn:', this.state.isOn);
-        var { isFill, isStroke, strokeColor } = this.state;
+        var { isFill, isStroke, strokeColor, fillColor } = this.state;
         var fillStyle = {
             backgroundColor: this.state.fillColor,
             zIndex: this.state.selected === 'secondary' ? 100 : 0,
@@ -227,18 +227,39 @@ var SelectedColorPanel = React.createClass({
         var testColor = '#fa5536';
         return (
             <div className="entrySelectedColorPanel">
-                <div className="title">윤곽선 색상[*]</div>
-                <div
-                    className="colorPicker"
-                    onClick={() => {
-                        alert('컬러피커 추가예정');
-                    }}
-                >
-                    <div className="colorViwer">
-                        <div className="color" style={{ backgroundColor: strokeColor }} />
+                {isStroke && (
+                    <div className="strokeColor">
+                        <div className="title">윤곽선 색상[*]</div>
+                        <div
+                            className="colorPicker"
+                            onClick={() => {
+                                alert('컬러피커 추가예정');
+                            }}
+                        >
+                            <div className="colorViwer">
+                                <div className="color" style={{ backgroundColor: strokeColor }} />
+                            </div>
+                            <div className="colorPickerButton" />
+                        </div>
                     </div>
-                    <div className="colorPickerButton" />
-                </div>
+                )}
+                {isFill && (
+                    <div className="fillColor">
+                        <div className="title">채우기 색상[*]</div>
+                        <div
+                            className="colorPicker"
+                            onClick={() => {
+                                alert('컬러피커 추가예정');
+                            }}
+                        >
+                            <div className="colorViwer">
+                                <div className="color" style={{ backgroundColor: fillColor }} />
+                            </div>
+                            <div className="colorPickerButton" />
+                        </div>
+                    </div>
+                )}
+
                 {/* <Palette
                     colorPicked={this.colorPicked}
                     imageURLPrefix={this.props.imageURLPrefix}

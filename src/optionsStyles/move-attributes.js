@@ -1,3 +1,4 @@
+const React = require('react');
 const MoveAttributes = require('../reactGUI/MoveAttributes');
 const { defineOptionsStyle } = require('./optionsStyles');
 
