@@ -326,7 +326,7 @@ $textColor: #2c313d;
 
 .literally .horz-toolbar {
     height: $optionsHeight;
-    overflow: hidden;
+    overflow: visible;
 
     background-color: $toolbarBackground;
 
@@ -813,6 +813,57 @@ $textColor: #2c313d;
                     vertical-align: middle;
                     display: inline-block;
                     background-image: url(../img/menu-arrow.svg);
+                }
+            }
+        }
+
+        .fontDropdownList {
+            z-index: 2;
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                position: absolute;
+                bottom: -8.5px;
+                left: calc(50% - 12px);
+                box-shadow: 2px 2px 6px -3px rgba(0, 0, 0, 0.25);
+                border-right: 1px solid $warmgray300;
+                border-bottom: 1px solid $warmgray300;
+                transform: rotate(45deg) skew(-6deg, -6deg);
+                background-color: $white;
+                border-radius: 2px;
+                z-index: 0;
+            }
+            position: absolute;
+            width: 168px;
+            border: solid 1px $warmgray300;
+            background-color: $white;
+            border-radius: 6px;
+            box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.25);
+            left: 45px;
+            bottom: 120px;
+
+            div {
+                position: relative;
+                text-align: left;
+                z-index: 1;
+                height: 46px;
+                margin-left: 8px;
+                margin-right: 8px;
+                padding-left: 8px;
+                padding-right: 8px;
+                border-bottom: solid 1px $warmgray200;
+                line-height: 46px;
+                font-size: 14px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                letter-spacing: normal;
+                color: $textColor;
+                cursor: pointer;
+                &:last-child {
+                    border-bottom: none;
                 }
             }
         }

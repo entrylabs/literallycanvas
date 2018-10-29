@@ -29,7 +29,24 @@ var FontAttributes = React.createClass({
             style: fontStyle,
             size: fontSize,
             font: fontItems.join(' '),
+            isShowFontDropdown: false,
         };
+    },
+    closeFontDropdown: function(e) {
+        const { isShowFontDropdown } = this.state;
+        if (isShowFontDropdown) {
+            this.setState({
+                isShowFontDropdown: false,
+            });
+        }
+    },
+    componentDidMount: function() {
+        console.log('componentDidMount');
+        document.addEventListener('click', this.closeFontDropdown);
+    },
+    componentWillUnmount: function() {
+        console.log('componentWillUnmount');
+        document.removeEventListener('click', this.closeFontDropdown);
     },
     onChangeSize: function(size) {
         let fontSize = +size;
@@ -52,10 +69,10 @@ var FontAttributes = React.createClass({
         }
         this.onChangeSize(value);
     },
-    onChangeFont: function(e) {
+    onChangeFont: function(font) {
         this.setState(
             {
-                font: e.target.value,
+                font,
             },
             () => {
                 this.applyFont();
@@ -94,8 +111,24 @@ var FontAttributes = React.createClass({
         const fontData = _.find(EntryStatic.fonts, { family: font }) || { name: '바탕체' };
         return fontData.name;
     },
+    makeDropdownList: function() {
+        const list = EntryStatic.fonts.map((font) => {
+            return (
+                <div
+                    key={font.name}
+                    onClick={() => {
+                        this.onChangeFont(font.family);
+                    }}
+                >
+                    {font.name}
+                </div>
+            );
+        });
+        return <div className="fontDropdownList">{list}</div>;
+    },
     render: function() {
         let fontThickness = [];
+        const { isShowFontDropdown } = this.state;
         for (var i = 1; i <= 65; i++) fontThickness.push(i);
 
         return (
@@ -104,8 +137,13 @@ var FontAttributes = React.createClass({
                     <div className="title">글꼴[*]</div>
                     <div
                         className="fontDropdown"
-                        onClick={() => {
-                            alert('글꼴 드롭다운 추가 예정');
+                        onClick={(e) => {
+                            e.nativeEvent.stopImmediatePropagation();
+                            this.setState(() => {
+                                return {
+                                    isShowFontDropdown: !isShowFontDropdown,
+                                };
+                            });
                         }}
                     >
                         <div className="fontName" id="entryPainterAttrFontName">
@@ -127,6 +165,7 @@ var FontAttributes = React.createClass({
                         <option value="Jeju Hallasan">{Lang.Fonts.jeju_hallasan}</option>
                         <option value="Nanum Gothic Coding">{Lang.Fonts.gothic_coding}</option>
                     </select> */}
+                    {isShowFontDropdown && this.makeDropdownList()}
                 </div>
                 <div className="painterAttrFontSizeArea">
                     <div className="title">글꼴 크기[*]</div>
