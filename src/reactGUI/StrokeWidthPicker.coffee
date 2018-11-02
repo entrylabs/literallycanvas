@@ -1,9 +1,11 @@
 React = require './React-shim'
+createReactClass = require 'create-react-class'
+DOM = require 'react-dom-factories';
 createSetStateOnEventMixin = require '../reactGUI/createSetStateOnEventMixin'
 {classSet} = require '../core/util'
 
 
-module.exports = React.createClass
+module.exports = createReactClass
   displayName: 'StrokeWidthPicker'
 
   getState: (tool=@props.tool) -> {strokeWidth: tool.strokeWidth}
@@ -13,7 +15,7 @@ module.exports = React.createClass
   componentWillReceiveProps: (props) -> @setState @getState(props.tool)
 
   render: ->
-    {ul, li, svg, circle, div} = React.DOM
+    {ul, li, svg, circle, div} = DOM
     strokeWidths = @props.lc.opts.strokeWidths
 
     (div {},

@@ -1,4 +1,5 @@
 const React = require('../reactGUI/React-shim');
+const createReactClass = require('create-react-class');
 const { findDOMNode } = require('../reactGUI/ReactDOM-shim');
 const { classSet } = require('../core/util');
 const Picker = require('./Picker');
@@ -19,7 +20,7 @@ require('../optionsStyles/line-options-and-stroke-width');
 require('../optionsStyles/polygon-and-stroke-width');
 require('../optionsStyles/null');
 
-const CanvasContainer = React.createClass({
+const CanvasContainer = createReactClass({
     displayName: 'CanvasContainer',
     shouldComponentUpdate() {
         // Avoid React trying to control this DOM
@@ -30,14 +31,14 @@ const CanvasContainer = React.createClass({
     },
 });
 
-const CanvasTopMenu = React.createClass({
+const CanvasTopMenu = createReactClass({
     displayName: 'CanvasTopMenu',
     render() {
         return <div id="canvas-top-menu" className="canvas-top-menu" />;
     },
 });
 
-const LiterallyCanvas = React.createClass({
+const LiterallyCanvas = createReactClass({
     displayName: 'LiterallyCanvas',
 
     getDefaultProps() {

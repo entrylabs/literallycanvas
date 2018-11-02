@@ -1,11 +1,12 @@
 const React = require('react');
+const createReactClass = require('create-react-class');
 const StrokeThickness = require('../reactGUI/StrokeThickness');
 const { defineOptionsStyle } = require('./optionsStyles');
 
 // defineOptionsStyle('stroke-thickness', StrokeThickness);
 defineOptionsStyle(
     'stroke-thickness',
-    React.createClass({
+    createReactClass({
         displayName: 'StrokeThicknessPicker',
 
         render: function() {

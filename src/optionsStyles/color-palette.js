@@ -1,11 +1,12 @@
 const React = require('../reactGUI/React-shim');
+const createReactClass = require('create-react-class');
 const SelectedColorPanel = require('../reactGUI/SelectedColorPanel');
 const StrokeThickness = require('../reactGUI/StrokeThickness');
 const { defineOptionsStyle } = require('./optionsStyles');
 
 defineOptionsStyle(
     'color-palette',
-    React.createClass({
+    createReactClass({
         displayName: 'ColorPalette',
 
         render: function() {

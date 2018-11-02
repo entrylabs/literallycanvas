@@ -1,7 +1,8 @@
 const React = require('../reactGUI/React-shim');
-
+const createReactClass = require('create-react-class');
 const fontStyleList = ['normal', 'bold', 'italic'];
-var FontAttributes = React.createClass({
+
+var FontAttributes = createReactClass({
     getInitialState: function() {
         this.fontStyle = {
             italic: false,
@@ -41,11 +42,9 @@ var FontAttributes = React.createClass({
         }
     },
     componentDidMount: function() {
-        console.log('componentDidMount');
         document.addEventListener('click', this.closeFontDropdown);
     },
     componentWillUnmount: function() {
-        console.log('componentWillUnmount');
         document.removeEventListener('click', this.closeFontDropdown);
     },
     onChangeSize: function(size) {

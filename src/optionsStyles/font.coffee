@@ -1,8 +1,10 @@
 React = require '../reactGUI/React-shim'
+ReactDOM = require 'react-dom'
+createReactClass = require 'create-react-class'
 {defineOptionsStyle} = require './optionsStyles'
 {_} = require '../core/localization'
 
-
+console.log(ReactDOM, ReactDOM.div)
 SANS_SERIF_FONTS = [
   ['Arial', 'Arial,"Helvetica Neue",Helvetica,sans-serif'],
   ['Arial Black', '"Arial Black","Arial Bold",Gadget,sans-serif'],
@@ -55,7 +57,7 @@ for {name, value} in OTHER_FONTS
   FONT_NAME_TO_VALUE[name] = value
 
 
-defineOptionsStyle 'font', React.createClass
+defineOptionsStyle 'font', createReactClass
   displayName: 'FontOptions'
   getInitialState: -> {
     isItalic: false
@@ -108,7 +110,7 @@ defineOptionsStyle 'font', React.createClass
   render: ->
     lc = @props.lc
 
-    {div, input, select, option, br, label, span, optgroup} = React.DOM
+    {div, input, select, option, br, label, span, optgroup} = ReactDOM
 
     (div {className: 'lc-font-settings'},
       (select {value: @state.fontSizeIndex, onChange: @handleFontSize},

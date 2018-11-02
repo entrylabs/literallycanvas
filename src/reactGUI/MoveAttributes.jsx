@@ -1,6 +1,7 @@
 const React = require('react');
+const createReactClass = require('create-react-class');
 
-var MoveAttributes = React.createClass({
+var MoveAttributes = createReactClass({
     getInitialState: function() {
         return {
             rotate: this.props.rotate,
@@ -99,7 +100,7 @@ var MoveAttributes = React.createClass({
         this.props.lc.editShape(this.state.shape, { flipY: !this.state.shape.flipY });
     },
     render: function() {
-        let { width, height, rotate, shape } = this.state;
+        let { width = 0, height = 0, rotate = 0 } = this.state;
 
         return (
             <div className="entryMoveAttributes">

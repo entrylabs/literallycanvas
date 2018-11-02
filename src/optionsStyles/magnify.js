@@ -1,10 +1,11 @@
 const React = require('../reactGUI/React-shim');
+const createReactClass = require('create-react-class');
 const MagnifyPanel = require('../reactGUI/MagnifyPanel');
 const { defineOptionsStyle } = require('./optionsStyles');
 
 defineOptionsStyle(
     'magnify',
-    React.createClass({
+    createReactClass({
         displayName: 'magnify',
         render: function() {
             const { lc, tool } = this.props;

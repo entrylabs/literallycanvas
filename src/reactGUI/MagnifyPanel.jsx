@@ -1,6 +1,7 @@
 const React = require('../reactGUI/React-shim');
+const createReactClass = require('create-react-class');
 
-var MagnifyPanel = React.createClass({
+var MagnifyPanel = createReactClass({
     getInitialState: function() {
         var lc = this.props.lc;
         return { value: Math.round(lc.scale * 100) + '%' };

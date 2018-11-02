@@ -1,10 +1,11 @@
 const React = require('react');
+const createReactClass = require('create-react-class');
 const MoveAttributes = require('../reactGUI/MoveAttributes');
 const { defineOptionsStyle } = require('./optionsStyles');
 
 defineOptionsStyle(
     'move-attributes',
-    React.createClass({
+    createReactClass({
         displayName: 'MoveAttributes',
 
         render: function() {

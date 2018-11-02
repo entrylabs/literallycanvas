@@ -1,11 +1,12 @@
 const React = require('../reactGUI/React-shim');
+const createReactClass = require('create-react-class');
 const SelectedColorPanel = require('../reactGUI/SelectedColorPanel');
 const StrokeThickness = require('../reactGUI/StrokeThickness');
 const { defineOptionsStyle } = require('./optionsStyles');
 
 defineOptionsStyle(
     'stroke-and-fill',
-    React.createClass({
+    createReactClass({
         displayName: 'StrokeAndFill',
 
         render: function() {

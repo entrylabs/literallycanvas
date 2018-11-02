@@ -94,6 +94,8 @@ gulp.task('browserify-lc-core', function() {
 });
 
 gulp.task('uglify', ['browserify-lc-main', 'browserify-lc-core'], function() {
+    process.env.BABEL_ENV = 'development';
+    process.env.NODE_ENV = 'development';
     return gulp
         .src(['./lib/js/literallycanvas?(-core).js'])
         .pipe(uglify())
@@ -113,7 +115,14 @@ gulp.task('demo-reload', function() {
 
 gulp.task('watch', function() {
     gulp.watch(
-        ['src/*.coffee', 'src/*/*.coffee', 'src/*.js', 'src/*/*.js', 'src/*/*.jsx'],
+        [
+            'src/*.coffee',
+            'src/*/*.coffee',
+            'src/*.js',
+            'src/*/*.js',
+            'src/*/*.jsx',
+            'node_modules/entry-tool/component/*.js',
+        ],
         ['browserify-lc-main', 'browserify-lc-core']
     );
     gulp.watch('scss/*.scss', ['sass']);

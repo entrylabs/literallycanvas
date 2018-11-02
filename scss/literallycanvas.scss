@@ -68,9 +68,9 @@ $textColor: #2c313d;
     top: 0;
     bottom: 0;
     right: 0;
-    overflow: hidden;
     border-left: 1px solid $warmgray300;
     background-color: $warmgray100;
+    // overflow: hidden;
 
     &.fullscreen {
         position: fixed;
@@ -99,7 +99,7 @@ $textColor: #2c313d;
 
 .literally.toolbar-at-bottom {
     // height: $toolbarHeight;
-    overflow: hidden;
+    // overflow: hidden;
     .lc-drawing {
         bottom: $optionsHeight;
         top: 0;
@@ -205,7 +205,7 @@ $textColor: #2c313d;
 }
 
 .literally .lc-picker {
-    z-index: 201;
+    // z-index: 201;
     // border-right: $basicBorder;
     height: 100%;
 
@@ -343,7 +343,7 @@ $textColor: #2c313d;
         font-size: 12px;
     }
 
-    span {
+    > span {
         // line-height: $optionsHeight - 1px;
         margin: 0 0.25em 0 0.25em;
         font-size: 12px;
@@ -422,7 +422,7 @@ $textColor: #2c313d;
     height: $menuHeight;
     border: solid 1px $warmgray300;
     background-color: $toolbarBackground;
-    z-index: 202;
+    // z-index: 202;
 
     .entryPlaygroundPainterFullscreenButton {
         display: inline-block;
@@ -739,6 +739,13 @@ $textColor: #2c313d;
 
     .strokeColor {
         margin-right: 22px;
+    }
+
+    .entryToolColorPicker {
+        box-sizing: content-box;
+        * {
+            box-sizing: content-box;
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 const React = require('../reactGUI/React-shim');
+const createReactClass = require('create-react-class');
 
-var StrokeThickness = React.createClass({
+var StrokeThickness = createReactClass({
     getState: function(props) {
         var props = props || this.props;
         //   console.log('getState');

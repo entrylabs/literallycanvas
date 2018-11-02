@@ -1,20 +1,22 @@
 React = require './React-shim'
+createReactClass = require 'create-react-class'
+DOM = require 'react-dom-factories';
 createSetStateOnEventMixin = require './createSetStateOnEventMixin'
 {optionsStyles} = require '../optionsStyles/optionsStyles'
 
 ColorWell = React.createFactory require './ColorWell'
-ColorPickers = React.createFactory React.createClass
+ColorPickers = React.createFactory createReactClass
   displayName: 'ColorPickers'
   render: ->
     {lc} = @props
-    {div} = React.DOM
+    {div} = DOM
     (div {className: 'lc-color-pickers'},
       (ColorWell {lc, colorName: 'primary'})
       (ColorWell {lc, colorName: 'secondary'})
     #   (ColorWell {lc, colorName: 'background'})
     )
 
-Options = React.createClass
+Options = createReactClass
   displayName: 'Options'
   getState: -> {
     style: @props.lc.tool?.optionsStyle
@@ -43,7 +45,7 @@ Options = React.createClass
     })
   render: ->
     {style} = @state
-    {div} = React.DOM
+    {div} = DOM
     (div {className: "lc-options horz-toolbar #{style}"},
       this.renderBody()
     #   ColorPickers({lc: @props.lc})

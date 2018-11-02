@@ -1,4 +1,6 @@
 React = require './React-shim'
+createReactClass = require 'create-react-class'
+DOM = require 'react-dom-factories';
 {classSet} = require '../core/util'
 {_} = require '../core/localization'
 
@@ -6,7 +8,7 @@ React = require './React-shim'
 createToolButton = (tool) ->
   displayName = tool.name
   imageName = tool.iconName
-  React.createFactory React.createClass
+  React.createFactory createReactClass
     displayName: displayName,
     getDefaultProps: -> {selected: null, lc: null}
     componentWillMount: ->
@@ -16,7 +18,7 @@ createToolButton = (tool) ->
         # and explain here. --steve)
         @props.lc.setTool(tool)
     render: ->
-      {div, img} = React.DOM
+      {div, img} = DOM
       {imageURLPrefix, selected, onSelect} = @props
       className = classSet
         'lc-pick-tool': true
