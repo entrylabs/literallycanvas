@@ -13,15 +13,12 @@ var SelectedColorPanel = createReactClass({
         this.unsubscribeSecondary = lc.on('secondaryColorChange', (fillColor) => {
             this.setState({ fillColor });
         });
-        document.addEventListener('click', this.closeColorPicker);
     },
     componentWillUnmount: function() {
         this.unsubscribePrimary();
         this.unsubscribeSecondary();
-        document.removeEventListener('click', this.closeColorPicker);
     },
     closeColorPicker: function() {
-        console.log('?!');
         const { isShowPicker } = this.state;
         if (isShowPicker) {
             this.setState({
@@ -74,28 +71,32 @@ var SelectedColorPanel = createReactClass({
                             this.setState(colorState);
                             this.colorPicked(color);
                         }}
+                        onOutsideClick={this.closeColorPicker}
                         color={color}
                         positionDom={this.positionDom}
                         marginRect={{
                             marginLeft: -20,
-                            marginTop: -8,
+                            marginTop: 14,
                         }}
                     />
                 )}
                 {isStroke && (
-                    <div className="strokeColor" ref={(dom) => (this.strokeColor = dom)}>
+                    <div className="strokeColor">
                         <div className="title">윤곽선 색상[*]</div>
                         <div
                             className="colorPicker"
                             ref={(d) => {
-                                this.strokeDom = d;
-                                window.a = d;
+                                this.strokeColor = d;
                             }}
                             onClick={(e) => {
                                 e.nativeEvent.stopImmediatePropagation();
                                 this.positionDom = this.strokeColor;
+                                let isShow = true;
+                                if (selected === 'primary') {
+                                    isShow = !isShowPicker;
+                                }
                                 this.setState({
-                                    isShowPicker: true,
+                                    isShowPicker: isShow,
                                     selected: 'primary',
                                 });
                             }}
@@ -108,18 +109,22 @@ var SelectedColorPanel = createReactClass({
                     </div>
                 )}
                 {isFill && (
-                    <div className="fillColor" ref={(dom) => (this.fillColor = dom)}>
+                    <div className="fillColor">
                         <div className="title">채우기 색상[*]</div>
                         <div
                             className="colorPicker"
                             ref={(d) => {
-                                window.b = d;
+                                this.fillColor = d;
                             }}
                             onClick={(e) => {
                                 e.nativeEvent.stopImmediatePropagation();
                                 this.positionDom = this.fillColor;
+                                let isShow = true;
+                                if (selected === 'secondary') {
+                                    isShow = !isShowPicker;
+                                }
                                 this.setState({
-                                    isShowPicker: true,
+                                    isShowPicker: isShow,
                                     selected: 'secondary',
                                 });
                             }}
