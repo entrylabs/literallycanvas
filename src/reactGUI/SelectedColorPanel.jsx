@@ -61,7 +61,7 @@ var SelectedColorPanel = createReactClass({
                     <ColorPicker
                         key={selected}
                         className="entryToolColorPicker"
-                        ColorPickAction={(color) => {
+                        onChangeColorPicker={(color) => {
                             const colorState = {};
                             if (selected === 'primary') {
                                 colorState['strokeColor'] = color;
@@ -75,8 +75,8 @@ var SelectedColorPanel = createReactClass({
                         color={color}
                         positionDom={this.positionDom}
                         marginRect={{
-                            marginLeft: -20,
-                            marginTop: 14,
+                            x: -18,
+                            y: -2,
                         }}
                     />
                 )}

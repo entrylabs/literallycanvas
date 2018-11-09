@@ -4,7 +4,6 @@ createReactClass = require 'create-react-class'
 {defineOptionsStyle} = require './optionsStyles'
 {_} = require '../core/localization'
 
-console.log(ReactDOM, ReactDOM.div)
 SANS_SERIF_FONTS = [
   ['Arial', 'Arial,"Helvetica Neue",Helvetica,sans-serif'],
   ['Arial Black', '"Arial Black","Arial Bold",Gadget,sans-serif'],
