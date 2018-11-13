@@ -60,6 +60,7 @@ var SelectedColorPanel = createReactClass({
                 {isShowPicker && (
                     <ColorPicker
                         key={selected}
+                        canTransparent={true}
                         className="entryToolColorPicker"
                         onChangeColorPicker={(color) => {
                             const colorState = {};
