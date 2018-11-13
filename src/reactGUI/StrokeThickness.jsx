@@ -4,10 +4,9 @@ const createReactClass = require('create-react-class');
 var StrokeThickness = createReactClass({
     getState: function(props) {
         var props = props || this.props;
-        //   console.log('getState');
         return {
             toolName: props.tool.name,
-            strokeWidth: props.tool.strokeWidth,
+            strokeWidth: props.tool.strokeWidth || 5,
         };
     },
 
@@ -16,7 +15,6 @@ var StrokeThickness = createReactClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        //   console.log('componentWillReceiveProps nextProps:', nextProps);
         if (this.state.toolName !== nextProps.tool.name) {
             this.setState(this.getState(nextProps));
         }
@@ -46,6 +44,7 @@ var StrokeThickness = createReactClass({
 
     render: function() {
         const { lc, name } = this.props;
+        const { strokeWidth = 5 } = this.state;
         let thickness = [];
         for (var i = 1; i <= 70; i++) {
             thickness.push(i);
@@ -75,7 +74,7 @@ var StrokeThickness = createReactClass({
                                 const { value = 0 } = target;
                                 this.onChange(value);
                             }}
-                            value={this.state.strokeWidth}
+                            value={strokeWidth}
                             min="1"
                             max="70"
                         />

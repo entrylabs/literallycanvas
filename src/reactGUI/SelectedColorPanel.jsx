@@ -2,7 +2,7 @@ const React = require('../reactGUI/React-shim');
 const createReactClass = require('create-react-class');
 var createSetStateOnEventMixin = require('./createSetStateOnEventMixin');
 const { ColorPicker } = require('entry-tool/component/index');
-const { throttle } = require('lodash');
+const throttle = require('lodash/throttle');
 
 var SelectedColorPanel = createReactClass({
     componentDidMount: function() {
@@ -40,11 +40,17 @@ var SelectedColorPanel = createReactClass({
         };
     },
 
-    colorPicked: throttle(function(colorCode) {
-        if (this.state.selected === 'primary') this.setState({ strokeColor: colorCode });
-        else this.setState({ fillColor: colorCode });
-        this.props.lc.setColor(this.state.selected, colorCode);
-    }, 150),
+    colorPicked: function(colorCode) {
+        if (!this.isRunRAF) {
+            this.isRunRAF = true;
+            requestAnimationFrame(() => {
+                this.isRunRAF = false;
+                if (this.state.selected === 'primary') this.setState({ strokeColor: colorCode });
+                else this.setState({ fillColor: colorCode });
+                this.props.lc.setColor(this.state.selected, colorCode);
+            });
+        }
+    },
 
     onColorCodeChange: function(e) {
         var colorCode = e.target.value;
@@ -52,15 +58,25 @@ var SelectedColorPanel = createReactClass({
         else this.setState({ fillColor: colorCode });
         this.props.lc.setColor(this.state.selected, colorCode);
     },
+
+    toggleSpoid: function(e) {
+        const { lc } = this.props;
+        const { selected } = this.state;
+        lc.tools.Eyedropper.setPrevious(lc.tool, selected);
+        lc.setTool(lc.tools.Eyedropper);
+    },
+
     render: function() {
         var { isFill, isStroke, strokeColor, fillColor, isShowPicker, selected } = this.state;
         const color = selected === 'primary' ? strokeColor : fillColor;
+        const defaultColor = selected === 'primary' ? '#000000' : '#FFFFFF';
         return (
             <div className="entrySelectedColorPanel">
                 {isShowPicker && (
                     <ColorPicker
                         key={selected}
                         canTransparent={true}
+                        defaultColor={defaultColor}
                         className="entryToolColorPicker"
                         onChangeColorPicker={(color) => {
                             const colorState = {};
@@ -73,6 +89,7 @@ var SelectedColorPanel = createReactClass({
                             this.colorPicked(color);
                         }}
                         onOutsideClick={this.closeColorPicker}
+                        onSpoidClick={this.toggleSpoid}
                         color={color}
                         positionDom={this.positionDom}
                         marginRect={{
