@@ -70,16 +70,17 @@ $textColor: #2c313d;
 
 .entryPlaygroundPainter {
     position: absolute;
-    left: 240px;
+    left: 253px;
     top: 0;
     bottom: 0;
     right: 0;
-    border-left: 1px solid $warmgray300;
+    border-left: none;
     background-color: $warmgray100;
     // overflow: hidden;
 
     &.fullscreen {
         position: fixed;
+        top: 43px;
         left: 0;
         z-index: 1000;
         .entryPlaygroundPainterFullscreenButton {
