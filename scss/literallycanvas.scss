@@ -563,6 +563,7 @@ $textColor: #2c313d;
     }
 
     .entryPlaygroundPainterTopStageXY {
+        position: relative;
         display: inline-block;
         margin-left: 20px;
         vertical-align: sub;
@@ -573,6 +574,11 @@ $textColor: #2c313d;
         line-height: normal;
         letter-spacing: -0.3px;
         color: $textColor;
+
+        span {
+            position: relative;
+            top: 4px;
+        }
     }
 }
 

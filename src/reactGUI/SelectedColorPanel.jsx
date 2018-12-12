@@ -3,6 +3,7 @@ const createReactClass = require('create-react-class');
 var createSetStateOnEventMixin = require('./createSetStateOnEventMixin');
 const { ColorPicker } = require('entry-tool/component/index');
 const throttle = require('lodash/throttle');
+import Utils from '../utils';
 
 var SelectedColorPanel = createReactClass({
     componentDidMount: function() {
@@ -100,7 +101,7 @@ var SelectedColorPanel = createReactClass({
                 )}
                 {isStroke && (
                     <div className="strokeColor">
-                        <div className="title">윤곽선 색상[*]</div>
+                        <div className="title">{Utils.getLang('Painter.outline_color')}</div>
                         <div
                             className="colorPicker"
                             ref={(d) => {
@@ -128,7 +129,7 @@ var SelectedColorPanel = createReactClass({
                 )}
                 {isFill && (
                     <div className="fillColor">
-                        <div className="title">채우기 색상[*]</div>
+                        <div className="title">{Utils.getLang('Painter.fill_color')}</div>
                         <div
                             className="colorPicker"
                             ref={(d) => {

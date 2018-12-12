@@ -3,6 +3,7 @@ const createReactClass = require('create-react-class');
 // const SelectedColorPanel = require('../reactGUI/SelectedColorPanel');
 // const StrokeThickness = require('../reactGUI/StrokeThickness');
 const { defineOptionsStyle } = require('./optionsStyles');
+import Utils from '../utils';
 
 defineOptionsStyle(
     'select-cut',
@@ -16,7 +17,7 @@ defineOptionsStyle(
             return (
                 <div className="selectCut">
                     <div className="selectCutImage" />
-                    <div className="selectCutDesc">사각 점선 모양으로 오릴 수 있어요.[*]</div>
+                    <div className="selectCutDesc">{Utils.getLang('Painter.select_cut')}</div>
                 </div>
             );
         },

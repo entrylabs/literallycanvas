@@ -1,6 +1,7 @@
 const React = require('../reactGUI/React-shim');
 const createReactClass = require('create-react-class');
 const fontStyleList = ['normal', 'bold', 'italic'];
+import Utils from '../utils';
 
 var FontAttributes = createReactClass({
     getInitialState: function() {
@@ -29,7 +30,7 @@ var FontAttributes = createReactClass({
         return {
             style: fontStyle,
             size: fontSize,
-            font: fontItems.join(' '),
+            font: fontItems.join(' ').replace(/"/gi, ''),
             isShowFontDropdown: false,
         };
     },
@@ -133,7 +134,7 @@ var FontAttributes = createReactClass({
         return (
             <div id="painterAttrFont" className="entryPlaygroundPainterAttrFont">
                 <div className="entryPlaygroundPainterAttrTop">
-                    <div className="title">글꼴[*]</div>
+                    <div className="title">{Utils.getLang('Painter.font')}</div>
                     <div
                         className="fontDropdown"
                         onClick={(e) => {
@@ -167,7 +168,7 @@ var FontAttributes = createReactClass({
                     {isShowFontDropdown && this.makeDropdownList()}
                 </div>
                 <div className="painterAttrFontSizeArea">
-                    <div className="title">글꼴 크기[*]</div>
+                    <div className="title">{Utils.getLang('Painter.font_size')}</div>
                     <div className="entryPainterAttrFontSizeControll">
                         <div
                             className="entryPainterAttrFontSizeMinus"
@@ -216,7 +217,7 @@ var FontAttributes = createReactClass({
                 </div>
                 <br />
                 <div className="entryPlaygroundPainterAttrFontStyleArea">
-                    <div className="title">글꼴 스타일[*]</div>
+                    <div className="title">{Utils.getLang('Painter.font_family')}</div>
                     <div className="entryPainterAttrFontStyle">
                         <div
                             className={`fontStyleBold ${this.fontStyle.bold ? 'select' : ''}`}

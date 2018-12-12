@@ -32,6 +32,7 @@
         "browserify": "13.0.0",
         "coffeeify": "2.0.1",
         "create-react-class": "^15.6.3",
+        "entry-tool": "latest",
         "envify": "3.4.0",
         "gulp": "3.9.0",
         "gulp-babel": "6.1.1",

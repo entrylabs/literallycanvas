@@ -1,5 +1,6 @@
 const React = require('react');
 const createReactClass = require('create-react-class');
+import Utils from '../utils';
 
 var MoveAttributes = createReactClass({
     getInitialState: function() {
@@ -162,7 +163,9 @@ var MoveAttributes = createReactClass({
 
                 {this.state.shape ? (
                     <div id="entryPictureFlip" className="entryPlaygroundPainterFlip">
-                        <div className="painterAttrFlipName">반전</div>
+                        <div className="painterAttrFlipName">
+                            {Utils.getLang('Painter.inversion')}
+                        </div>
                         <div
                             id="entryPictureFlipX"
                             onClick={this.flipX}

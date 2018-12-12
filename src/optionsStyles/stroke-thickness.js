@@ -2,6 +2,7 @@ const React = require('react');
 const createReactClass = require('create-react-class');
 const StrokeThickness = require('../reactGUI/StrokeThickness');
 const { defineOptionsStyle } = require('./optionsStyles');
+import Utils from '../utils';
 
 // defineOptionsStyle('stroke-thickness', StrokeThickness);
 defineOptionsStyle(
@@ -15,7 +16,10 @@ defineOptionsStyle(
             return (
                 <div className="strokePalette">
                     <div className="entryStrokePaletteTitle">{Lang.Workspace[name]}</div>
-                    <StrokeThickness {...this.props} name="지우개 굵기[*]" />
+                    <StrokeThickness
+                        {...this.props}
+                        name={Utils.getLang('Painter.thickness_of_eraser')}
+                    />
                 </div>
             );
         },
