@@ -76,6 +76,7 @@ var SelectedColorPanel = createReactClass({
                 {isShowPicker && (
                     <ColorPicker
                         key={selected}
+                        canSpoide={true}
                         canTransparent={true}
                         defaultColor={defaultColor}
                         className="entryToolColorPicker"
