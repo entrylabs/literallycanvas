@@ -9,6 +9,10 @@ var SelectedColorPanel = createReactClass({
     componentDidMount: function() {
         var lc = this.props.lc;
         this.unsubscribePrimary = lc.on('primaryColorChange', (strokeColor) => {
+            const { canTransparent = true } = this.getColorOption();
+            if (!canTransparent && strokeColor === 'transparent') {
+                return;
+            }
             this.setState({ strokeColor });
         });
         this.unsubscribeSecondary = lc.on('secondaryColorChange', (fillColor) => {
@@ -67,7 +71,24 @@ var SelectedColorPanel = createReactClass({
         lc.setTool(lc.tools.Eyedropper);
     },
 
+    getColorOption: function() {
+        const { strokeOption = {}, fillOption = {} } = this.props;
+        const { isStroke, isFill } = this.state;
+        let option = {};
+        if (isStroke) {
+            option = strokeOption;
+        } else if (isFill) {
+            option = fillOption;
+        }
+        const { canTransparent = true, canSpoide = true } = option;
+        return {
+            canTransparent,
+            canSpoide,
+        };
+    },
+
     render: function() {
+        const { canTransparent = true, canSpoid = true } = this.getColorOption();
         var { isFill, isStroke, strokeColor, fillColor, isShowPicker, selected } = this.state;
         const color = selected === 'primary' ? strokeColor : fillColor;
         const defaultColor = selected === 'primary' ? '#000000' : '#FFFFFF';
@@ -76,12 +97,15 @@ var SelectedColorPanel = createReactClass({
                 {isShowPicker && (
                     <ColorPicker
                         key={selected}
-                        canSpoide={true}
-                        canTransparent={true}
+                        canSpoide={canSpoid}
+                        canTransparent={canTransparent}
                         defaultColor={defaultColor}
                         className="entryToolColorPicker"
                         onChangeColorPicker={(color) => {
                             const colorState = {};
+                            if (!canTransparent && color === 'transparent') {
+                                return;
+                            }
                             if (selected === 'primary') {
                                 colorState['strokeColor'] = color;
                             } else {
