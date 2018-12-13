@@ -2655,10 +2655,10 @@ enquire.js@^2.1.6:
   resolved "https://registry.yarnpkg.com/enquire.js/-/enquire.js-2.1.6.tgz#3e8780c9b8b835084c3f60e166dbc3c2a3c89814"
   integrity sha1-PoeAybi4NQhMP2DhZtvDwqPImBQ=
 
-entry-tool@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/entry-tool/-/entry-tool-0.1.9.tgz#a35094e3d5838a2020145c9e36156b7ee634cb58"
-  integrity sha512-KGyL1LOWfkiFiE/S7cVWbtAGZHf2Jia8RIgx+qOD8l55CLpdOoj9gWu2YENJF4NaFl/hiizaC01Z1jFD/ymNLA==
+entry-tool@latest:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/entry-tool/-/entry-tool-0.1.11.tgz#d5a5f2342948f8d80b7863d8f0e088cfdf226c9c"
+  integrity sha512-UwbpuBPmXrY6HU+wb1Wl/CfKhQ26bzG1IHEu+XSpbDei68argkZD3tI/er4oUdbgTPIWj8+ADwBPGy15xGK4Ew==
   dependencies:
     axios "^0.18.0"
     chroma-js "^1.4.0"

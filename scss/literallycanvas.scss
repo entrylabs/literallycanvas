@@ -159,7 +159,7 @@ $textColor: #2c313d;
 
     .lc-picker {
         width: $pickerWidth;
-        height: $toolbarHeight;
+        bottom: 8px;
         position: absolute;
         top: $menuHeight;
         padding: 10px;
@@ -214,7 +214,6 @@ $textColor: #2c313d;
 .literally .lc-picker {
     // z-index: 201;
     // border-right: $basicBorder;
-    height: 100%;
 
     $buttonMargin: 2px;
     $buttonBottomMargin: 10px;
