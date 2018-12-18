@@ -21,7 +21,6 @@ var MagnifyPanel = createReactClass({
         this.setZoom(lc.scale - 0.1);
     },
     handleChange: function(event) {
-        event.target.value;
         this.setState({ value: event.target.value });
     },
     handleBlur: function(event) {

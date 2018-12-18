@@ -48,14 +48,17 @@ var FontAttributes = createReactClass({
     componentWillUnmount: function() {
         document.removeEventListener('click', this.closeFontDropdown);
     },
-    onChangeSize: function(size) {
+    onValidSize: function(size) {
         let fontSize = +size;
         if (!isNaN(fontSize) && fontSize !== 0) {
             fontSize = Math.max(Math.min(fontSize, 65), 1);
         } else {
             fontSize = 20;
         }
-        this.setState({ size: fontSize }, () => {
+        this.onChangeSize(fontSize);
+    },
+    onChangeSize: function(size) {
+        this.setState({ size: size }, () => {
             this.applyFont();
         });
     },
@@ -151,20 +154,6 @@ var FontAttributes = createReactClass({
                         </div>
                         <div className="fontDropdownButton" />
                     </div>
-                    {/* <select
-                        value={this.state.font}
-                        id="entryPainterAttrFontName"
-                        className="entryPlaygroundPainterAttrFontName"
-                        size="1"
-                        onChange={this.onChangeFont}
-                    >
-                        <option value="KoPub Batang">{Lang.Fonts.batang}</option>
-                        <option value="Nanum Myeongjo">{Lang.Fonts.myeongjo}</option>
-                        <option value="Nanum Gothic">{Lang.Fonts.gothic}</option>
-                        <option value="Nanum Pen Script">{Lang.Fonts.pen_script}</option>
-                        <option value="Jeju Hallasan">{Lang.Fonts.jeju_hallasan}</option>
-                        <option value="Nanum Gothic Coding">{Lang.Fonts.gothic_coding}</option>
-                    </select> */}
                     {isShowFontDropdown && this.makeDropdownList()}
                 </div>
                 <div className="painterAttrFontSizeArea">
@@ -188,6 +177,11 @@ var FontAttributes = createReactClass({
                                 const { value = 0 } = target;
                                 this.onChangeSize(value);
                             }}
+                            onBlur={(e) => {
+                                const { target = {} } = e;
+                                const { value = 0 } = target;
+                                this.onValidSize(value);
+                            }}
                             value={this.state.size}
                             min="1"
                             max="65"
@@ -199,21 +193,6 @@ var FontAttributes = createReactClass({
                             }}
                         />
                     </div>
-                    {/* <select
-                        value={this.state.size}
-                        id="entryPainterAttrFontSize"
-                        className="entryPlaygroundPainterAttrFontSize"
-                        size="1"
-                        onChange={this.onChangeSize}
-                    >
-                        {fontThickness.map((size) => {
-                            return (
-                                <option key={size} value={size}>
-                                    {size}
-                                </option>
-                            );
-                        })}
-                    </select> */}
                 </div>
                 <br />
                 <div className="entryPlaygroundPainterAttrFontStyleArea">
@@ -232,17 +211,6 @@ var FontAttributes = createReactClass({
                             onClick={() => this.onChangeStyle('italic')}
                         />
                     </div>
-                    {/* <select
-                        value={this.state.style}
-                        id="entryPainterAttrFontStyle"
-                        className="entryPlaygroundPainterAttrFontStyle"
-                        size="1"
-                        onChange={this.onChangeStyle}
-                    >
-                        <option value="normal">{Lang.Workspace.regular}</option>
-                        <option value="bold">{Lang.Workspace.bold}</option>
-                        <option value="italic">{Lang.Workspace.italic}</option>
-                    </select> */}
                 </div>
                 {this.props.children}
             </div>

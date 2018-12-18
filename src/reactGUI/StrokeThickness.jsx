@@ -20,14 +20,18 @@ var StrokeThickness = createReactClass({
         }
     },
 
-    onChange: function(size) {
+    onValidValue: function(size) {
         let strokeWidth = +size;
         if (!isNaN(strokeWidth) && strokeWidth !== 0) {
             strokeWidth = Math.max(Math.min(strokeWidth, 70), 1);
         } else {
             strokeWidth = 5;
         }
-        this.setState({ strokeWidth: strokeWidth });
+        this.onChange(strokeWidth);
+    },
+
+    onChange: function(strokeWidth) {
+        this.setState({ strokeWidth });
         this.props.lc.trigger('setStrokeWidth', strokeWidth);
     },
 
@@ -63,7 +67,7 @@ var StrokeThickness = createReactClass({
                             }}
                         />
                         <input
-                            type="number"
+                            type="text"
                             ref={(dom) => {
                                 this.thickInput = dom;
                             }}
@@ -73,6 +77,11 @@ var StrokeThickness = createReactClass({
                                 const { target = {} } = e;
                                 const { value = 0 } = target;
                                 this.onChange(value);
+                            }}
+                            onBlur={(e) => {
+                                const { target = {} } = e;
+                                const { value = 0 } = target;
+                                this.onValidValue(value);
                             }}
                             value={strokeWidth}
                             min="1"
