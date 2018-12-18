@@ -167,6 +167,13 @@ $textColor: #2c313d;
         border: solid 1px $warmgray300;
         border-top: none;
         background-color: $toolbarBackground;
+        overflow: hidden;
+        overflow-y: auto;
+        -ms-overflow-style: none; // IE 10+
+        overflow: -moz-scrollbars-none; // Firefox
+        &::-webkit-scrollbar {
+            display: none; // Safari and Chrome
+        }
     }
 
     .lc-drawing {
