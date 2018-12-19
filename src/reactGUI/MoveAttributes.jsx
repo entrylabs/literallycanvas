@@ -143,7 +143,7 @@ var MoveAttributes = createReactClass({
                     <div id="painterAttrRotateArea" className="painterAttrRotateArea">
                         <div className="painterAttrRotateName">
                             {Lang.Workspace.picture_rotation}
-                            (º)
+                            (°)
                         </div>
                         <div
                             id="entryPainterAttrRotate"
