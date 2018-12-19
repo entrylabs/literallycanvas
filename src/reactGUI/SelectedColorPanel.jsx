@@ -65,14 +65,16 @@ var SelectedColorPanel = createReactClass({
     },
 
     toggleSpoid: function(e) {
-        const { lc } = this.props;
+        const { lc, tool } = this.props;
         const { selected } = this.state;
-        lc.tools.Eyedropper.setPrevious(lc.tool, selected);
-        lc.setTool(lc.tools.Eyedropper);
+        if (tool !== lc.tools.Eyedropper) {
+            lc.tools.Eyedropper.setPrevious(lc.tool, selected);
+            lc.setTool(lc.tools.Eyedropper);
+        }
     },
 
     getColorOption: function() {
-        const { strokeOption = {}, fillOption = {} } = this.props;
+        const { strokeOption = {}, fillOption = {}, tool, lc } = this.props;
         const { isStroke, isFill, pickerType } = this.state;
         let option = {};
         if (isStroke) {
@@ -81,24 +83,33 @@ var SelectedColorPanel = createReactClass({
             option = fillOption;
         }
 
-        if(isStroke && isFill && pickerType) {
-            switch(pickerType) {
-                case "stroke":
-                    option = strokeOption; break;
-                case "fill":
-                    option = fillOption; break;
+        if (isStroke && isFill && pickerType) {
+            switch (pickerType) {
+                case 'stroke':
+                    option = strokeOption;
+                    break;
+                case 'fill':
+                    option = fillOption;
+                    break;
             }
         }
 
         const { canTransparent = true, canSpoide = true } = option;
+
+        let activeSpoid = false;
+        if (tool === lc.tools.Eyedropper) {
+            activeSpoid = true;
+        }
+
         return {
             canTransparent,
             canSpoide,
+            activeSpoid,
         };
     },
 
     render: function() {
-        const { canTransparent = true, canSpoid = true } = this.getColorOption();
+        const { canTransparent = true, canSpoid = true, activeSpoid } = this.getColorOption();
         var { isFill, isStroke, strokeColor, fillColor, isShowPicker, selected } = this.state;
         const color = selected === 'primary' ? strokeColor : fillColor;
         const defaultColor = selected === 'primary' ? '#000000' : '#FFFFFF';
@@ -126,6 +137,7 @@ var SelectedColorPanel = createReactClass({
                         }}
                         onOutsideClick={this.closeColorPicker}
                         onSpoidClick={this.toggleSpoid}
+                        activeSpoid={activeSpoid}
                         color={color}
                         positionDom={this.positionDom}
                         marginRect={{
@@ -152,7 +164,7 @@ var SelectedColorPanel = createReactClass({
                                 this.setState({
                                     isShowPicker: isShow,
                                     selected: 'primary',
-                                    pickerType: 'stroke'
+                                    pickerType: 'stroke',
                                 });
                             }}
                         >
@@ -181,7 +193,7 @@ var SelectedColorPanel = createReactClass({
                                 this.setState({
                                     isShowPicker: isShow,
                                     selected: 'secondary',
-                                    pickerType: 'fill'
+                                    pickerType: 'fill',
                                 });
                             }}
                         >
