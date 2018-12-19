@@ -23,6 +23,9 @@ defineOptionsStyle(
                         strokeColor="#000000"
                         lc={lc}
                         isFill={false}
+                        strokeOption={{
+                            canTransparent: false,
+                        }}
                     />
                 </div>
             );

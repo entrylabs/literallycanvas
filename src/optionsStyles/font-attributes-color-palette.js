@@ -26,6 +26,9 @@ defineOptionsStyle(
                                 strokeOption={{
                                     canTransparent: false,
                                 }}
+                                fillOption={{
+                                    canTransparent: true,
+                                }}
                                 lc={lc}
                             />
                         </FontAttributes>

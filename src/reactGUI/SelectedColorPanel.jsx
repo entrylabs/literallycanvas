@@ -73,13 +73,23 @@ var SelectedColorPanel = createReactClass({
 
     getColorOption: function() {
         const { strokeOption = {}, fillOption = {} } = this.props;
-        const { isStroke, isFill } = this.state;
+        const { isStroke, isFill, pickerType } = this.state;
         let option = {};
         if (isStroke) {
             option = strokeOption;
         } else if (isFill) {
             option = fillOption;
         }
+
+        if(isStroke && isFill && pickerType) {
+            switch(pickerType) {
+                case "stroke":
+                    option = strokeOption; break;
+                case "fill":
+                    option = fillOption; break;
+            }
+        }
+
         const { canTransparent = true, canSpoide = true } = option;
         return {
             canTransparent,
@@ -142,6 +152,7 @@ var SelectedColorPanel = createReactClass({
                                 this.setState({
                                     isShowPicker: isShow,
                                     selected: 'primary',
+                                    pickerType: 'stroke'
                                 });
                             }}
                         >
@@ -170,6 +181,7 @@ var SelectedColorPanel = createReactClass({
                                 this.setState({
                                     isShowPicker: isShow,
                                     selected: 'secondary',
+                                    pickerType: 'fill'
                                 });
                             }}
                         >
