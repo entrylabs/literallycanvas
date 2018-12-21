@@ -79,7 +79,7 @@ $textColor: #2c313d;
     // overflow: hidden;
 
     &.fullscreen {
-        position: fixed;
+        min-height: 547px;
         top: 43px;
         left: 0;
         z-index: 251;
