@@ -67,7 +67,7 @@ var StrokeThickness = createReactClass({
                             }}
                         />
                         <input
-                            type="text"
+                            type="number"
                             ref={(dom) => {
                                 this.thickInput = dom;
                             }}
