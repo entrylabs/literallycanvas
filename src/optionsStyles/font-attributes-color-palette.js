@@ -23,6 +23,7 @@ defineOptionsStyle(
                                 imageURLPrefix={this.props.imageURLPrefix}
                                 strokeColor="#000000"
                                 fillColor="transparent"
+                                colorPrefix="font"
                                 strokeOption={{
                                     canTransparent: false,
                                 }}
