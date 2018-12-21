@@ -533,6 +533,8 @@ $textColor: #2c313d;
                 top: 40px;
 
                 div {
+                    white-space: nowrap;
+                    overflow: hidden;
                     position: relative;
                     text-align: left;
                     z-index: 1;

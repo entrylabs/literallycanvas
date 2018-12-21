@@ -59,7 +59,7 @@ module.exports = bindEvents = (lc, canvas, panWithKeyboard = false) ->
   touchEndListener = (e) ->
     e.preventDefault()
     lc.pointerUp(coordsForTouchEvent(canvas, e)...)
-    document.removeEventListener 'touchmove', touchMoveListener
+    document.removeEventListener 'touchmove', touchMoveListener, { passive: false }
     document.removeEventListener 'touchend', touchEndListener
     document.removeEventListener 'touchcancel', touchEndListener
 
@@ -68,7 +68,7 @@ module.exports = bindEvents = (lc, canvas, panWithKeyboard = false) ->
     e.preventDefault()
     if e.touches.length == 1
       lc.pointerDown(coordsForTouchEvent(canvas, e)...)
-      document.addEventListener 'touchmove', touchMoveListener
+      document.addEventListener 'touchmove', touchMoveListener, { passive: false }
       document.addEventListener 'touchend', touchEndListener
       document.addEventListener 'touchcancel', touchEndListener
     else
