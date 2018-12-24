@@ -13,8 +13,11 @@ module.exports = class Eraser extends Pencil
   makeShape: -> createShape('ErasedLinePath')
 
   createCursor: () ->
+    stroke = "#000"
+    if(@canTouchMove)
+      stroke = "transparent"
     createShape('Ellipse', {
-        x: 0, y: 0, strokeWidth: 1, strokeColor: "#000", fillColor: 'transparent'})
+        x: 0, y: 0, strokeWidth: 1, strokeColor: stroke, fillColor: 'transparent'})
 
   updateCursor: (x, y, lc) ->
     @cursorShape.setUpperLeft({

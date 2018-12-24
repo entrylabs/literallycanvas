@@ -19,7 +19,8 @@ defineOptionsStyle(
                     <SelectedColorPanel
                         tool={this.props.tool}
                         imageURLPrefix={this.props.imageURLPrefix}
-                        fillColor="#000000"
+                        fillColor="#FF0000"
+                        colorPrefix="palette"
                         lc={lc}
                         isStroke={false}
                         disableTransparent={true}

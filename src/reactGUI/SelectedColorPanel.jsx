@@ -34,6 +34,12 @@ var SelectedColorPanel = createReactClass({
     getInitialState: function() {
         var fillColor = this.props.lc.getColor('secondary');
         var strokeColor = this.props.lc.getColor('primary');
+        if(this.props.colorPrefix) {
+            fillColor = this.props.lc.getColor(`${this.props.colorPrefix}-secondary`) || this.props.fillColor;
+            this.props.lc.setColor('secondary', fillColor);
+            strokeColor = this.props.lc.getColor(`${this.props.colorPrefix}-primary`) || this.props.strokeColor;
+            this.props.lc.setColor('primary', strokeColor);
+        }
         var isStroke = this.props.isStroke === undefined ? true : this.props.isStroke;
         return {
             isFill: this.props.isFill === undefined ? true : this.props.isFill,
@@ -53,6 +59,7 @@ var SelectedColorPanel = createReactClass({
                 if (this.state.selected === 'primary') this.setState({ strokeColor: colorCode });
                 else this.setState({ fillColor: colorCode });
                 this.props.lc.setColor(this.state.selected, colorCode);
+                if(this.props.colorPrefix) this.props.lc.setColor(`${this.props.colorPrefix}-${this.state.selected}`, colorCode);
             });
         }
     },
@@ -62,6 +69,7 @@ var SelectedColorPanel = createReactClass({
         if (this.state.selected === 'primary') this.setState({ strokeColor: colorCode });
         else this.setState({ fillColor: colorCode });
         this.props.lc.setColor(this.state.selected, colorCode);
+        if(this.props.colorPrefix) this.props.lc.setColor(`${this.props.colorPrefix}-${this.state.selected}`, colorCode);
     },
 
     toggleSpoid: function(e) {
