@@ -7,9 +7,9 @@ module.exports = class Pencil extends ToolWithStroke
   iconName: 'pencil'
   cursor: 'none'
   usesSimpleAPI: false
-
   eventTimeThreshold: 10
 
+  canTouchMove: window.hasOwnProperty('ontouchmove')
   didBecomeActive: (lc) ->
     unsubscribeFuncs = []
     @unsubscribe = =>
@@ -75,7 +75,7 @@ module.exports = class Pencil extends ToolWithStroke
 
   createCursor: () ->
     fill = "#000"
-    if(Entry.isMobile())
+    if(@canTouchMove)
       fill = "transparent"
     createShape('Ellipse', {
         x: 0, y: 0, strokeWidth: 0, strokeColor: 'transparent', fillColor: fill})
@@ -87,5 +87,5 @@ module.exports = class Pencil extends ToolWithStroke
     })
     @cursorShape.width = @strokeWidth + 1;
     @cursorShape.height = @strokeWidth + 1;
-    if(!Entry.isMobile())
+    if(!@canTouchMove)
       @cursorShape.fillColor = lc.getColor('primary')

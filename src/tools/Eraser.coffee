@@ -14,7 +14,7 @@ module.exports = class Eraser extends Pencil
 
   createCursor: () ->
     stroke = "#000"
-    if(Entry.isMobile())
+    if(@canTouchMove)
       stroke = "transparent"
     createShape('Ellipse', {
         x: 0, y: 0, strokeWidth: 1, strokeColor: stroke, fillColor: 'transparent'})
