@@ -74,8 +74,11 @@ module.exports = class Pencil extends ToolWithStroke
       fillColor: lc.getColor('primary')})
 
   createCursor: () ->
+    fill = "#000"
+    if(Entry.isMobile())
+      fill = "transparent"
     createShape('Ellipse', {
-        x: 0, y: 0, strokeWidth: 0, strokeColor: 'transparent', fillColor: "#000"})
+        x: 0, y: 0, strokeWidth: 0, strokeColor: 'transparent', fillColor: fill})
 
   updateCursor: (x, y, lc) ->
     @cursorShape.setUpperLeft({
@@ -84,4 +87,5 @@ module.exports = class Pencil extends ToolWithStroke
     })
     @cursorShape.width = @strokeWidth + 1;
     @cursorShape.height = @strokeWidth + 1;
-    @cursorShape.fillColor = lc.getColor('primary')
+    if(!Entry.isMobile())
+      @cursorShape.fillColor = lc.getColor('primary')
