@@ -26,6 +26,7 @@ defineOptionsStyle(
                                 colorPrefix="font"
                                 strokeOption={{
                                     canTransparent: false,
+                                    label: 'Painter.font_color'
                                 }}
                                 fillOption={{
                                     canTransparent: true,

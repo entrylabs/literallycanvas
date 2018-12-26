@@ -118,6 +118,7 @@ var SelectedColorPanel = createReactClass({
 
     render: function() {
         const { canTransparent = true, canSpoid = true, activeSpoid } = this.getColorOption();
+        const { strokeOption = {}, fillOption={} } = this.props;
         var { isFill, isStroke, strokeColor, fillColor, isShowPicker, selected } = this.state;
         const color = selected === 'primary' ? strokeColor : fillColor;
         const defaultColor = selected === 'primary' ? '#000000' : '#FFFFFF';
@@ -156,7 +157,7 @@ var SelectedColorPanel = createReactClass({
                 )}
                 {isStroke && (
                     <div className="strokeColor">
-                        <div className="title">{Utils.getLang('Painter.outline_color')}</div>
+                        <div className="title">{Utils.getLang(strokeOption.label || 'Painter.outline_color')}</div>
                         <div
                             className="colorPicker"
                             ref={(d) => {
@@ -185,7 +186,7 @@ var SelectedColorPanel = createReactClass({
                 )}
                 {isFill && (
                     <div className="fillColor">
-                        <div className="title">{Utils.getLang('Painter.fill_color')}</div>
+                        <div className="title">{Utils.getLang(fillOption.label || 'Painter.fill_color')}</div>
                         <div
                             className="colorPicker"
                             ref={(d) => {
