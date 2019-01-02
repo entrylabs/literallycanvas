@@ -51,14 +51,14 @@ var MoveAttributes = createReactClass({
     },
     onChangeX: function(e) {
         var width = parseInt(e.target.value);
-        if (!width) width = 0;
+        width = width ? Math.round(width * 10) / 10: "";
         this.setState({ width });
         this.state.shape.width = width;
         this.props.lc.trigger('drawingChange');
     },
     onChangeY: function(e) {
         var height = parseInt(e.target.value);
-        if (!height) height = 0;
+        height = height ? Math.round(height * 10) / 10: "";
         this.setState({ height });
         this.state.shape.height = height;
         this.props.lc.trigger('drawingChange');
@@ -81,7 +81,7 @@ var MoveAttributes = createReactClass({
     },
     onChangeRotate: function(e) {
         var rotate = parseInt(e.target.value);
-        if (!rotate) rotate = 0;
+        rotate = rotate ? Math.round(rotate * 10) / 10: "";
         this.setState({ rotate });
         this.state.shape.rotate = rotate;
         this.props.lc.trigger('drawingChange');
@@ -119,7 +119,7 @@ var MoveAttributes = createReactClass({
                                     id="entryPainterAttrWidth"
                                     type="number"
                                     className="entryPlaygroundPainterNumberInput"
-                                    value={Math.round(width * 10) / 10}
+                                    value={width}
                                     onChange={this.onChangeX}
                                     onBlur={this.applyX}
                                 />
@@ -130,7 +130,7 @@ var MoveAttributes = createReactClass({
                                     id="entryPainterAttrHeight"
                                     type="number"
                                     className="entryPlaygroundPainterNumberInput"
-                                    value={Math.round(height * 10) / 10}
+                                    value={height}
                                     onChange={this.onChangeY}
                                     onBlur={this.applyY}
                                 />
@@ -153,7 +153,7 @@ var MoveAttributes = createReactClass({
                                 id="entryPainterAttrDegree"
                                 type="number"
                                 className="entryPlaygroundPainterNumberInput"
-                                value={Math.round(rotate * 10) / 10}
+                                value={rotate}
                                 onChange={this.onChangeRotate}
                                 onBlur={this.applyRotate}
                             />

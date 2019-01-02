@@ -164,7 +164,7 @@ var SelectedColorPanel = createReactClass({
                                 this.strokeColor = d;
                             }}
                             onClick={(e) => {
-                                e.nativeEvent.stopImmediatePropagation();
+                                //e.nativeEvent.stopImmediatePropagation();
                                 this.positionDom = this.strokeColor;
                                 let isShow = true;
                                 if (selected === 'primary') {
@@ -193,7 +193,7 @@ var SelectedColorPanel = createReactClass({
                                 this.fillColor = d;
                             }}
                             onClick={(e) => {
-                                e.nativeEvent.stopImmediatePropagation();
+                                //e.nativeEvent.stopImmediatePropagation();
                                 this.positionDom = this.fillColor;
                                 let isShow = true;
                                 if (selected === 'secondary') {
