@@ -55,14 +55,14 @@ $textColor: #2c313d;
     {
         &.#{$tool}-icon {
             &::before {
-                content: url('/lib/literallycanvas-mobile/lib/img/#{$tool}-select.svg');
+                content: url('../img/#{$tool}-select.svg');
                 width: 0;
                 height: 0;
                 display: none;
             }
-            background-image: url('/lib/literallycanvas-mobile/lib/img/#{$tool}.svg');
+            background-image: url('../img/#{$tool}.svg');
             &.selected:not(.disabled) {
-                background-image: url('/lib/literallycanvas-mobile/lib/img/#{$tool}-select.svg');
+                background-image: url('../img/#{$tool}-select.svg');
             }
         }
     }
