@@ -52,7 +52,7 @@ gulp.task('browserify-lc-main', function() {
             preprocessify({ INCLUDE_GUI: true }, { includeExtensions: ['.coffee'], type: 'coffee' })
         )
         .transform('coffeeify')
-        .transform('babelify')
+        .transform('babelify', { presets: ['react', 'es2015'] })
         .bundle()
         .on('error', function(err) {
             if (err) {
@@ -78,7 +78,7 @@ gulp.task('browserify-lc-core', function() {
         .add('./index.coffee')
         .transform(preprocessify({}, { includeExtensions: ['.coffee'], type: 'coffee' }))
         .transform('coffeeify')
-        .transform('babelify')
+        .transform('babelify', { presets: ['react', 'es2015'] })
         .bundle()
         .on('error', function(err) {
             if (err) {
