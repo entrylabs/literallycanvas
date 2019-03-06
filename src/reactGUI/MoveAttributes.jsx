@@ -169,15 +169,15 @@ var MoveAttributes = createReactClass({
                         <div
                             id="entryPictureFlipX"
                             onClick={this.flipX}
-                            title="좌우뒤집기"
-                            alt="좌우뒤집기"
+                            title={Lang.Workspace.flip_horizontal}
+                            alt={Lang.Workspace.flip_horizontal}
                             className="entryPlaygroundPainterFlipX"
                         />
                         <div
                             id="entryPictureFlipY"
                             onClick={this.flipY}
-                            title="상하뒤집기"
-                            alt="상하뒤집기"
+                            title={Lang.Workspace.flip_vertical}
+                            alt={Lang.Workspace.flip_vertical}
                             className="entryPlaygroundPainterFlipY"
                         />
                     </div>
