@@ -34,10 +34,14 @@ var SelectedColorPanel = createReactClass({
     getInitialState: function() {
         var fillColor = this.props.lc.getColor('secondary');
         var strokeColor = this.props.lc.getColor('primary');
-        if(this.props.colorPrefix) {
-            fillColor = this.props.lc.getColor(`${this.props.colorPrefix}-secondary`) || this.props.fillColor;
+        if (this.props.colorPrefix) {
+            fillColor =
+                this.props.lc.getColor(`${this.props.colorPrefix}-secondary`) ||
+                this.props.fillColor;
             this.props.lc.setColor('secondary', fillColor);
-            strokeColor = this.props.lc.getColor(`${this.props.colorPrefix}-primary`) || this.props.strokeColor;
+            strokeColor =
+                this.props.lc.getColor(`${this.props.colorPrefix}-primary`) ||
+                this.props.strokeColor;
             this.props.lc.setColor('primary', strokeColor);
         }
         var isStroke = this.props.isStroke === undefined ? true : this.props.isStroke;
@@ -52,15 +56,11 @@ var SelectedColorPanel = createReactClass({
     },
 
     colorPicked: function(colorCode) {
-        if (!this.isRunRAF) {
-            this.isRunRAF = true;
-            requestAnimationFrame(() => {
-                this.isRunRAF = false;
-                if (this.state.selected === 'primary') this.setState({ strokeColor: colorCode });
-                else this.setState({ fillColor: colorCode });
-                this.props.lc.setColor(this.state.selected, colorCode);
-                if(this.props.colorPrefix) this.props.lc.setColor(`${this.props.colorPrefix}-${this.state.selected}`, colorCode);
-            });
+        if (this.state.selected === 'primary') this.setState({ strokeColor: colorCode });
+        else this.setState({ fillColor: colorCode });
+        this.props.lc.setColor(this.state.selected, colorCode);
+        if (this.props.colorPrefix) {
+            this.props.lc.setColor(`${this.props.colorPrefix}-${this.state.selected}`, colorCode);
         }
     },
 
@@ -69,7 +69,8 @@ var SelectedColorPanel = createReactClass({
         if (this.state.selected === 'primary') this.setState({ strokeColor: colorCode });
         else this.setState({ fillColor: colorCode });
         this.props.lc.setColor(this.state.selected, colorCode);
-        if(this.props.colorPrefix) this.props.lc.setColor(`${this.props.colorPrefix}-${this.state.selected}`, colorCode);
+        if (this.props.colorPrefix)
+            this.props.lc.setColor(`${this.props.colorPrefix}-${this.state.selected}`, colorCode);
     },
 
     toggleSpoid: function(e) {
@@ -118,7 +119,7 @@ var SelectedColorPanel = createReactClass({
 
     render: function() {
         const { canTransparent = true, canSpoid = true, activeSpoid } = this.getColorOption();
-        const { strokeOption = {}, fillOption={} } = this.props;
+        const { strokeOption = {}, fillOption = {} } = this.props;
         var { isFill, isStroke, strokeColor, fillColor, isShowPicker, selected } = this.state;
         const color = selected === 'primary' ? strokeColor : fillColor;
         const defaultColor = selected === 'primary' ? '#000000' : '#FFFFFF';
@@ -141,7 +142,6 @@ var SelectedColorPanel = createReactClass({
                             } else {
                                 colorState['fillColor'] = color;
                             }
-                            this.setState(colorState);
                             this.colorPicked(color);
                         }}
                         onOutsideClick={this.closeColorPicker}
@@ -157,14 +157,15 @@ var SelectedColorPanel = createReactClass({
                 )}
                 {isStroke && (
                     <div className="strokeColor">
-                        <div className="title">{Utils.getLang(strokeOption.label || 'Painter.outline_color')}</div>
+                        <div className="title">
+                            {Utils.getLang(strokeOption.label || 'Painter.outline_color')}
+                        </div>
                         <div
                             className="colorPicker"
                             ref={(d) => {
                                 this.strokeColor = d;
                             }}
                             onClick={(e) => {
-                                //e.nativeEvent.stopImmediatePropagation();
                                 this.positionDom = this.strokeColor;
                                 let isShow = true;
                                 if (selected === 'primary') {
@@ -186,7 +187,9 @@ var SelectedColorPanel = createReactClass({
                 )}
                 {isFill && (
                     <div className="fillColor">
-                        <div className="title">{Utils.getLang(fillOption.label || 'Painter.fill_color')}</div>
+                        <div className="title">
+                            {Utils.getLang(fillOption.label || 'Painter.fill_color')}
+                        </div>
                         <div
                             className="colorPicker"
                             ref={(d) => {
