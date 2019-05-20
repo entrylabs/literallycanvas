@@ -32,7 +32,6 @@
         "browserify": "13.0.0",
         "coffeeify": "2.0.1",
         "create-react-class": "^15.6.3",
-        "entry-tool": "latest",
         "envify": "3.4.0",
         "gulp": "3.9.0",
         "gulp-babel": "6.1.1",
@@ -55,11 +54,20 @@
         "watchify": "3.7.0"
     },
     "dependencies": {
+        "browserify-shim": "^3.8.14",
         "react-addons-pure-render-mixin": "^15.6.2",
         "react-outside-click-handler": "^1.2.2"
     },
     "peerDependencies": {
         "react": "^16.6.0",
         "react-dom": "^16.6.0"
+    },
+    "browserify-shim": {
+        "EntryTool": "global:EntryTool"
+    },
+    "browserify": {
+        "transform": [
+            "browserify-shim"
+        ]
     }
 }

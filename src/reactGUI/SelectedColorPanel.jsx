@@ -1,10 +1,10 @@
 const React = require('../reactGUI/React-shim');
 const createReactClass = require('create-react-class');
 var createSetStateOnEventMixin = require('./createSetStateOnEventMixin');
-const { ColorPicker } = require('entry-tool/component/index');
+const { Component } = require('EntryTool');
 const throttle = require('lodash/throttle');
 import Utils from '../utils';
-
+const { ColorPicker } = Component;
 var SelectedColorPanel = createReactClass({
     componentDidMount: function() {
         var lc = this.props.lc;
