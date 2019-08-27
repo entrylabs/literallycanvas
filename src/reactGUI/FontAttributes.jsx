@@ -79,7 +79,7 @@ var FontAttributes = createReactClass({
             },
             () => {
                 this.applyFont();
-            }
+            },
         );
     },
     getFontStyleText: function() {
@@ -102,7 +102,7 @@ var FontAttributes = createReactClass({
             },
             () => {
                 this.applyFont();
-            }
+            },
         );
     },
     applyFont: function() {
@@ -111,7 +111,9 @@ var FontAttributes = createReactClass({
     },
     getNowFontName: function() {
         const { font } = this.state;
-        const fontData = _.find(EntryStatic.fonts, { family: font }) || { name: '바탕체' };
+        const { fonts } = EntryStatic;
+        const [firstFont = {}] = fonts;
+        const fontData = _.find(EntryStatic.fonts, { family: font }) || firstFont;
         return fontData.name;
     },
     makeDropdownList: function() {
@@ -152,7 +154,7 @@ var FontAttributes = createReactClass({
                         <div className="fontName" id="entryPainterAttrFontName">
                             {this.getNowFontName()}
                         </div>
-                        <div className="fontDropdownButton" />
+                        <div className="fontDropdownButton"/>
                     </div>
                     {isShowFontDropdown && this.makeDropdownList()}
                 </div>
@@ -194,7 +196,7 @@ var FontAttributes = createReactClass({
                         />
                     </div>
                 </div>
-                <br />
+                <br/>
                 <div className="entryPlaygroundPainterAttrFontStyleArea">
                     <div className="title">{Utils.getLang('Painter.font_family')}</div>
                     <div className="entryPainterAttrFontStyle">
