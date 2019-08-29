@@ -43,7 +43,7 @@ var StrokeThickness = createReactClass({
         } else if (type === 'plus') {
             value += 1;
         }
-        this.onChange(value);
+        this.onChange(Math.max(Math.min(value, 70), 1));
     },
 
     render: function() {

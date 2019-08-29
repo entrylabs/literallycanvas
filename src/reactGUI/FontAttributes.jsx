@@ -70,7 +70,7 @@ var FontAttributes = createReactClass({
         } else if (type === 'plus') {
             value += 1;
         }
-        this.onChangeSize(value);
+        this.onChangeSize(Math.max(Math.min(value, 65), 1));
     },
     onChangeFont: function(font) {
         this.setState(
