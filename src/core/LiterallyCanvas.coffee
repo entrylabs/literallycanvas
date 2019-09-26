@@ -37,8 +37,8 @@ module.exports = class LiterallyCanvas
       background: opts.backgroundColor or 'transparent'
 
     @fonts = window.EntryStatic.fonts or {}
-    @firstFont = @fonts[0] or {}
-    @fontFamily = @firstFont.family or 'KoPub Batang'
+    @firstFont = @fonts[2] or {}
+    @fontFamily = @firstFont.family or 'Nanum Gothic'
     @font = 'normal 20px "'.concat @fontFamily.concat '"'
 
     @watermarkImage = opts.watermarkImage

@@ -79,7 +79,7 @@ var FontAttributes = createReactClass({
             },
             () => {
                 this.applyFont();
-            },
+            }
         );
     },
     getFontStyleText: function() {
@@ -102,7 +102,7 @@ var FontAttributes = createReactClass({
             },
             () => {
                 this.applyFont();
-            },
+            }
         );
     },
     applyFont: function() {
@@ -116,19 +116,17 @@ var FontAttributes = createReactClass({
         const fontData = _.find(EntryStatic.fonts, { family: font }) || firstFont;
         return fontData.name;
     },
-    makeDropdownList: function() {
-        const list = EntryStatic.fonts.map((font) => {
-            return (
-                <div
-                    key={font.name}
-                    onClick={() => {
-                        this.onChangeFont(font.family);
-                    }}
-                >
-                    {font.name}
-                </div>
-            );
-        });
+    makeDropdownList() {
+        const list = _.filter(EntryStatic.fonts, 'visible').map((font) => (
+            <div
+                key={font.name}
+                onClick={() => {
+                    this.onChangeFont(font.family);
+                }}
+            >
+                {font.name}
+            </div>
+        ));
         return <div className="fontDropdownList">{list}</div>;
     },
     render: function() {
@@ -154,7 +152,7 @@ var FontAttributes = createReactClass({
                         <div className="fontName" id="entryPainterAttrFontName">
                             {this.getNowFontName()}
                         </div>
-                        <div className="fontDropdownButton"/>
+                        <div className="fontDropdownButton" />
                     </div>
                     {isShowFontDropdown && this.makeDropdownList()}
                 </div>
@@ -196,7 +194,7 @@ var FontAttributes = createReactClass({
                         />
                     </div>
                 </div>
-                <br/>
+                <br />
                 <div className="entryPlaygroundPainterAttrFontStyleArea">
                     <div className="title">{Utils.getLang('Painter.font_family')}</div>
                     <div className="entryPainterAttrFontStyle">
